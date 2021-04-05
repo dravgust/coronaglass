@@ -1,0 +1,24 @@
+[
+  {
+    "outputFile": "wwwroot/css/metronic.style.css",
+    "inputFile": "wwwroot/metronic/v5/sass/style.scss",
+    "minify": {
+      "enabled": false
+    },
+    "includeInProject": true,
+    "options": {
+      "sourceMap": false
+    }
+  },
+  {
+    "outputFile": "wwwroot/css/metronic.aside.dark.css",
+    "inputFile": "wwwroot/metronic/v5/sass/global/layout/aside/skins/dark.scss",
+    "minify": {
+      "enabled": false
+    },
+    "includeInProject": true,
+    "options": {
+      "sourceMap": false
+    }
+  }
+]

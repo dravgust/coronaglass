@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.SpaServices;
+using VueCliMiddleware;
 
 namespace Web
 {
@@ -24,6 +26,9 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // NOTE: PRODUCTION Ensure this is the same path that is specified in your webpack output
+            services.AddSpaStaticFiles(opt => opt.RootPath = "wwwroot/app");
+
             services.AddControllersWithViews();
         }
 
@@ -52,6 +57,9 @@ namespace Web
 
             app.UseStaticFiles();
 
+            // PRODUCTION uses webpack static files
+            app.UseSpaStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -61,6 +69,16 @@ namespace Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapToVueCliProxy(
+                    "{*path}",
+                    new SpaOptions { SourcePath = "client-app" },
+                    //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                    npmScript: "watch",
+                    regex: "Compiled successfully",
+                    forceKill: true,
+                    wsl: false // Set to true if you are using WSL on windows. For other operating systems it will be ignored
+                );
             });
         }
     }

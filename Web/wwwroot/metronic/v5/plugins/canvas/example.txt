@@ -1,0 +1,9 @@
+﻿html2canvas($('element'), {
+            onrendered: function (canvas) {
+                console.log("canvas.rendered", canvas.width, canvas.height);
+                //document.body.appendChild(canvas);
+                //Convert and download as image 
+                var img = Canvas2Image.convertToPNG(canvas, canvas.width, canvas.height);
+                $(document.body).append(img);
+            }
+        });

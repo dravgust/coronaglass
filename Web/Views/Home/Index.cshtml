@@ -2,7 +2,10 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@section Scripts
+{
+    <script type="text/javascript" src="~/app/js/chunk-vendors.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/app/js/main.js" asp-append-version="true"></script>
+}
+
+<div id="app"></div>
