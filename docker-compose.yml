@@ -1,21 +1,67 @@
-version: '3.4'
+version: '3.8'
 
 services:
    nginx:
-    restart: unless-stopped
-    image: nginx:stable
-    container_name: nginx
+     restart: unless-stopped
+     image: nginx:stable
+     container_name: nginx
+     ports:
+       - "80:80"
+       - "443:443"
+     volumes:
+       #- ./Web/wwwroot:/var/www/html
+       #- ./Nginx/conf.d:/etc/nginx/conf.d
+       - ./Nginx/nginx.conf:/etc/nginx/nginx.conf
+       - ./Nginx/ssl/localhost.crt:/etc/ssl/certs/localhost.crt
+       - ./Nginx/ssl/localhost.key:/etc/ssl/private/localhost.key
+     depends_on:
+       - coronaglass-front-end
+     networks:
+       - coronaglass-net
+
+   coronaglass-front-end:
+     container_name: coronaglass-front-end_1
+     image: ${DOCKER_REGISTRY-}coronaglass-front-end
+     restart: unless-stopped
+     build:
+       context: .
+       dockerfile: ./front-end/Dockerfile
+       args:
+         VUE_APP_API_URL: https://localhost
+     depends_on:
+       - coronaglass-api
+     ports:
+      - "8080:80"
+     networks:
+       - coronaglass-net
+     
+   coronaglass-api:
+     container_name: coronaglass-api_1
+     image: coronaglass-api
+     restart: unless-stopped
+     build:
+       context: .
+       dockerfile: ./Backend/Dockerfile
+     environment:
+       - ConnectionStrings__PhoneBook=Server=db;Database=PhoneBook;Trusted_Connection=False;User Id=sa;Password=qUgeyvYnOKyMy9HRpGMauKlJdsyq1QdIJUtp8Hz6HarKKCIiVm7m3ITHsBFQSMkEcrGXQy4FNHFX6zKq5NTzysbE0EVJnh3HZwl6DkAloQu7GQ1NZVVNnYEFpkAcxdun;MultipleActiveResultSets=true
+       - Logging__LogLevel__Default=Information
+     ports:
+       - "8081:80"
+     depends_on:
+       - db
+     networks:
+       - coronaglass-net
+
+   db:
+    container_name: db_1
+    image: mcr.microsoft.com/mssql/server:2019-latest
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./data/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./data/nginx/ssl/localhost.crt:/etc/ssl/certs/localhost.crt
-      - ./data/nginx/ssl/localhost.key:/etc/ssl/private/localhost.key
-    depends_on:
-      - web
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: qUgeyvYnOKyMy9HRpGMauKlJdsyq1QdIJUtp8Hz6HarKKCIiVm7m3ITHsBFQSMkEcrGXQy4FNHFX6zKq5NTzysbE0EVJnh3HZwl6DkAloQu7GQ1NZVVNnYEFpkAcxdun
+      ACCEPT_EULA: "Y"
     networks:
-      - coronaglass-net
+       - coronaglass-net
 
    web:
      container_name: coronaglass-web_1
@@ -23,7 +69,9 @@ services:
      image: ${DOCKER_REGISTRY-}coronaglass-web
      build:
        context: .
-       dockerfile: Web/Dockerfile
+       dockerfile: ./Web/Dockerfile
+     ports:
+       - "8082:80"
      volumes:
       - ./logs/web:/app/logs
      networks:
