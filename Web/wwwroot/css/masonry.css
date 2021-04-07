@@ -1,0 +1,335 @@
+﻿
+.grid {
+/*    background: #EEE;*/
+    max-width: 100%;
+}
+
+.grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.grid-sizer,
+.grid-item {
+    width: 8.333%; /* letf: step */
+}
+
+.gutter-sizer {
+    width: 4%;
+}
+
+.grid-item {
+    height: 120px;
+    float: left;
+    padding: 5px;
+}
+
+.grid-item:hover {
+    border-color: hsla(0, 0%, 100%, 0.5);
+    /*cursor: move;*/
+}
+
+.grid-item:hover .grid-item-card.ui-resizable {
+    cursor: move;
+}
+
+.grid-item-card {
+    float: left;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 5px;
+    position: relative;
+}
+
+.grid-item--width_16 {
+    width: 16.666%;
+}
+
+.grid-item--width_25 {
+    width: 25%;
+}
+
+.grid-item--width_33 {
+    width: 33.333%;
+}
+
+.grid-item--width_41 {
+    width: 41.666%;
+}
+
+.grid-item--width_50 {
+    width: 50%;
+}
+
+.grid-item--width_58 {
+    width: 58.33%;
+}
+
+.grid-item--width_66 {
+    width: 66.666%;
+}
+
+.grid-item--width_75 {
+    width: 75%;
+}
+
+.grid-item--width_83 {
+    width: 83.333%;
+}
+
+.grid-item--width_91 {
+    width: 91.666%;
+}
+
+.grid-item--width_100 {
+    width: 100%;
+}
+
+.grid-item--height_200 {
+    height: 200px;
+}
+
+.grid-item--height_250 {
+    height: 250px;
+}
+
+.grid-item--height_300 {
+    height: 300px;
+}
+
+.grid-item--height_350 {
+    height: 350px;
+}
+
+.grid-item--height_400 {
+    height: 400px;
+}
+
+.grid-item--height_450 {
+    height: 450px;
+}
+
+.grid-item--height_500 {
+    height: 500px;
+}
+
+.grid-item--height_550 {
+    height: 550px;
+}
+
+.grid-item--height_600 {
+    height: 600px;
+}
+
+.grid-item--height_650 {
+    height: 650px;
+}
+
+.grid-item--height_700 {
+    height: 700px;
+}
+
+.grid-item--height_750 {
+    height: 750px;
+}
+
+.grid-item--height_800 {
+    height: 800px;
+}
+
+.grid-item--heigh_900 {
+    height: 900px;
+}
+
+.grid-item.ui-sortable-helper .grid-item-card {
+    background: blue;
+    opacity: 0.5;
+}
+
+.v-card-title {
+    float: left;
+    width: 100%;
+    height: 50px;
+    z-index: 50;
+    /*    background: #ddd;*/
+}
+
+.v-card-title.v-absolute {
+    position: absolute;
+}
+
+.v-card-title .v-icon-button, .v-card-title .v-icon-button a {
+    color: #aaa;
+}
+
+.v-card-title .v-icon-button a{
+
+}
+
+.v-card-title .v-icon {
+    float: left;
+    font-size: 26px;
+    width: 28px;
+    height: 28px;
+    color: #bbb;
+    /*    border: 1px solid red;*/
+    line-height: 20px;
+}
+
+.v-card-title .v-card-name {
+    float: left;
+    width: auto;
+    font-size: 17px;
+    opacity: 0.8;
+}
+
+.v-card-body {
+    display: flex;
+    flex-flow: column;
+    height: -moz-calc(100% - (50px));
+    height: -webkit-calc(100% - (50px));
+    height: calc(100% - (50px));
+    border: 1px solid transparent;
+    justify-content: center;
+    align-items: center; /*NEW*/
+    z-index: 50;
+}
+
+.v-card-body.v-extended-value {
+    flex-flow: row;
+    height: 100%;
+    top: -50px;
+}
+
+.v-card-body.v-area-value {
+    flex-flow: row;
+    height: calc(100% - 20px);
+    width: 100%;
+    top: 30px;
+    position: absolute;
+    z-index: 1;
+}
+
+.v-card-body.v-bar-value {
+    flex-flow: row;
+    height: 100%;
+    width: 100%;
+    top: 20px;
+    position: absolute;
+    z-index: 1;
+/*    background: red;*/
+}
+
+.v-card-body.v-w-100 .vue-apexcharts {
+    width: 100% !important;
+}
+
+.v-card-body.v-w-100 .apexcharts-canvas {
+    width: 100% !important;
+}
+
+.v-card-value {
+    overflow: hidden;
+    text-align: center;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    color: rgb(64, 143, 174);
+    font-size: 65px;
+    margin-top: -40px;
+}
+
+.v-card-loading {
+    height: 25px;
+}
+
+.v-card-loading .kt-spinner::before {
+    margin-top: 0px;
+    /*border: 2px solid #0069d9;*/
+     border: 2px solid #aaa;
+    border-right: 2px solid transparent;
+}
+
+.v-card-loading .v-loading-text {
+    float: left;
+    margin-left: 2.2rem;
+    color: #888;
+}
+
+.v-legend-box {
+    width: 230px;
+    max-height: 80%;
+    padding-left:1.5rem
+}
+
+.v-legend-item {
+    float: left;
+    width: 100%;
+}
+
+.v-legend-color {
+    float: left;
+    width: 12px;
+    height: 12px;
+    margin-top: 5px;
+}
+
+.v-legend-text {
+    float: left;
+    margin-left: 5px;
+    white-space: pre;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    line-height: 20px;
+    font-size:0.9rem
+}
+
+.v-card-list {
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.v-card-list ul {
+    width: 100%;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 2rem;
+}
+
+.v-card-list ul li {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.v-card-list ul li .v-list-name{
+    height: 39px;
+    line-height: 39px;
+    width: 65%;
+    font-size: 18px;
+    color: #777;
+}
+
+.v-card-list ul li .v-list-value {
+    height: 39px;
+    line-height: 39px;
+    width: 35%;
+    font-size: 18px;
+    color: #777;
+}
+
+.apexcharts-datalabels-group .apexcharts-datalabel-value {
+    fill: #408fae !important;
+    transform: translate(0px,-15px);
+    -ms-transform: translate(0px,-15px); /* IE 9 */
+    -webkit-transform: translate(0px,-15px); /* Safari and Chrome */
+    -o-transform: translate(0px,-15px); /* Opera */
+    -moz-transform: translate(0px,-15px); /* Firefox */
+    font-size: 35px;
+}

@@ -70,15 +70,15 @@ namespace Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                //endpoints.MapToVueCliProxy(
-                //    "{*path}",
-                //    new SpaOptions { SourcePath = "client-app" },
-                //    //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                //    npmScript: "watch",
-                //    regex: "Compiled successfully",
-                //    forceKill: true,
-                //    wsl: false // Set to true if you are using WSL on windows. For other operating systems it will be ignored
-                //);
+                endpoints.MapToVueCliProxy(
+                    "{*path}",
+                    new SpaOptions { SourcePath = "client-app" },
+                    //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                    npmScript: "watch",
+                    regex: "Compiled successfully",
+                    forceKill: true,
+                    wsl: false // Set to true if you are using WSL on windows. For other operating systems it will be ignored
+                );
             });
         }
     }

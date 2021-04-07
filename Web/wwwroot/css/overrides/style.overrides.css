@@ -1,0 +1,352 @@
+﻿/*html {
+    font-size: 16px;
+}*/
+
+/* COLOR SETS */
+.COLOR-SETS {
+    color-1-main: #2c78ff;
+    color-1-hover: #0069d9;
+
+    color-2-main: #5d78ff;
+    color-2-hover: #5578eb;
+
+    color-3-main: #3085d6;
+    color-3-hover: #3077bf;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    line-height:inherit;
+}
+
+.kt-container {
+    padding-left: 25px;
+    padding-right: 25px;
+    font-size: 14px;
+}
+
+.kt-svg-icon g [fill] {
+    /*fill: #5d78ff;*/
+    fill: #2c78ff;
+}
+
+.btn {
+    height: 38px;
+    margin-top: 0;
+    margin-bottom: 0.20rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-weight: 600;
+}
+
+.btn-outline-brand {
+    border-color: #5d78ff;
+    border-width: 1px;
+    background: white;
+}
+
+.btn-outline-brand i.fa-eye{
+    padding-bottom: 2px;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid#e2e5ec;
+    color:#595d6e;
+}
+
+.btn-secondary.disabled, .btn-secondary:disabled {
+    color: #595d6e;
+    background-color: #f4f5f8;
+    border-color: #e2e5ec;
+    opacity: .65 !important;
+}
+
+.btn-no-border {
+    border-color: transparent !important;
+    background: transparent;
+}
+
+.v-btn-exit {
+    padding-top: 7px;
+    font-size: 14px;
+}
+
+.btn.v-no-border {
+    border: 0px !important;
+    outline: 0px !important;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.btn.v-no-border:focus {
+    box-shadow: none;
+}
+
+.btn-secondary.active, .btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover, .show > .btn-secondary.dropdown-toggle {
+    color: #595d6e;
+    border-color: #e2e5ec;
+    background-color: #f4f5f8;
+}
+
+.show > .btn-secondary.dropdown-toggle, .btn-secondary.dropdown-toggle:focus:not(.btn-elevate) {
+    box-shadow: inset 0 -2px 0 0 #0069d9 !important;
+    border-bottom: none !important;
+}
+
+.show > .btn-secondary.dropdown-toggle.disabled,
+.btn-secondary.dropdown-toggle.disabled:focus,
+.btn-secondary.dropdown-toggle:focus:not(.btn-elevate):disabled {
+    box-shadow: inset 0 -2px 0 0 #aaa !important;
+}
+
+.show > .btn-outline-hover-info, .btn-outline-hover-info.active, .btn-outline-hover-info:active, .btn-outline-hover-info:hover {
+    color: #0069d9 !important;
+}
+
+.dropdown .btn.dropdown-toggle{
+    border-radius: 0px;
+}
+
+.dropdown .btn.dropdown-toggle span {
+    float: left;
+    text-align: left;
+    margin-bottom: 1px;
+}
+
+.dropdown .dropdown-menu {
+    min-width: 7rem;
+    z-index: 1100 !important;
+    border-radius: 0px;
+}
+
+.dropdown .dropdown-item {
+    padding: 0.5rem 1.5rem;
+}
+
+.kt-pagination .kt-pagination__links li {
+    border-radius: 0px;
+}
+
+
+.kt-pagination.kt-pagination--info .kt-pagination__links .kt-pagination__link--active {
+    /*background: #5578eb;*/
+    background: #2c78ff;
+}
+
+.kt-pagination.kt-pagination--info .kt-pagination__links li:hover {
+    /*background: #5578eb;*/
+    background: #0069d9;
+    transition: color 0.3s ease;
+}
+
+.kt-pagination .kt-pagination__toolbar .pagination__desc {
+    flex-grow: 1;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #74788d;
+    height: 38px;
+    line-height: 35px;
+}
+
+.kt-font-info {
+    /*color: #5578eb !important;*/
+    color: #2c78ff !important;
+}
+
+.btn {
+    border-radius: 0px;
+}
+
+.btn-outline-brand {
+    /*border-color: #5d78ff;*/
+    border-color: #0069d9;
+    color: #0069d9;
+}
+
+.btn-outline-brand:hover {
+    /*background-color:#5d78ff;*/
+    background-color: #0069d9;
+    /*border-color: #5d78ff;*/
+    border-color: #0069d9;
+}
+
+.btn-outline-brand:disabled:hover {
+    color: white;
+    cursor: no-drop;
+}
+
+.btn-outline-brand:not(:disabled):not(.disabled):active, .btn-outline-brand:not(:disabled):not(.disabled).active, .show > .btn-outline-brand.dropdown-toggle {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0069d9;
+}
+
+.btn i, .btn span{
+    margin-bottom: 2px;
+}
+
+.btn.v-no-text {
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 38px;
+    height: 38px;
+}
+
+.btn.v-no-text i {
+    padding-left: 8px;
+}
+
+.tooltip-text-align-left .tooltip-inner{
+    text-align: left;
+}
+
+.tooltip-text-align-right .tooltip-inner{
+    text-align: right;
+}
+
+.tooltip-light .tooltip-inner {
+    background: white;
+    color: #0069d9;
+}
+
+.tooltip-light .arrow::before {
+    border-bottom-color: white !important;
+}
+
+.kt-portlet {
+    border-radius: 0px;
+}
+
+.morris-hover {
+    z-index: 999;
+}
+
+.datepicker.dropdown-menu {
+    padding: 10px;
+}
+
+.datepicker table tr td, .datepicker table tr th {
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 0px;
+    border: none;
+}
+
+.datepicker thead th.dow {
+    color: #0069d9;
+    font-weight: 600;
+}
+
+.datepicker tbody tr > td.day.selected,
+.datepicker tbody tr > td.day.selected:hover,
+.datepicker tbody tr > td.day.active,
+.datepicker tbody tr > td.day.active:hover {
+    background: #0069d9;
+    color: #ffffff;
+}
+
+.datepicker table tr td span {
+    display: block;
+    width: 23%;
+    height: 54px;
+    line-height: 54px;
+    float: left;
+    margin: 1%;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.datepicker table tr td.day{
+    color: #444;
+}
+
+.datepicker table tr td.disabled, .datepicker table tr td.old.disabled {
+    color: #aaa;
+}
+
+.kt-pagination__links .kt-font-info {
+    margin-top: 2px;
+}
+
+.dropdown-toggle span {
+    font-size: 1.1rem;
+}
+
+.datetimepicker td, .datetimepicker th {
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 0px;
+    border: 0;
+}
+
+.datetimepicker table tr td span {
+    border-radius: 0px;
+}
+
+.datetimepicker table tr td.active:active,
+.datetimepicker table tr td.active:hover:active,
+.datetimepicker table tr td.active.disabled:active,
+.datetimepicker table tr td.active.disabled:hover:active,
+.datetimepicker table tr td.active.active,
+.datetimepicker table tr td.active:hover.active,
+.datetimepicker table tr td.active.disabled.active,
+.datetimepicker table tr td.active.disabled:hover.active {
+    background-color: #0069d9;
+}
+
+.datetimepicker table tr td span.active:active,
+.datetimepicker table tr td span.active:hover:active,
+.datetimepicker table tr td span.active.disabled:active,
+.datetimepicker table tr td span.active.disabled:hover:active,
+.datetimepicker table tr td span.active.active,
+.datetimepicker table tr td span.active:hover.active,
+.datetimepicker table tr td span.active.disabled.active,
+.datetimepicker table tr td span.active.disabled:hover.active {
+    background-color: #0069d9;
+}
+
+.daterangepicker .drp-calendar td.today /*, .daterangepicker .drp-calendar td.today.active*/ {
+    border-radius: 0;
+    background: transparent !important;
+    color: #0069d9 !important;
+    font-weight: 600;
+}
+
+.daterangepicker .drp-calendar td.active, .daterangepicker .drp-calendar td.today.active {
+    background-color: #0069d9 !important;
+    color: #ffffff !important;
+    border-radius: 0 !important;
+}
+
+.daterangepicker td.available:hover, .daterangepicker th.available:hover {
+    border-radius: 0 !important;
+}
+
+.daterangepicker .drp-buttons .btn {
+    border-radius: 0;
+}
+
+.daterangepicker .ranges li.active {
+    background-color: #0069d9 !important;
+    color: #fff;
+}
+
+.kt-page .kt-content {
+    background: rgb(237, 241, 247); /*#EDF1F7*/
+}
+
+.card.card-custom.card-stretch.card-stretch-half.gutter-b {
+    height: calc(50% - 25px);
+}
+
+.col-xxl-4 {
+    flex: 0 0 33.3333333333%;
+    max-width: 33.3333333333%;
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}

@@ -1,0 +1,138 @@
+﻿.v-logo {
+    float: left;
+    font-size: 24px;
+    color: #efefef;
+    width: 100%;
+    white-space: nowrap;
+}
+
+
+.kt-aside--minimize .kt-aside__brand .kt-aside__brand-logo .v-logo {
+    display: none;
+}
+
+.kt-aside--minimize .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--here > .kt-menu__link > .kt-menu__link-icon,
+.kt-aside--minimize .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__link > .kt-menu__link-icon {
+    color: #efefef;
+}
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__heading .kt-menu__link-icon svg g [fill],
+.kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__link .kt-menu__link-icon svg g [fill] {
+    transition: fill 0.3s ease;
+    fill: #efefef;
+}
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__link .kt-menu__link-icon svg.kt-svg-icon,
+.kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__link .kt-menu__link-icon {
+    transition: color 0.5s ease;
+    color: #ededed !important;
+}
+
+.kt-aside-menu .kt-svg-icon {
+    width: 22px !important;
+    height: 22px !important;
+}
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item {
+    justify-content: center;
+    min-width: 60px;
+    height: 50px;
+}
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active * {
+    /*background-color: #5d78ff !important;*/
+    background-color: #0069d9 !important;
+}
+
+/*.kt-aside-menu .kt-menu__nav > .kt-menu__item:hover .kt-svg-icon {
+    color: #ededed !important;
+}*/
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-text, .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-text {
+    font-weight: 400;
+    font-size: 1.3rem;
+    text-transform: initial;
+}
+
+#aside-menu-item-boards .kt-svg-icon {
+    margin-left: 2px;
+}
+
+#aside-menu-item-devices .kt-svg-icon {
+    width: 24px !important;
+    height: 24px !important;
+    margin-left: 1px;
+}
+
+#aside-menu-item-members .kt-svg-icon {
+    width: 25px !important;
+    height: 25px !important;
+    margin-left: -1px;
+}
+
+#aside-menu-item-reports .kt-svg-icon {
+    width: 29px !important;
+    height: 29px !important;
+    margin-left: -2px;
+}
+
+#aside-menu-item-rules .kt-svg-icon {
+    width: 30px !important;
+    height: 25px !important;
+    margin-left: -3px;
+}
+
+#aside-menu-item-alarms .kt-svg-icon {
+    width: 30px !important;
+    height: 30px !important;
+    margin-left: -3px;
+}
+
+#aside-menu-item-logs .kt-svg-icon {
+    width: 30px !important;
+    height: 30px !important;
+    margin-left: -4px;
+}
+
+#aside-menu-item-history .kt-svg-icon {
+    width: 26px !important;
+    height: 26px !important;
+    margin-left: -4px;
+}
+
+
+#aside-item-apps .kt-svg-icon {
+    width: 26px !important;
+    height: 26px !important;
+}
+
+#aside-item-access .kt-svg-icon {
+    height: 26px !important;
+}
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-icon, .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-icon {
+    /*color: #494b74;
+    color: #1c4b9e !important;*/
+}
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item:not(.kt-menu__item--parent):not(.kt-menu__item--open):not(.kt-menu__item--here):not(.kt-menu__item--active):hover > .kt-menu__heading .kt-menu__link-icon, .kt-aside-menu .kt-menu__nav > .kt-menu__item:not(.kt-menu__item--parent):not(.kt-menu__item--open):not(.kt-menu__item--here):not(.kt-menu__item--active):hover > .kt-menu__link .kt-menu__link-icon {
+    /*color: #5d78ff;*/
+    color: #2c78ff !important;
+}
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item:not(.kt-menu__item--parent):not(.kt-menu__item--open):not(.kt-menu__item--here):not(.kt-menu__item--active):hover > .kt-menu__heading .kt-menu__link-icon svg g [fill], .kt-aside-menu .kt-menu__nav > .kt-menu__item:not(.kt-menu__item--parent):not(.kt-menu__item--open):not(.kt-menu__item--here):not(.kt-menu__item--active):hover > .kt-menu__link .kt-menu__link-icon svg g [fill] {
+    transition: fill 0.3s ease;
+    /*fill: #5d78ff;*/
+    fill: #2c78ff;
+}
+
+.kt-aside--minimize .kt-aside-menu .kt-svg-icon g,
+.kt-aside--minimize .kt-aside-menu .kt-menu__link-icon {
+    transition: color 0.5s ease;
+    color: white !important;
+}
+
+.kt-aside--minimize .kt-aside-menu  .kt-svg-icon g [fill] {
+    color: white !important;
+    fill: white !important;
+}

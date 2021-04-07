@@ -1,11 +1,17 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@section Title{<title>Инструменты</title>}
+@section sidebar{@await Html.PartialAsync("_Sidebar")}
+@section Head {
+    <link rel="stylesheet" asp-append-version="true" href="~/css/masonry.css" />
+    <link rel="stylesheet" asp-append-version="true" href="~/css/modal.css" />
+    <link rel="stylesheet" asp-append-version="true" href="~/css/toggle.button.css" />
 }
 
 @section Scripts
 {
+    <script src="https://unpkg.com/packery@2/dist/packery.pkgd.js"></script>
     <script type="text/javascript" src="~/app/js/chunk-vendors.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="~/app/js/main.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/app/js/tools.js" asp-append-version="true"></script>
 }
+
 
 <div id="app"></div>
