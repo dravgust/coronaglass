@@ -9,6 +9,7 @@
 
     pages: {
         main: "src/main.js",
+        tools: "src/pages/tools.js"
     },
 
     configureWebpack: {

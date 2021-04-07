@@ -23,7 +23,7 @@ namespace Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult SmartCut()
         {
             return View();
         }
