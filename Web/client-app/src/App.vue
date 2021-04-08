@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     vvvv
   <SmartCut msg=""/>
 </template>

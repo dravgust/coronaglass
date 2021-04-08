@@ -1,4 +1,5 @@
 ﻿module.exports = {
+    publicPath: "/",
     // Put this in the ASP.NET Core directory
     outputDir: "../wwwroot/app",
     chainWebpack: config => {
@@ -8,7 +9,7 @@
     filenameHashing: false,
 
     pages: {
-        main: "src/main.js",
+        //main: "src/main.js",
         tools: "src/pages/tools.js"
     },
 

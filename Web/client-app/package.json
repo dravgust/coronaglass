@@ -9,8 +9,14 @@
     "watch": "vue-cli-service build --mode development --watch"
   },
   "dependencies": {
+    "apexcharts": "^3.24.0",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-i18n": "^9.0.0-beta.12",
+    "vue-router": "^4.0.0-rc.2",
+    "vue3-apexcharts": "^1.2.1",
+    "vue3-datepicker": "^0.2.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
