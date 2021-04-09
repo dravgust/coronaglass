@@ -13,7 +13,7 @@
                         </div>
 
                         <div class="kt-portlet__head-toolbar">
-                            <button type="button" class="btn btn-outline-info btn-elevate btn-circle btn-icon"><i class="flaticon-bell"></i></button>
+                            <button type="button" class="btn btn-outline-dark btn-elevate btn-circle btn-icon" @click="runOptimization" title="Начать Оптимизацию"><i class="flaticon2-start-up"></i></button>
                         </div>
                     </div>
                     <!--begin::Form-->
@@ -25,14 +25,14 @@
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label">Проект:</label>
                                         <div class="col-lg-6">
-                                            <input type="email" class="form-control" placeholder="имя проекта">
+                                            <input type="text" class="form-control" placeholder="имя проекта" v-model="name">
                                             <span class="form-text text-muted">пожалуйста введите имя проекта</span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label">Вид Маахаза:</label>
                                         <div class="col-lg-6">
-                                            <select class="form-control">
+                                            <select class="form-control" v-model="clip">
                                                 <option>83</option>
                                                 <option>100</option>
                                                 <option>116</option>
@@ -58,9 +58,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody v-bind="{style:{height:plankTableHeight}}">
-                                                        <tr v-for="row in planks" v-bind:key="row.id">
+                                                        <tr v-for="(row, index) in planks" :id="`snippet-${index}`" v-bind:key="row.id">
                                                             <td style="width: 10%;">{{row.id}}</td>
-                                                            <td contenteditable="true" v-bind:style="{cursor: 'auto'}">{{row.length}}</td>
+                                                            <editableTD v-model="row.length" />
                                                             <td style="width:10%;"><span @click="plankRemove(row)" v-bind:style="{cursor: 'pointer'}"><i class="fa fa-trash"></i></span></td>
                                                         </tr>
                                                     </tbody>
@@ -124,13 +124,14 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody v-bind="{style:{height: snippetTableHeight}}">
-                                                        <tr v-for="row in snippets" v-bind:key="row.id" v-bind:style="{cursor: 'pointer'}">
-                                                            <td style="width: 10%;">{{row.id}}</td>
-                                                            <td contenteditable="true" v-bind:style="{cursor: 'auto'}">{{row.length}}</td>
-                                                            <td contenteditable="true" v-bind:style="{cursor: 'auto'}">{{row.apartment}}</td>
-                                                            <td contenteditable="true" v-bind:style="{cursor: 'auto'}">{{row.floor}}</td>
-                                                            <td contenteditable="true" v-bind:style="{cursor: 'auto'}">{{row.columns}}</td>
-                                                            <td style="width:10%;"><span @click="snippetRemove(row)" v-bind:style="{cursor: 'pointer'}"><i class="fa fa-trash"></i></span></td>
+                                                        <tr v-for="(row, index) in snippets" :id="`snippet-${index}`" :key="row.id">
+                                                            <td style="width: 10%;">{{index + 1}}</td>
+                                                            <!--<td contenteditable="true" @input="event => onInputSnippet(event, index)" v-bind:style="{cursor: 'auto'}">{{row.length}}</td>-->
+                                                            <editableTD v-model="row.length" />
+                                                            <editableTD v-model="row.apartment" />
+                                                            <editableTD v-model="row.floor" />
+                                                            <editableTD v-model="row.columns" />
+                                                            <td style="width:10%;"><span @click="snippetRemove(index)" v-bind:style="{cursor: 'pointer'}"><i class="fa fa-trash"></i></span></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -147,13 +148,11 @@
                             </div>
                         </div>
                     </form>
-
                     <!--end::Form-->
                 </div>
 
         <!--end::Portlet-->
         </div>
-
             <div class="col-lg-6">
                 <!--<div class="kt-space-20"></div>-->
 
@@ -207,16 +206,20 @@
 
 <script>
     import axios from "axios";
+    import editableTD from './editable-td.vue';
+
     export default {
         name: 'SmartCut',
         data: function () {
             return {
-                planks: [{id:1, length: 7000}],
-                snippets: [{id:1, length: ''}],
+                name: '',
+                planks: [{ id: 1, length: 7000 }],
+                snippets: [{ id: 1, length: '', apartment: '', floor: '', columns: '' }],
+                clip: 100
             }
         },
         components: {
-            
+            editableTD
         },
         computed: {
             plankTableHeight: function () {
@@ -231,21 +234,34 @@
             }
         },
         methods: {
-            getItems: function () {
-                console.log('getItems:');
+            //onInputSnippet(event, index) {
+            //    //console.log(event);
+            //    //console.log(event.target);
+            //    //console.log(event.target.innerText);
+            //    //const value = event.target.innerText;
+            //    //this.snippets[index].value = value;
+            //},
+            getSnippets() {
+                this.snippets.forEach((c, index) => {
+                    const el = document.getElementById(`snippet-${index}`);
+                    console.log(c);
+                    console.log(el.innerText);
+                });
+            },
+            init: function () {
                 try {
-                    axios.get(window._root + `api/data/subscribers/${btoa(JSON.stringify({}))}`)
+                    axios.get(window._root + `api/tools/smartcut/init/${btoa(JSON.stringify({}))}`)
                         .then((response) => {
                             console.log(response);
                             this.rows = response.data;
                         })
                         .catch((error) => {
                             console.log(error.response.config.url, ": ", error.response.data.message);
-                            window.bootbox.alert("Error on getting dashboard subscribers");
+                            window.bootbox.alert("Error on init");
                         });
                 }
                 catch (e) {
-                    console.log('getItems.error:', e);
+                    console.log('init.error:', e);
                 }
             },
             plankRemove: function (item) {
@@ -254,11 +270,41 @@
             plankAdd: function () {
                 this.planks.push({ id: this.planks.length+1, length: '' });
             },
-            snippetRemove: function (item) {
-                this.snippets = this.snippets.filter((i) => i.id !== item.id);
+            snippetRemove: function (index) {
+                const removeByIndex = (list, index) =>
+                    [
+                        ...list.slice(0, index),
+                        ...list.slice(index + 1)
+                    ];
+                this.snippets = removeByIndex(this.snippets, index);
             },
             snippetAdd: function () {
                 this.snippets.push({ id: this.snippets.length+1, length: '', apartment: '', floor: '', columns: '' });
+            },
+            runOptimization: function () {
+
+                var projectName = this.name;
+                if (!projectName) {
+                    projectName = "default";
+                }
+                var planks = this.planks.filter((e) => e.length > 0).map((e) => e.length);
+                var snippets = this.snippets.filter((e) => e.length > 0);
+
+                try {
+                    axios.post(window._root + `api/tools/smartcut/run`, { projectName: projectName, planks: planks, snippets: snippets, clip: this.clip })
+                        .then((response) => {
+                            console.log(response);
+                            console.log(response.data);
+                            this.result = response.data;
+                        })
+                        .catch((error) => {
+                            console.log(error.response.config.url, ": ", error.response.data.message);
+                            window.bootbox.alert("Error on smartcut run");
+                        });
+                }
+                catch (e) {
+                    console.log('smartcut.run.error:', e);
+                }
             }
         }
     }

@@ -1,9 +1,12 @@
 ﻿using CoronaGlass.Core.Interfaces;
+using Newtonsoft.Json;
 
 namespace CoronaGlass.Core.Models
 {
+    [JsonObject]
     public class Snippet : ISnippet
     {
+        [JsonProperty("length")]
         public float Length { get; }
 
         public Snippet(float length)
