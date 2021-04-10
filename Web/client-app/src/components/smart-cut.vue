@@ -13,7 +13,7 @@
                         </div>
 
                         <div class="kt-portlet__head-toolbar">
-                            <button type="button" class="btn btn-outline-dark btn-elevate btn-circle btn-icon" @click="runOptimization" title="Начать Оптимизацию"><i class="flaticon2-start-up"></i></button>
+                            <button type="button" class="btn btn-info btn-elevate btn-icon" :disabled="!validated" v-bind:class="!validated ? 'disabled' : ''" @click.prevent="runOptimization" title="Начать Оптимизацию"><i class="flaticon2-start-up"></i></button>
                         </div>
                     </div>
                     <!--begin::Form-->
@@ -67,7 +67,8 @@
                                                 </table>
                                                 <div class="row">
                                                     <div class="col-md-12 kt-padding-0">
-                                                        <button class="btn btn-dark btn-block rounded-0" @click.prevent="plankAdd"><i class="fas fa-plus" aria-hidden="true"></i> Добавить</button>
+                                                        <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon float-right" @click.prevent="plankAdd" title="Добавить"><i class="flaticon2-add-1"></i></button>
+                                                        <!--<button class="btn btn-dark btn-block rounded-0" @click.prevent="plankAdd"><i class="fas fa-plus" aria-hidden="true"></i> Добавить</button>-->
                                                     </div>
 
                                                 </div>
@@ -82,28 +83,29 @@
 
                                     <div class="form-group row">
                                         <div class="col-lg-12" style="text-align:right">
-                                            <div class="dropdown dropdown-inline">
-                                                <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="flaticon-more-1"></i>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(32px, 33px, 0px);">
-                                                    <ul class="kt-nav">
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon-file-1"></i>
-                                                                <span class="kt-nav__link-text">Загрузить Excel</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon-delete"></i>
-                                                                <span class="kt-nav__link-text">Очистить</span>
-                                                            </a>
-                                                        </li>
+                                            <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" title="Загрузить Excel"><i class="flaticon-file-1"></i></button>
+                                            <!--<div class="dropdown dropdown-inline">
+        <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="flaticon-more-1"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(32px, 33px, 0px);">
+            <ul class="kt-nav">
+                <li class="kt-nav__item">
+                    <a href="#" class="kt-nav__link">
+                        <i class="kt-nav__link-icon flaticon-file-1"></i>
+                        <span class="kt-nav__link-text">Загрузить Excel</span>
+                    </a>
+                </li>
+                <li class="kt-nav__item">
+                    <a href="#" class="kt-nav__link">
+                        <i class="kt-nav__link-icon flaticon-delete"></i>
+                        <span class="kt-nav__link-text">Очистить</span>
+                    </a>
+                </li>
 
-                                                    </ul>
-                                                </div>
-                                            </div>
+            </ul>
+        </div>
+    </div>-->
                                         </div>
 
 
@@ -137,7 +139,8 @@
                                                 </table>
                                                 <div class="row">
                                                     <div class="col-md-12 kt-padding-0">
-                                                        <button class="btn btn-dark btn-block rounded-0" @click.prevent="snippetAdd"><i class="fas fa-plus" aria-hidden="true"></i> Добавить</button>
+                                                        <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon float-right" @click.prevent="snippetAdd" title="Добавить"><i class="flaticon2-add-1"></i></button>
+                                                        <!--<button class="btn btn-dark btn-block rounded-0" @click.prevent="snippetAdd"><i class="fas fa-plus" aria-hidden="true"></i> Добавить</button>-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,7 +163,7 @@
 
                     <!--end::Portlet-->
                     <!--begin::Portlet-->
-                    <div class="kt-portlet" v-bind="{style:{'min-height':resultTabHeight}}">
+                    <div class="kt-portlet">
                         <div class="kt-portlet__head">
                             <div class="kt-portlet__head-label">
                                 <h3 class="kt-portlet__head-title">
@@ -168,24 +171,25 @@
                                 </h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
-                                <!--<button type="button" class="btn btn-outline-dark btn-elevate"><i class="fa fa-cut"></i> Начать Оптимизация</button>-->
+                                <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" @click="printResult" title="Распечатать"><i class="flaticon2-print"></i></button>
                             </div>
                         </div>
-
                         <!--begin::Form-->
                         <form class="kt-form kt-form--label-right">
                             <div class="kt-portlet__body">
+                                <iframe ref="resiframe" :srcdoc="result" style=" border:none;overflow:hidden;" v-bind="{style:{'min-height':resultTabHeight}}"></iframe>
+                                <!--<span v-html="result"></span>-->
                                 <!--<div class="kt-section kt-section--first">
-                                    <h3 class="kt-section__title">Состав:</h3>
-                                    <div class="kt-section__body">
-                                        <div class="form-group row">
-                                            <div class="v-content container-fluid">
+        <h3 class="kt-section__title">Состав:</h3>
+        <div class="kt-section__body">
+            <div class="form-group row">
+                <div class="v-content container-fluid">
 
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>-->
+                </div>
+            </div>
+        </div>
+    </div>-->
                             </div>
 
                         </form>
@@ -201,7 +205,6 @@
             </div>
     </div>
     </div>
-
 </template>
 
 <script>
@@ -215,7 +218,8 @@
                 name: '',
                 planks: [{ id: 1, length: 7000 }],
                 snippets: [{ id: 1, length: '', apartment: '', floor: '', columns: '' }],
-                clip: 100
+                clip: 100,
+                result: '<style type="text/css">.watermark{color:#d0d0d0;font-size:160pt;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);position:absolute;width:100%;height:100%;margin:0;z-index:-1;left:-50%;top:-50%;}</style><div class="watermark"><p>Corona Glass ltd.</p></div>'
             }
         },
         components: {
@@ -230,24 +234,15 @@
                 return (window.innerHeight * 0.35) + 'px';
             },
             resultTabHeight: function () {
-                return 795 + (this.planks.length + this.snippets.length) * 30  + 'px';
+                return 685 + (this.planks.length + this.snippets.length) * 30  + 'px';
+            },
+            validated() {
+                if (this.snippets.filter((i) => +i.length > 0).length > 0) {
+                    return true
+                }
             }
         },
         methods: {
-            //onInputSnippet(event, index) {
-            //    //console.log(event);
-            //    //console.log(event.target);
-            //    //console.log(event.target.innerText);
-            //    //const value = event.target.innerText;
-            //    //this.snippets[index].value = value;
-            //},
-            getSnippets() {
-                this.snippets.forEach((c, index) => {
-                    const el = document.getElementById(`snippet-${index}`);
-                    console.log(c);
-                    console.log(el.innerText);
-                });
-            },
             init: function () {
                 try {
                     axios.get(window._root + `api/tools/smartcut/init/${btoa(JSON.stringify({}))}`)
@@ -281,6 +276,14 @@
             snippetAdd: function () {
                 this.snippets.push({ id: this.snippets.length+1, length: '', apartment: '', floor: '', columns: '' });
             },
+            printResult: function () {
+                //var iFrameBody = this.$refs.resiframe.contentWindow.document;
+                this.$refs.resiframe.contentWindow.print();
+
+                //let head = $(this.$refs.resiframe).contents().find("head");
+                //let css = '<style type="text/css">.watermark{color:#d0d0d0;font-size:200pt;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);position:absolute;width:100%;height:100%;margin:0;z-index:-1;left:-100px;top:-200px;}</style>';
+                //$(head).append(css);         
+            },
             runOptimization: function () {
 
                 var projectName = this.name;
@@ -293,8 +296,6 @@
                 try {
                     axios.post(window._root + `api/tools/smartcut/run`, { projectName: projectName, planks: planks, snippets: snippets, clip: this.clip })
                         .then((response) => {
-                            console.log(response);
-                            console.log(response.data);
                             this.result = response.data;
                         })
                         .catch((error) => {

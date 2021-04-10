@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CoreLibrary\CoreLibrary.XLSX\CoreLibrary.XLSX.csproj" />
     <ProjectReference Include="..\CoronaGlass.Core\CoronaGlass.Core.csproj" />
     <ProjectReference Include="..\CoronaGlass.Dropbox\CoronaGlass.Dropbox.csproj" />
   </ItemGroup>

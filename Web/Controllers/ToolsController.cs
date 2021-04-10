@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using CoreLibrary.XLSX;
 using CoronaGlass.Core;
 using CoronaGlass.Core.Interfaces;
 using CoronaGlass.Core.Models;
@@ -55,7 +57,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("smartcut/run")]
-        public async Task<IActionResult> Run(SmartCutModel request)
+        public async Task<IActionResult> Run(SmartCutModel request, CancellationToken token)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -66,28 +68,37 @@ namespace Web.Controllers
             var planks = cuttingStock.CalculateCuts(purePlanks);
             var free = CuttingStock.GetFree(planks);
 
-            //decimal columnSum = 0;
-            //foreach (var columnValue in request.Snippets.Select(s => s.Columns))
-            //{
-            //    if (!string.IsNullOrEmpty(columnValue) && int.TryParse(columnValue, out var column))
-            //    {
-            //        columnSum += column;
-            //    }
-            //}
-            //var column6300Count = Math.Ceiling(columnSum / 6);
-            //const double columnWeight = 1.861;
-            //var clip = _clips.FirstOrDefault(c => c.Id == request.Clip);
+            decimal columnSum = 0;
+            foreach (var columnValue in request.Snippets.Select(s => s.Columns))
+            {
+                if (!string.IsNullOrEmpty(columnValue) && int.TryParse(columnValue, out var column))
+                {
+                    columnSum += column;
+                }
+            }
+            var column6300Count = Math.Ceiling(columnSum / 6);
+            const double columnWeight = 1.861;
+            var clip = _clips.FirstOrDefault(c => c.Id == request.Clip);
 
             //var sWebRootFolder = _environment.WebRootPath;
             //var file = Path.Combine(sWebRootFolder, "storage", SFileName);
-            //var ie = new ImportExport();
-            //var data = ie.Export2(request.ProjectName, planks, free, columnSum, clip?.Weight ?? 0.0, column6300Count, columnWeight, request.PlankReserve);
+            var ie = new ImportExport();
+            var data = ie.Export2(request.ProjectName, planks, free, columnSum, clip?.Weight ?? 0.0, column6300Count, columnWeight, request.PlankReserve);
             //await using (var fileStream = new FileStream(file, FileMode.Create))
             //{
             //    await fileStream.WriteAsync(data, 0, data.Length);
             //}
-            var result = await Task.FromResult(new {planks, free});
-            return new JsonResult(result);
+            //var result = await Task.FromResult(new { planks, free });
+            //return new JsonResult(result);
+
+            string result;
+            await using (var sr = new MemoryStream())
+            {
+                await sr.WriteAsync(data, 0, data.Length, token);
+                result = XlsxToHtmlConverter.ConvertXlsx(sr, nameof(CuttingStock));
+            }
+
+            return Ok(result);
         }
 
         [HttpGet]
