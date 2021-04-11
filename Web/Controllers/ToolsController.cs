@@ -80,17 +80,8 @@ namespace Web.Controllers
             const double columnWeight = 1.861;
             var clip = _clips.FirstOrDefault(c => c.Id == request.Clip);
 
-            //var sWebRootFolder = _environment.WebRootPath;
-            //var file = Path.Combine(sWebRootFolder, "storage", SFileName);
             var ie = new ImportExport();
             var data = ie.Export2(request.ProjectName, planks, free, columnSum, clip?.Weight ?? 0.0, column6300Count, columnWeight, request.PlankReserve);
-            //await using (var fileStream = new FileStream(file, FileMode.Create))
-            //{
-            //    await fileStream.WriteAsync(data, 0, data.Length);
-            //}
-            //var result = await Task.FromResult(new { planks, free });
-            //return new JsonResult(result);
-
             string result;
             await using (var sr = new MemoryStream())
             {
@@ -131,7 +122,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("smartcut/import")]
-        public async Task<IActionResult> Import(SmartCutModel request)
+        public async Task<IActionResult> Import([FromForm] FileImport request)
         {
             var ie = new ImportExport();
 
@@ -142,12 +133,7 @@ namespace Web.Controllers
                 snippets = ms.ToArray();
             }
 
-            request.Snippets.Clear();
-            request.Snippets.AddRange(ie.ImportSnippets(snippets));
-
-            request.Clips = _clips;
-
-            return new JsonResult(request);
+            return new JsonResult(new { snippets = ie.ImportSnippets(snippets) });
         }
     }
 }

@@ -16,8 +16,6 @@
                             <button type="button" class="btn btn-info btn-elevate btn-icon" :disabled="!validated" v-bind:class="!validated ? 'disabled' : ''" @click.prevent="runOptimization" title="Начать Оптимизацию"><i class="flaticon2-start-up"></i></button>
                         </div>
                     </div>
-                    <!--begin::Form-->
-                    <form class="kt-form kt-form--label-right">
                         <div class="kt-portlet__body">
                             <div class="kt-section kt-section--first">
                                 <h3 class="kt-section__title">1. Основные:</h3>
@@ -67,7 +65,7 @@
                                                 </table>
                                                 <div class="row">
                                                     <div class="col-md-12 kt-padding-0">
-                                                        <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon float-right" @click.prevent="plankAdd" title="Добавить"><i class="flaticon2-add-1"></i></button>
+                                                        <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" @click.prevent="plankAdd" title="Добавить"><i class="flaticon2-add-1"></i></button>
                                                         <!--<button class="btn btn-dark btn-block rounded-0" @click.prevent="plankAdd"><i class="fas fa-plus" aria-hidden="true"></i> Добавить</button>-->
                                                     </div>
 
@@ -82,32 +80,19 @@
                                 <div class="kt-section__body">
 
                                     <div class="form-group row">
-                                        <div class="col-lg-12" style="text-align:right">
-                                            <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" title="Загрузить Excel"><i class="flaticon-file-1"></i></button>
-                                            <!--<div class="dropdown dropdown-inline">
-        <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="flaticon-more-1"></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(32px, 33px, 0px);">
-            <ul class="kt-nav">
-                <li class="kt-nav__item">
-                    <a href="#" class="kt-nav__link">
-                        <i class="kt-nav__link-icon flaticon-file-1"></i>
-                        <span class="kt-nav__link-text">Загрузить Excel</span>
-                    </a>
-                </li>
-                <li class="kt-nav__item">
-                    <a href="#" class="kt-nav__link">
-                        <i class="kt-nav__link-icon flaticon-delete"></i>
-                        <span class="kt-nav__link-text">Очистить</span>
-                    </a>
-                </li>
+                                        <div class="col-lg-12">
+                                            <!--<button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" title="Загрузить Excel"><i class="flaticon-file-1"></i></button>-->
 
-            </ul>
-        </div>
-    </div>-->
+                                            <form ref="import_excel_form" method="POST" enctype="multipart/form-data">
+                                                <span class="float-right">
+                                                    <span class="btn btn-outline-hover-info btn-elevate btn-icon fileinput-button" title="Загрузить Excel"> 
+                                                        <i class="flaticon-file-1" aria-hidden="true"></i>
+                                                        <input type="file" ref="import_excel_file" name="ImportExcel" @input="onExcelFileChange"/>
+                                                    </span>
+                                                </span>
+                                                <input type="submit" style="display: none"/>
+                                            </form>
                                         </div>
-
 
                                     </div>
                                     
@@ -139,7 +124,7 @@
                                                 </table>
                                                 <div class="row">
                                                     <div class="col-md-12 kt-padding-0">
-                                                        <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon float-right" @click.prevent="snippetAdd" title="Добавить"><i class="flaticon2-add-1"></i></button>
+                                                        <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" @click.prevent="snippetAdd" title="Добавить"><i class="flaticon2-add-1"></i></button>
                                                         <!--<button class="btn btn-dark btn-block rounded-0" @click.prevent="snippetAdd"><i class="fas fa-plus" aria-hidden="true"></i> Добавить</button>-->
                                                     </div>
                                                 </div>
@@ -150,8 +135,6 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <!--end::Form-->
                 </div>
 
         <!--end::Portlet-->
@@ -166,35 +149,15 @@
                     <div class="kt-portlet">
                         <div class="kt-portlet__head">
                             <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title">
-                                    
-                                </h3>
+                                <h3 class="kt-portlet__head-title"></h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
                                 <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" @click="printResult" title="Распечатать"><i class="flaticon2-print"></i></button>
                             </div>
-                        </div>
-                        <!--begin::Form-->
-                        <form class="kt-form kt-form--label-right">
+                            </div>
                             <div class="kt-portlet__body">
                                 <iframe ref="resiframe" :srcdoc="result" style=" border:none;overflow:hidden;" v-bind="{style:{'min-height':resultTabHeight}}"></iframe>
-                                <!--<span v-html="result"></span>-->
-                                <!--<div class="kt-section kt-section--first">
-        <h3 class="kt-section__title">Состав:</h3>
-        <div class="kt-section__body">
-            <div class="form-group row">
-                <div class="v-content container-fluid">
-
-
-                </div>
-            </div>
-        </div>
-    </div>-->
                             </div>
-
-                        </form>
-
-                        <!--end::Form-->
                     </div>
 
                     <!--end::Portlet-->
@@ -219,7 +182,8 @@
                 planks: [{ id: 1, length: 7000 }],
                 snippets: [{ id: 1, length: '', apartment: '', floor: '', columns: '' }],
                 clip: 100,
-                result: '<style type="text/css">.watermark{color:#d0d0d0;font-size:160pt;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);position:absolute;width:100%;height:100%;margin:0;z-index:-1;left:-50%;top:-50%;}</style><div class="watermark"><p>Corona Glass ltd.</p></div>'
+                excelFile: '',
+                result: '<style type="text/css">body{overflow:hidden;} .watermark{color:#d0d0d0;font-size:70pt;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);position:absolute;width:100%;height:100%;margin:0;z-index:-1;left:25%;top:0;}</style></head><div class="watermark"><p>Corona Glass Technologies</p></div>'
             }
         },
         components: {
@@ -234,7 +198,7 @@
                 return (window.innerHeight * 0.35) + 'px';
             },
             resultTabHeight: function () {
-                return 685 + (this.planks.length + this.snippets.length) * 30  + 'px';
+                return 694 + (this.planks.length + this.snippets.length) * 30  + 'px';
             },
             validated() {
                 if (this.snippets.filter((i) => +i.length > 0).length > 0) {
@@ -278,17 +242,39 @@
             },
             printResult: function () {
                 //var iFrameBody = this.$refs.resiframe.contentWindow.document;
-                this.$refs.resiframe.contentWindow.print();
+                this.$refs.resiframe.contentWindow.print();      
+            },
+            onExcelFileChange: function () {
+                this.excelFile = this.$refs.import_excel_file.files[0];
+                var name = this.excelFile.name;//"cut_optimization (1).xlsx"
+                var size = this.excelFile.size;// 4453
+                var type = this.excelFile.type;//"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                console.log("file input:", name);
 
-                //let head = $(this.$refs.resiframe).contents().find("head");
-                //let css = '<style type="text/css">.watermark{color:#d0d0d0;font-size:200pt;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);position:absolute;width:100%;height:100%;margin:0;z-index:-1;left:-100px;top:-200px;}</style>';
-                //$(head).append(css);         
+                var formData = new FormData(this.$refs.import_excel_form);
+                axios.post('api/tools/smartcut/import', formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                )
+                    .then((response) => {
+                        if (response.data.snippets) {
+                            this.snippets = response.data.snippets;
+                        };
+                    })
+                    .catch((error) => {
+                        console.log(error.response.config.url, ": ", error.response.data.message);
+                        window.bootbox.alert("Error on import file");
+                    });
+
             },
             runOptimization: function () {
 
                 var projectName = this.name;
                 if (!projectName) {
-                    projectName = "default";
+                    projectName = "Corona Glass Project";
                 }
                 var planks = this.planks.filter((e) => e.length > 0).map((e) => e.length);
                 var snippets = this.snippets.filter((e) => e.length > 0);

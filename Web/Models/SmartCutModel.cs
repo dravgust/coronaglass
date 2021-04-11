@@ -29,6 +29,10 @@ namespace Web.Models
         [JsonProperty("snippets")]
         public List<CoronaSnippet> Snippets { get; set; } = new() { new CoronaSnippet(7000) };
 
+    }
+
+    public class FileImport
+    {
         public IFormFile ImportExcel { get; set; }
     }
 }

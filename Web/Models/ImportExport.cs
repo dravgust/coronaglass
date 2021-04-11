@@ -7,7 +7,11 @@ using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
 using CoronaGlass.Core.Models;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Web.Models;
+using CellType = NPOI.SS.UserModel.CellType;
+using IndexedColors = NPOI.SS.UserModel.IndexedColors;
 
 
 namespace VralumGlassWeb.Data
@@ -146,9 +150,79 @@ namespace VralumGlassWeb.Data
 				return fs.ToArray();
 			}
 		}
-            
+
+        //private Stylesheet GenerateStylesheet()
+        //{
+        //    NumberingFormats numberFormats = new NumberingFormats(
+        //         new NumberingFormat(),
+        //         new NumberingFormat() { NumberFormatId = 1U, FormatCode = StringValue.FromString("0.00") }
+        //         );
+
+        //    Stylesheet styleSheet = null;
+        //    Fonts fonts = new Fonts(
+        //        new Font( // Index 0 - default
+        //            new FontSize() { Val = 10 }
+        //        ),
+        //        new Font( // Index 1 - header
+        //            new FontSize() { Val = 10 },
+        //            new Bold(),
+        //            new Color() { Rgb = "FFFFFF" }
+        //        ));
+
+        //    Fills fills = new Fills(
+        //            new Fill(new PatternFill() { PatternType = PatternValues.None }), // Index 0 - default
+        //            new Fill(new PatternFill() { PatternType = PatternValues.Gray125 }), // Index 1 - default
+        //            new Fill(new PatternFill(new ForegroundColor { Rgb = new HexBinaryValue() { Value = "66666666" } })
+        //            { PatternType = PatternValues.Solid }) // Index 2 - header
+        //        );
+
+        //    Borders borders = new Borders(
+        //            new Border(), // index 0 default
+        //            new Border( // index 1 black border
+        //                new LeftBorder(new Color() { Auto = true }) { Style = BorderStyleValues.Thin },
+        //                new RightBorder(new Color() { Auto = true }) { Style = BorderStyleValues.Thin },
+        //                new TopBorder(new Color() { Auto = true }) { Style = BorderStyleValues.Thin },
+        //                new BottomBorder(new Color() { Auto = true }) { Style = BorderStyleValues.Thin },
+        //                new DiagonalBorder())
+        //        );
+
+        //    CellFormats cellFormats = new CellFormats(
+        //            new CellFormat(), // default
+        //            new CellFormat
+        //            {
+        //                FontId = 0,
+        //                FillId = 0,
+        //                BorderId = 1,
+        //                NumberFormatId = 0,
+        //                ApplyBorder = true
+        //            }, // body
+        //            new CellFormat
+        //            {
+        //                FontId = 1,
+        //                FillId = 2,
+        //                BorderId = 1,
+        //                NumberFormatId = 0,
+        //                ApplyFill = true
+        //            }, // header
+        //            new CellFormat
+        //            {
+        //                FontId = 0,
+        //                FillId = 0,
+        //                BorderId = 0,
+        //                FormatId = 1U,
+        //                NumberFormatId = 1U,
+        //                ApplyNumberFormat = true
+        //            }
+        //        );
+
+        //    styleSheet = new Stylesheet(fonts, fills, borders, numberFormats, cellFormats);
+        //    return styleSheet;
+        //}
+
         public byte[] Export2(string projectName, IList<Plank> planks, float free, decimal columnSum, double clipWeight, decimal column6300Count, double columnWeight, int plankReserve)
         {
+            //var styleSheet = GenerateStylesheet();
+
             using (var fs = new MemoryStream())
             {
                 var workbook = new XSSFWorkbook();
@@ -208,6 +282,7 @@ namespace VralumGlassWeb.Data
 
                 ICellStyle sStyleRed = workbook.CreateCellStyle();
                 sStyleRed.Alignment = HorizontalAlignment.Center;
+
                 // Font 
                 XSSFFont hFontRed = (XSSFFont)workbook.CreateFont();
                 hFontRed.Color = IndexedColors.Red.Index;
@@ -281,8 +356,11 @@ namespace VralumGlassWeb.Data
 						row = excelSheet.CreateRow(rowNumber++);
                         row.CreateCell(2).SetCellValue(string.Join(", ", plank.Cuts));
 
+                        //cell = row.CreateCell(3, CellType.Numeric);
+                        //cell.SetCellValue(plank.FreeLength);
                         cell = row.CreateCell(3, CellType.Numeric);
-                        cell.SetCellValue(plank.FreeLength);
+                        cell.SetCellValue($"{plank.FreeLength}");
+
                         cell.CellStyle = sStyleRed;
                     }
                 }
