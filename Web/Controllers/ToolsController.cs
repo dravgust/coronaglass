@@ -105,19 +105,13 @@ namespace Web.Controllers
                 _logger.LogInformation($"The file {file} does not exists!");
             }
 
-            var fileName = "cut_optimization";
-            if (string.IsNullOrEmpty(fileName))
-                fileName = SFileName.Replace(".xlsx", "");
-            else if (fileName.Length > 20)
-                fileName = fileName.Substring(0, 20);
-
             var memory = new MemoryStream();
             using (var fs = new FileStream(file, FileMode.Open))
             {
                 await fs.CopyToAsync(memory);
             }
             memory.Position = 0;
-            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"{fileName}.xlsx");
+            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"{nameof(CuttingStock)}.xlsx");
         }
 
         [HttpPost]

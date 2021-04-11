@@ -18,7 +18,14 @@ namespace Web.Controllers
             _logger = logger;
         }
 
+        [Route("")]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Route("/form")]
+        public IActionResult Form()
         {
             return View();
         }

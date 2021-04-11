@@ -9,7 +9,7 @@
     filenameHashing: false,
 
     pages: {
-        //main: "src/main.js",
+        form: "src/pages/form.js",
         tools: "src/pages/tools.js"
     },
 

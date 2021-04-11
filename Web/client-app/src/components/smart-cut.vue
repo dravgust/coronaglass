@@ -204,6 +204,7 @@
                 if (this.snippets.filter((i) => +i.length > 0).length > 0) {
                     return true
                 }
+                return false;
             }
         },
         methods: {
@@ -246,10 +247,13 @@
             },
             onExcelFileChange: function () {
                 this.excelFile = this.$refs.import_excel_file.files[0];
-                var name = this.excelFile.name;//"cut_optimization (1).xlsx"
-                var size = this.excelFile.size;// 4453
-                var type = this.excelFile.type;//"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                console.log("file input:", name);
+                //var name = this.excelFile.name;//"cut_optimization (1).xlsx"
+                //var size = this.excelFile.size;// 4453
+                //var type = this.excelFile.type;//"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+                //if (!name.endsWith('.xlsx')) {
+
+                //}
 
                 var formData = new FormData(this.$refs.import_excel_form);
                 axios.post('api/tools/smartcut/import', formData,
@@ -262,7 +266,8 @@
                     .then((response) => {
                         if (response.data.snippets) {
                             this.snippets = response.data.snippets;
-                        };
+                            this.$refs.import_excel_file.value = '';
+                        }
                     })
                     .catch((error) => {
                         console.log(error.response.config.url, ": ", error.response.data.message);
