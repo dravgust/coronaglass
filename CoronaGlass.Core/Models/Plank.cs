@@ -18,7 +18,7 @@ namespace CoronaGlass.Core.Models
 
         public float OriginalLength;
 
-        public readonly List<ISnippet> Cuts = new List<ISnippet>();
+        public readonly List<ISnippet> Cuts = new();
 
         public void Cut(ISnippet snippet)
         {

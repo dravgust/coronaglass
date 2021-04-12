@@ -15,10 +15,50 @@ namespace CoronaGlass.Core
             _snippets = snippets ?? throw new ArgumentNullException(nameof(snippets)); 
         }
 
+        public void CalculateFor(Stock stock)
+        {
+            if (stock == null)
+                throw new ArgumentNullException(nameof(stock));
+            if (stock.IsEmpty)
+                throw new ArgumentException("The stock is empty.", nameof(stock));
+
+            var snippets = new List<ISnippet>();
+            foreach (var snippet in _snippets)
+            {
+                var maxInStock = stock.MaxLength;
+                if (snippet.Length > maxInStock)
+                {
+                    float snippetLength;
+                    var divider = 1;
+
+                    do
+                    {
+                        snippetLength = snippet.Length;
+                        snippetLength /= ++divider;
+
+                    }
+                    while (snippetLength > maxInStock);
+
+                    snippets.AddRange(Enumerable.Range(1, divider).Select(i => snippet.Clone(snippetLength)));
+                }
+                else
+                {
+                    snippets.Add(snippet);
+                }
+            }
+
+            snippets.Sort();
+            snippets.Reverse();
+
+            return Calculate(plankLengths, snippets);
+        }
+
         public List<Plank> CalculateCuts(List<float> plankLengths)
         {
-            if (plankLengths == null || !plankLengths.Any())
-                throw new ArgumentException(nameof(plankLengths));
+            if (plankLengths == null)
+                throw new ArgumentNullException(nameof(plankLengths));
+            if (!plankLengths.Any())
+                throw new ArgumentException("There are no any plank length in the request", nameof(plankLengths));
 
             var snippets = new List<ISnippet>();
             foreach (var snippet in _snippets)
