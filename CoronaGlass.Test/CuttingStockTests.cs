@@ -49,9 +49,12 @@ namespace CoronaGlass.Test
             var cuttingStockJob = new CuttingStock(snippets);
 
             //The possible lengths of plank //
-            var possibleLengths = new List<float> {6000 - plankReserve, 6900 - plankReserve, 7000 - plankReserve };
+            var possibleLengths = new Stock();
+            //possibleLengths.Add(6000 - plankReserve);
+            //possibleLengths.Add(6900 - plankReserve);
+            possibleLengths.Add(7000 - plankReserve, 1);
 
-            var planks = cuttingStockJob.CalculateCuts(possibleLengths);
+            var planks = cuttingStockJob.CalculateFor(possibleLengths);
 
             Console.WriteLine($"Use plank sizes: [{string.Join(", ", planks.Select(p => p.OriginalLength + plankReserve).Distinct())}]");
             Console.WriteLine();

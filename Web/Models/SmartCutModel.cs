@@ -24,11 +24,21 @@ namespace Web.Models
         public string ProjectName { set; get; }
 
         [JsonProperty("planks")]
-        public List<float> Planks { get; set; } = new List<float>();
+        public List<StockItem> Planks { get; set; } = new();
 
         [JsonProperty("snippets")]
         public List<CoronaSnippet> Snippets { get; set; } = new() { new CoronaSnippet(7000) };
 
+    }
+
+    [JsonObject]
+    public class StockItem
+    {
+        [JsonProperty("length")]
+        public float Length { set; get; }
+
+        [JsonProperty("count")]
+        public uint Count { set; get; }
     }
 
     public class FileImport

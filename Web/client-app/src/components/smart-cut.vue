@@ -52,6 +52,7 @@
                                                         <tr>
                                                             <th scope="col" class="text-center">№</th>
                                                             <th scope="col" class="text-center">Длина</th>
+                                                            <th scope="col" class="text-center">Колличество</th>
                                                             <th scope="col" class="text-center"></th>
                                                         </tr>
                                                     </thead>
@@ -59,6 +60,7 @@
                                                         <tr v-for="(row, index) in planks" :id="`snippet-${index}`" v-bind:key="row.id">
                                                             <td style="width: 10%;">{{row.id}}</td>
                                                             <editableTD v-model="row.length" />
+                                                            <editableTD v-model="row.count" />
                                                             <td style="width:10%;"><span @click="plankRemove(row)" v-bind:style="{cursor: 'pointer'}"><i class="fa fa-trash"></i></span></td>
                                                         </tr>
                                                     </tbody>
@@ -281,8 +283,26 @@
                 if (!projectName) {
                     projectName = "Corona Glass Project";
                 }
-                var planks = this.planks.filter((e) => e.length > 0).map((e) => e.length);
+                var planks = this.planks.filter((e) => e.length > 0);
                 var snippets = this.snippets.filter((e) => e.length > 0);
+
+                var pTotal = 0;
+                if (planks.length == 1) {
+                    pTotal = planks[0].length;
+                } else if (planks.length > 1) {
+                    pTotal = planks.reduce((a, b) => a.length + b.length);
+                }
+                var sTotal = 0;
+                if (snippets.length == 1) {
+                    sTotal = snippets[0].length;
+                } else if (snippets.length > 1) {
+                    sTotal = snippets.reduce((a, b) => a.length + b.length);
+                }
+
+                if (pTotal <= sTotal) {
+                    alert("There are no not enough items in the stock for cutting.");
+                    return;
+                }
 
                 try {
                     axios.post(window._root + `api/tools/smartcut/run`, { projectName: projectName, planks: planks, snippets: snippets, clip: this.clip })

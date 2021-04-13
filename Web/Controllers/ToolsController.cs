@@ -49,7 +49,7 @@ namespace Web.Controllers
         {
             var response = await Task.FromResult(new SmartCutModel
             {
-                Planks = new List<float> { 7000 },
+                Planks = new List<StockItem> { new() { Length = 7000, Count = 0 } },
                 Clips = _clips
             });
             return new JsonResult(response);
@@ -63,9 +63,10 @@ namespace Web.Controllers
                 return BadRequest(ModelState);
 
             var cuttingStock = new CuttingStock(request.Snippets.Cast<ISnippet>().ToList());
-            var purePlanks = new List<float>();
-            request.Planks.ForEach(p => purePlanks.Add(p - request.PlankReserve));
-            var planks = cuttingStock.CalculateCuts(purePlanks);
+            var purePlanks = new Stock();
+            request.Planks.ForEach(p => purePlanks.Add(p.Length - request.PlankReserve, p.Count));
+
+            var planks = cuttingStock.CalculateFor(purePlanks);
             var free = CuttingStock.GetFree(planks);
 
             decimal columnSum = 0;

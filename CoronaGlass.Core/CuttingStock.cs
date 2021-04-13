@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using CoronaGlass.Core.Interfaces;
 using CoronaGlass.Core.Models;
@@ -15,17 +16,23 @@ namespace CoronaGlass.Core
             _snippets = snippets ?? throw new ArgumentNullException(nameof(snippets)); 
         }
 
-        public void CalculateFor(Stock stock)
+        public List<Plank> CalculateFor(Stock stock)
         {
             if (stock == null)
                 throw new ArgumentNullException(nameof(stock));
             if (stock.IsEmpty)
                 throw new ArgumentException("The stock is empty.", nameof(stock));
 
+            var totalSnippetsLength = _snippets.Sum(e => e.Length);
+            var totalStockLength = stock.TotalLength;
+
+            if(totalSnippetsLength > totalStockLength)
+                throw new Exception("There are no not enough items in the stock for cutting.");
+
             var snippets = new List<ISnippet>();
             foreach (var snippet in _snippets)
             {
-                var maxInStock = stock.MaxLength;
+                var maxInStock = stock.GetMaxPlankLength();
                 if (snippet.Length > maxInStock)
                 {
                     float snippetLength;
@@ -50,49 +57,10 @@ namespace CoronaGlass.Core
             snippets.Sort();
             snippets.Reverse();
 
-            return Calculate(plankLengths, snippets);
+            return Calculate(stock, snippets);
         }
 
-        public List<Plank> CalculateCuts(List<float> plankLengths)
-        {
-            if (plankLengths == null)
-                throw new ArgumentNullException(nameof(plankLengths));
-            if (!plankLengths.Any())
-                throw new ArgumentException("There are no any plank length in the request", nameof(plankLengths));
-
-            var snippets = new List<ISnippet>();
-            foreach (var snippet in _snippets)
-            {
-                if (snippet.Length > plankLengths.Max())
-                {
-                    float snippetLength;
-                    var divider = 1;
-
-                    do
-                    {
-                        snippetLength = snippet.Length;
-                        snippetLength /= ++divider;
-
-                    }
-                    while (snippetLength > plankLengths.Max());
-
-                    snippets.AddRange(Enumerable.Range(1, divider).Select(i => snippet.Clone(snippetLength)));
-                }
-                else
-                {
-                    snippets.Add(snippet);
-                }
-            }
-
-            plankLengths.Sort();
-
-            snippets.Sort();
-            snippets.Reverse();
-
-            return Calculate(plankLengths, snippets);
-        }
-
-        private static List<Plank> Calculate(IReadOnlyCollection<float> plankLengths, IEnumerable<ISnippet> snippets)
+        private static List<Plank> Calculate(Stock stock, IEnumerable<ISnippet> snippets)
         {
             var planks = new List<Plank>();
 
@@ -102,7 +70,11 @@ namespace CoronaGlass.Core
                 if (!planks.Any(plank => plank.FreeLength >= i.Length))
                 {
                     //make a plank
-                    planks.Add(new Plank(plankLengths.Max()));
+                    var maxPlank = stock.GetMaxPlank();
+                    if (maxPlank == null)
+                        throw new NoNullAllowedException(nameof(maxPlank));
+
+                    planks.Add(maxPlank);
                 }
 
                 //cut where possible
@@ -117,7 +89,7 @@ namespace CoronaGlass.Core
             foreach (var plank in planks)
             {
                 float newLength = plank.OriginalLength;
-                foreach (float possibleLength in plankLengths)
+                foreach (float possibleLength in stock.GetPlankLengths())
                 {
                     if (Math.Abs(possibleLength - plank.OriginalLength) > 0.0 && plank.OriginalLength - plank.FreeLength <= possibleLength)
                     {
@@ -125,7 +97,9 @@ namespace CoronaGlass.Core
                         break;
                     }
                 }
-                plank.OriginalLength = newLength;
+
+                stock.Add(plank.OriginalLength, 1);
+                plank.OriginalLength = stock.GetPlank(newLength).OriginalLength;
             }
 
             return planks;
