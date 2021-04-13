@@ -8,7 +8,7 @@ namespace CoronaGlass.Core.Models
         private readonly SortedList<float, uint> _warehouse = new();//Comparer<float>.Create((x, y) => y.CompareTo(x))
 
         public bool IsEmpty => !_warehouse.Any();
-        public double TotalLength => _warehouse.Sum(e => e.Key);
+        public double TotalLength => _warehouse.Sum(e => e.Key * e.Value);
         public List<float> GetPlankLengths() => _warehouse.Where(e => e.Value != 0).Select(e => e.Key).ToList();
         public void Add(float length, uint count = uint.MaxValue)
         {

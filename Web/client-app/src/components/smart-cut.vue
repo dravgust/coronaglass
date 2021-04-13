@@ -258,7 +258,7 @@
                 //}
 
                 var formData = new FormData(this.$refs.import_excel_form);
-                axios.post('api/tools/smartcut/import', formData,
+                axios.post(window._root + 'api/tools/smartcut/import', formData,
                     {
                         headers: {
                             'Content-Type': 'multipart/form-data'
@@ -286,21 +286,19 @@
                 var planks = this.planks.filter((e) => e.length > 0);
                 var snippets = this.snippets.filter((e) => e.length > 0);
 
-                var pTotal = 0;
-                if (planks.length == 1) {
-                    pTotal = planks[0].length;
-                } else if (planks.length > 1) {
-                    pTotal = planks.reduce((a, b) => a.length + b.length);
-                }
-                var sTotal = 0;
-                if (snippets.length == 1) {
-                    sTotal = snippets[0].length;
-                } else if (snippets.length > 1) {
-                    sTotal = snippets.reduce((a, b) => a.length + b.length);
-                }
 
+                var pTotal = 0;
+                if (planks.length > 0) {
+                    pTotal = planks.map((e) => e.length * (e.count > 0 ? e.count : 1000000)).reduce((a, b) => a + b);
+                }
+                console.log(pTotal);
+                var sTotal = 0;
+                if (snippets.length > 0) {
+                    sTotal = snippets.map((e) => e.length).reduce((a, b) => a + b);
+                }
+                console.log(sTotal);
                 if (pTotal <= sTotal) {
-                    alert("There are no not enough items in the stock for cutting.");
+                    window.bootbox.alert("There are no not enough items in the stock for cutting.");
                     return;
                 }
 

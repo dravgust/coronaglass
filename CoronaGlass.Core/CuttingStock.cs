@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using CoronaGlass.Core.Interfaces;
 using CoronaGlass.Core.Models;
@@ -63,7 +64,7 @@ namespace CoronaGlass.Core
         private static List<Plank> Calculate(Stock stock, IEnumerable<ISnippet> snippets)
         {
             var planks = new List<Plank>();
-
+            var unhandled = new List<ISnippet>();
             foreach (var i in snippets)
             {
                 //if no eligible planks can be found
@@ -71,10 +72,13 @@ namespace CoronaGlass.Core
                 {
                     //make a plank
                     var maxPlank = stock.GetMaxPlank();
-                    if (maxPlank == null)
-                        throw new NoNullAllowedException(nameof(maxPlank));
-
-                    planks.Add(maxPlank);
+                    if (maxPlank != null)
+                       planks.Add(maxPlank);
+                    else
+                    {
+                        unhandled.Add(i);
+                        continue;
+                    }
                 }
 
                 //cut where possible
@@ -101,7 +105,7 @@ namespace CoronaGlass.Core
                 stock.Add(plank.OriginalLength, 1);
                 plank.OriginalLength = stock.GetPlank(newLength).OriginalLength;
             }
-
+            Trace.WriteLine($"unhandled: {unhandled.ToJson()}");
             return planks;
         }
 
