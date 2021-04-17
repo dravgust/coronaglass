@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using CoronaGlass.Core.Interfaces;
 using CoronaGlass.Core.Models;
@@ -10,14 +8,14 @@ namespace CoronaGlass.Core
 {
     public class CuttingStock
     {
-        private readonly List<ISnippet> _snippets;
+        private readonly IReadOnlyList<ISnippet> _snippets;
 
         public CuttingStock(List<ISnippet> snippets)
         {
             _snippets = snippets ?? throw new ArgumentNullException(nameof(snippets)); 
         }
 
-        public List<Plank> CalculateFor(Stock stock)
+        public (List<Plank>, List<ISnippet>) CalculateFor(Stock stock)
         {
             if (stock == null)
                 throw new ArgumentNullException(nameof(stock));
@@ -30,8 +28,15 @@ namespace CoronaGlass.Core
             if(totalSnippetsLength > totalStockLength)
                 throw new Exception("There are no not enough items in the stock for cutting.");
 
-            var snippets = new List<ISnippet>();
-            foreach (var snippet in _snippets)
+            var snippets = CutOverLength(stock, _snippets);
+
+            return Calculate(stock, snippets);
+        }
+
+        private static IEnumerable<ISnippet> CutOverLength(Stock stock, IEnumerable<ISnippet> snippets)
+        {
+            var result = new List<ISnippet>();
+            foreach (var snippet in snippets.OrderByDescending(s => s.Length))
             {
                 var maxInStock = stock.GetMaxPlankLength();
                 if (snippet.Length > maxInStock)
@@ -47,25 +52,23 @@ namespace CoronaGlass.Core
                     }
                     while (snippetLength > maxInStock);
 
-                    snippets.AddRange(Enumerable.Range(1, divider).Select(i => snippet.Clone(snippetLength)));
+                    result.AddRange(Enumerable.Range(1, divider).Select(i => snippet.Clone(snippetLength)));
                 }
                 else
                 {
-                    snippets.Add(snippet);
+                    result.Add(snippet);
                 }
             }
 
-            snippets.Sort();
-            snippets.Reverse();
-
-            return Calculate(stock, snippets);
+            return result;
         }
 
-        private static List<Plank> Calculate(Stock stock, IEnumerable<ISnippet> snippets)
+        private static (List<Plank>, List<ISnippet>) Calculate(Stock stock, IEnumerable<ISnippet> snippets)
         {
             var planks = new List<Plank>();
             var unhandled = new List<ISnippet>();
-            foreach (var i in snippets)
+
+            foreach (var i in snippets.OrderByDescending(s => s.Length))
             {
                 //if no eligible planks can be found
                 if (!planks.Any(plank => plank.FreeLength >= i.Length))
@@ -105,8 +108,8 @@ namespace CoronaGlass.Core
                 stock.Add(plank.OriginalLength, 1);
                 plank.OriginalLength = stock.GetPlank(newLength).OriginalLength;
             }
-            Trace.WriteLine($"unhandled: {unhandled.ToJson()}");
-            return planks;
+
+            return (planks, unhandled);
         }
 
         //Calculate how much waste/free length is left in a list of planks

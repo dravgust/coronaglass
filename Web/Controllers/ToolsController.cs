@@ -67,7 +67,7 @@ namespace Web.Controllers
             request.Planks.ForEach(p => purePlanks.Add(p.Length - request.PlankReserve, p.Count));
 
             var planks = cuttingStock.CalculateFor(purePlanks);
-            var free = CuttingStock.GetFree(planks);
+            var free = CuttingStock.GetFree(planks.Item1);
 
             decimal columnSum = 0;
             foreach (var columnValue in request.Snippets.Select(s => s.Columns))
@@ -82,7 +82,7 @@ namespace Web.Controllers
             var clip = _clips.FirstOrDefault(c => c.Id == request.Clip);
 
             var ie = new ImportExport();
-            var data = ie.Export2(request.ProjectName, planks, free, columnSum, clip?.Weight ?? 0.0, column6300Count, columnWeight, request.PlankReserve);
+            var data = ie.Export2(request.ProjectName, planks.Item1, planks.Item2, free, columnSum, clip?.Weight ?? 0.0, column6300Count, columnWeight, request.PlankReserve);
             string result;
             await using (var sr = new MemoryStream())
             {
@@ -116,8 +116,8 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("smartcut/import")]
-        public async Task<IActionResult> Import([FromForm] FileImport request)
+        [Route("smartcut/import/snippets")]
+        public async Task<IActionResult> ImportSnippets([FromForm] FileImport request)
         {
             var ie = new ImportExport();
 
@@ -129,6 +129,22 @@ namespace Web.Controllers
             }
 
             return new JsonResult(new { snippets = ie.ImportSnippets(snippets) });
+        }
+
+        [HttpPost]
+        [Route("smartcut/import/planks")]
+        public async Task<IActionResult> ImportPlanks([FromForm] FileImport request)
+        {
+            var ie = new ImportExport();
+
+            byte[] planks;
+            await using (var ms = new MemoryStream())
+            {
+                await request.ImportExcel.CopyToAsync(ms);
+                planks = ms.ToArray();
+            }
+
+            return new JsonResult(new { planks = ie.ImportStock(planks) });
         }
     }
 }

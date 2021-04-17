@@ -42,8 +42,23 @@
                                     </div>
                                 </div>
                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
-                                <h3 class="kt-section__title">2. Состав:</h3>
+                                <h3 class="kt-section__title kt-mb-0">2. Состав:</h3>
                                 <div class="kt-section__body">
+                                    <div class="form-group row kt-mb-0">
+                                        <div class="col-lg-12">
+
+                                            <form ref="planks_excel_form" method="POST" enctype="multipart/form-data">
+                                                <span class="float-right">
+                                                    <span class="btn btn-outline-hover-info btn-elevate btn-icon fileinput-button" title="Загрузить Excel">
+                                                        <i class="flaticon-file-1" aria-hidden="true"></i>
+                                                        <input type="file" ref="planks_excel_file" name="ImportExcel" @input="onPlanksExcelChange" />
+                                                    </span>
+                                                </span>
+                                                <input type="submit" style="display: none" />
+                                            </form>
+                                        </div>
+
+                                    </div>
                                     <div class="form-group row">
                                         <div class="v-content container-fluid">
                                             <div class="table-editable">
@@ -57,11 +72,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody v-bind="{style:{height:plankTableHeight}}">
-                                                        <tr v-for="(row, index) in planks" :id="`snippet-${index}`" v-bind:key="row.id">
-                                                            <td style="width: 10%;">{{row.id}}</td>
+                                                        <tr v-for="(row, index) in planks" :id="`plank-${index}`" v-bind:key="row.id">
+                                                            <td style="width: 10%;">{{index + 1}}</td>
                                                             <editableTD v-model="row.length" />
                                                             <editableTD v-model="row.count" />
-                                                            <td style="width:10%;"><span @click="plankRemove(row)" v-bind:style="{cursor: 'pointer'}"><i class="fa fa-trash"></i></span></td>
+                                                            <td style="width:10%;"><span @click="plankRemove(index)" v-bind:style="{cursor: 'pointer'}"><i class="fa fa-trash"></i></span></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -78,18 +93,18 @@
                                     </div>
                                 </div>
                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
-                                <h3 class="kt-section__title">3. Отрезки:</h3>
+                                <h3 class="kt-section__title kt-mb-0">3. Отрезки:</h3>
                                 <div class="kt-section__body">
 
-                                    <div class="form-group row">
+                                    <div class="form-group row kt-mb-0">
                                         <div class="col-lg-12">
                                             <!--<button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" title="Загрузить Excel"><i class="flaticon-file-1"></i></button>-->
 
-                                            <form ref="import_excel_form" method="POST" enctype="multipart/form-data">
+                                            <form ref="snippets_excel_form" method="POST" enctype="multipart/form-data">
                                                 <span class="float-right">
                                                     <span class="btn btn-outline-hover-info btn-elevate btn-icon fileinput-button" title="Загрузить Excel"> 
                                                         <i class="flaticon-file-1" aria-hidden="true"></i>
-                                                        <input type="file" ref="import_excel_file" name="ImportExcel" @input="onExcelFileChange"/>
+                                                        <input type="file" ref="snippets_excel_file" name="ImportExcel" @input="onSnippetsExcelChange"/>
                                                     </span>
                                                 </span>
                                                 <input type="submit" style="display: none"/>
@@ -181,7 +196,7 @@
         data: function () {
             return {
                 name: '',
-                planks: [{ id: 1, length: 7000 }],
+                planks: [{ id: 1, length: 7000, count: '' }],
                 snippets: [{ id: 1, length: '', apartment: '', floor: '', columns: '' }],
                 clip: 100,
                 excelFile: '',
@@ -200,7 +215,7 @@
                 return (window.innerHeight * 0.35) + 'px';
             },
             resultTabHeight: function () {
-                return 694 + (this.planks.length + this.snippets.length) * 30  + 'px';
+                return 677 + (this.planks.length + this.snippets.length) * 30  + 'px';
             },
             validated() {
                 if (this.snippets.filter((i) => +i.length > 0).length > 0) {
@@ -226,8 +241,13 @@
                     console.log('init.error:', e);
                 }
             },
-            plankRemove: function (item) {
-                this.planks = this.planks.filter((i) => i.id !== item.id);
+            plankRemove: function (index) {
+                const removeByIndex = (list, index) =>
+                    [
+                        ...list.slice(0, index),
+                        ...list.slice(index + 1)
+                    ];
+                this.planks = removeByIndex(this.planks, index);
             },
             plankAdd: function () {
                 this.planks.push({ id: this.planks.length+1, length: '' });
@@ -247,8 +267,8 @@
                 //var iFrameBody = this.$refs.resiframe.contentWindow.document;
                 this.$refs.resiframe.contentWindow.print();      
             },
-            onExcelFileChange: function () {
-                this.excelFile = this.$refs.import_excel_file.files[0];
+            onSnippetsExcelChange: function () {
+                this.excelFile = this.$refs.snippets_excel_file.files[0];
                 //var name = this.excelFile.name;//"cut_optimization (1).xlsx"
                 //var size = this.excelFile.size;// 4453
                 //var type = this.excelFile.type;//"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -257,8 +277,8 @@
 
                 //}
 
-                var formData = new FormData(this.$refs.import_excel_form);
-                axios.post(window._root + 'api/tools/smartcut/import', formData,
+                var formData = new FormData(this.$refs.snippets_excel_form);
+                axios.post(window._root + 'api/tools/smartcut/import/snippets', formData,
                     {
                         headers: {
                             'Content-Type': 'multipart/form-data'
@@ -269,6 +289,30 @@
                         if (response.data.snippets) {
                             this.snippets = response.data.snippets;
                             this.$refs.import_excel_file.value = '';
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error.response.config.url, ": ", error.response.data.message);
+                        window.bootbox.alert("Error on import file");
+                    });
+
+            },
+            onPlanksExcelChange: function () {
+                this.excelFile = this.$refs.planks_excel_file.files[0];
+  
+                var formData = new FormData(this.$refs.planks_excel_form);
+                axios.post(window._root + 'api/tools/smartcut/import/planks', formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                )
+                    .then((response) => {
+                        if (response.data.planks) {
+                            this.planks = response.data.planks;
+                            console.log(this.planks);
+                            this.$refs.planks_excel_file.value = '';
                         }
                     })
                     .catch((error) => {

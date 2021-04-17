@@ -6,8 +6,8 @@ services:
      image: nginx:stable
      container_name: nginx
      ports:
-       - "80:80"
-       - "443:443"
+       - "8099:80"
+       - "44399:443"
      volumes:
        #- ./Web/wwwroot:/var/www/html
        #- ./Nginx/conf.d:/etc/nginx/conf.d

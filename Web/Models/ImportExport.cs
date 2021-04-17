@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using CoronaGlass.Core.Interfaces;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
@@ -76,6 +77,44 @@ namespace VralumGlassWeb.Data
                         }
                     }
                     catch(Exception e)
+                    {
+                        Trace.TraceError(e.Message);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public List<StockItem> ImportStock(byte[] data)
+        {
+            var result = new List<StockItem>();
+            using (var ms = new MemoryStream(data))
+            {
+                var wb = new XSSFWorkbook(ms);
+                ISheet excelSheet = wb.GetSheetAt(0);
+
+                for (var i = 0; i <= excelSheet.LastRowNum; i++)
+                {
+                    try
+                    {
+                        IRow row = excelSheet.GetRow(i);
+                        if (float.TryParse(row.GetCell(0).ToString(), out var length))
+                        {
+                            uint count = 0;
+                            var countStr = row.GetCell(1)?.ToString();
+                            if (!string.IsNullOrEmpty(countStr))
+                            {
+                                count = uint.TryParse(countStr, out var c) ? c : 0;
+                            }
+                            result.Add(new StockItem
+                            {
+                                Length = length,
+                                Count = count
+                            });
+                        }
+                    }
+                    catch (Exception e)
                     {
                         Trace.TraceError(e.Message);
                     }
@@ -219,7 +258,7 @@ namespace VralumGlassWeb.Data
         //    return styleSheet;
         //}
 
-        public byte[] Export2(string projectName, IList<Plank> planks, float free, decimal columnSum, double clipWeight, decimal column6300Count, double columnWeight, int plankReserve)
+        public byte[] Export2(string projectName, IList<Plank> planks, IList<ISnippet> unhandled, float free, decimal columnSum, double clipWeight, decimal column6300Count, double columnWeight, int plankReserve)
         {
             //var styleSheet = GenerateStylesheet();
 
@@ -377,6 +416,15 @@ namespace VralumGlassWeb.Data
                     cell = row.CreateCell(0); cell.SetCellValue("Weight:"); cell.CellStyle = boldStyle;
                     cell = row.CreateCell(1); cell.SetCellValue($"{((totalLength / 1000) * clipWeight):.00} kg"); cell.CellStyle = alignmentStyle;
                     cell = row.CreateCell(3); cell.SetCellValue($"{((free / 1000) * clipWeight):.00} kg"); cell.CellStyle = alignmentStyle;
+                }
+
+                if (unhandled.Any())
+                {
+                    row = excelSheet.CreateRow(rowNumber++);
+                    row = excelSheet.CreateRow(rowNumber);
+                    cell = row.CreateCell(0); cell.SetCellValue("Unhandled:"); cell.CellStyle = boldStyle;
+                    cell = row.CreateCell(2); cell.SetCellValue(string.Join(", ", unhandled)); cell.CellStyle = sStyleRed;
+
                 }
 
                 workbook.Write(fs);

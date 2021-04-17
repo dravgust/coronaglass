@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CoronaGlass.Core.Models
 {
-    public class Stock
+    public class Stock : IEnumerable<(float, uint)>
     {
         private readonly SortedList<float, uint> _warehouse = new();//Comparer<float>.Create((x, y) => y.CompareTo(x))
 
@@ -43,6 +44,21 @@ namespace CoronaGlass.Core.Models
             _warehouse[length]--;
             return new Plank(length);
 
+        }
+
+        public IEnumerator<(float, uint)> GetEnumerator()
+        {
+            foreach (var (key, value) in _warehouse)
+            {
+                if(value == 0) continue;
+                yield return (key, value);
+
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

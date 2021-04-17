@@ -10,51 +10,41 @@ namespace CoronaGlass.Test
 {
 	public class CuttingStockTests
 	{
-        public class MyClass
-        {
-            public List<float> Planks { get; set; } = new List<float>();
+        private List<ISnippet> _snippets;
 
-            public List<TestSnippet> Snippets { get; set; } = new List<TestSnippet>();
-        }
+        private Stock _stock;
+
+        private int plankReserve = 50;
 
 		[SetUp]
 		public void Setup()
-		{
+        {
+            var list = new List<float>
+            {
+                1825, 6450, 6450, 3022, 1813, 1654, 5328, 6450, 1646, 1808, 6450, 6450, 3008, 1813, 1644, 5328, 6450,
+                1659, 1820, 6450, 6450, 2974, 1812, 1649, 6450, 5322, 1646, 1817, 6450, 6450, 2982, 1812, 1653, 6450,
+                5299, 1660, 1811, 6450, 6450, 2979, 1801, 1657, 5279, 6450, 1656, 1832, 6450, 6450, 3010, 1812, 1665,
+                5308, 6450, 1669, 1830, 6450, 6450, 2993, 1806, 1663, 6450, 5303, 1666, 1813, 6450, 6450, 2975, 1819,
+                1662, 6450, 5302, 1671, 2708, 2913, 5950, 6850, 6850, 6850, 4382, 5950, 2900, 2703, 4150, 3535,
+            };
 
+            _snippets = new List<ISnippet>();
+            foreach (var e in list)
+            {
+                _snippets.Add(new TestSnippet(e) { Apartment = 1, Floor = 1 });
+            }
+
+            _stock = new Stock { { 6000 - plankReserve, 22 }, { 6500 - plankReserve, 31 }, { 6900 - plankReserve, 3 } };
         }
 
 		[Test]
 		public void Test1()
         {
-            var plankReserve = 50;
-            var desiredLengths = new List<(float length, int appartment, int floor)>
-            {
-                (1870, 4, 1), (5500, 4, 1), (2170, 4, 1), (1450, 5, 1), (360, 5, 1), (10450, 5, 1), (1450, 6, 1), (360, 6, 1), (2170, 7, 1), (4580, 7, 1), (2170, 7, 1), 
-                (1870, 8, 2), (5500, 8, 2), (2170, 8, 2), (1450, 9, 2), (360, 9, 2), (10450, 9, 2), (1450, 10, 2), (360, 10 ,2), (2170, 11, 2), (4580, 11, 2), (2170, 11, 2), 
-                (1870, 12, 3), (5500, 12, 3), (2170, 12, 3), (2600, 13, 3), (9020, 13, 3), (2770, 14, 3), (3910, 14, 3), (470, 14, 3), (2170, 15, 3), (4580, 15, 3), (2170, 15, 3), 
-                (1870, 16, 4), (5500, 16, 4), (2170, 16, 4), (2770, 17, 4), (3950, 17, 4), (2770, 18, 4), (3910, 18, 4), (470, 18, 4), (2170, 19, 4), (4580, 19, 4), (2170, 19, 4), 
-                (1870, 20, 5), (5500, 20, 5), (2170, 20, 5), (2770, 21, 5), (3950, 21, 5), (2770, 22, 5), (3910, 22, 5), (470, 22, 5), (2170, 23, 5), (4580, 23, 5), (2170, 23, 5),
-                (1870, 24, 6), (5500, 24, 6), (2170, 24, 6), (2770, 25, 6), (3950, 25, 6), (2770, 26, 6), (3910, 26, 6), (470, 26, 6), (2170, 27, 6), (4580, 27, 6), (2170, 27, 6),
-                (1870, 28, 7), (5500, 28, 7), (2170, 28, 7), (330, 29, 7), (1430, 29, 7), (3750, 29, 7), (330, 30, 7), (1430, 30, 7), (6150, 30, 7), (1600, 31, 7), (1820, 31, 7), (3680, 31, 7), (5440, 31, 7),
-                (1870, 32, 8), (5500, 32, 8), (2170, 32, 8), (330, 33, 8), (1430, 33, 8), (3750, 33, 8), (330, 34, 8), (1430, 34, 8), (6150, 34, 8), (2170, 35, 8), (4580, 35, 8), (2170, 35, 8),
-                (1870, 36, 9), (10220, 36, 9), (2170, 36, 9), (9600, 37, 9), (1100, 37, 9), (13400, 38, 9), (1100, 38, 9),  (2200, 39, 9), (12220, 39, 9), (2070, 39, 9), (400, 39, 9)
-            };
+            var cuttingStockJob = new CuttingStock(_snippets);
 
-            var snippets = new List<ISnippet>();
-            foreach (var (length, apartment, floor) in desiredLengths)
-            {
-                snippets.Add(new TestSnippet(length) { Apartment = apartment, Floor = floor});
-            }
-
-            var cuttingStockJob = new CuttingStock(snippets);
-
-            //The possible lengths of plank //
-            var possibleLengths = new Stock();
-            //possibleLengths.Add(6000 - plankReserve);
-            //possibleLengths.Add(6900 - plankReserve);
-            possibleLengths.Add(7000 - plankReserve, 1);
-
-            var planks = cuttingStockJob.CalculateFor(possibleLengths);
+            var result = cuttingStockJob.CalculateFor(_stock);
+            var planks = result.Item1;
+            var unused = result.Item2;
 
             Console.WriteLine($"Use plank sizes: [{string.Join(", ", planks.Select(p => p.OriginalLength + plankReserve).Distinct())}]");
             Console.WriteLine();
@@ -72,11 +62,15 @@ namespace CoronaGlass.Test
             }
 
             var waste = CuttingStock.GetFree(planks);
-            Console.WriteLine("\r\nFinished with {0} waste => {1:#.##}%", waste, waste * 100 / desiredLengths.Sum(i => i.length));
+            Console.WriteLine("\r\nFinished with {0} waste => {1:#.##}%", waste, waste * 100 / _snippets.Sum(i => i.Length));
+
+            Console.WriteLine($"Unused: {string.Join(" ,", unused.Select(i => i.Length))}");
+            Console.WriteLine($"Stock: {string.Join(" ,", _stock.Select(i => $"{i.Item1}:{i.Item2}"))}");
+
 
             Assert.Pass();
 		}
-	}
+    }
 
     public class TestSnippet : Snippet
     {
