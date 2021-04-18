@@ -101,16 +101,11 @@ namespace VralumGlassWeb.Data
                         IRow row = excelSheet.GetRow(i);
                         if (float.TryParse(row.GetCell(0).ToString(), out var length))
                         {
-                            uint count = 0;
                             var countStr = row.GetCell(1)?.ToString();
-                            if (!string.IsNullOrEmpty(countStr))
-                            {
-                                count = uint.TryParse(countStr, out var c) ? c : 0;
-                            }
                             result.Add(new StockItem
                             {
                                 Length = length,
-                                Count = count
+                                Count = uint.TryParse(countStr, out var c) ? countStr : ""
                             });
                         }
                     }

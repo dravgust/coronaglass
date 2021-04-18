@@ -47,18 +47,21 @@
                                     <div class="form-group row kt-mb-0">
                                         <div class="col-lg-12">
 
-                                            <form ref="planks_excel_form" method="POST" enctype="multipart/form-data">
-                                                <span class="float-right">
+                                            <div class="btn-group float-right">
+
+                                                <form ref="planks_excel_form" method="POST" enctype="multipart/form-data">
                                                     <span class="btn btn-outline-hover-info btn-elevate btn-icon fileinput-button" title="Загрузить Excel">
                                                         <i class="flaticon-file-1" aria-hidden="true"></i>
                                                         <input type="file" ref="planks_excel_file" name="ImportExcel" @input="onPlanksExcelChange" />
                                                     </span>
-                                                </span>
-                                                <input type="submit" style="display: none" />
-                                            </form>
+                                                    <input type="submit" style="display: none" />
+                                                </form>
+                                                <button type="button" class="btn btn-outline-hover-danger btn-elevate btn-icon" @click="clearPlanks" title="Очистить"><i class="flaticon-delete"></i></button>
+                                            </div>
+
                                         </div>
 
-                                    </div>
+                                        </div>
                                     <div class="form-group row">
                                         <div class="v-content container-fluid">
                                             <div class="table-editable">
@@ -98,17 +101,18 @@
 
                                     <div class="form-group row kt-mb-0">
                                         <div class="col-lg-12">
-                                            <!--<button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" title="Загрузить Excel"><i class="flaticon-file-1"></i></button>-->
+                                            <div class="btn-group float-right">
 
-                                            <form ref="snippets_excel_form" method="POST" enctype="multipart/form-data">
-                                                <span class="float-right">
-                                                    <span class="btn btn-outline-hover-info btn-elevate btn-icon fileinput-button" title="Загрузить Excel"> 
+                                                <form ref="snippets_excel_form" method="POST" enctype="multipart/form-data">
+                                                    <span class="btn btn-outline-hover-info btn-elevate btn-icon fileinput-button" title="Загрузить Excel">
                                                         <i class="flaticon-file-1" aria-hidden="true"></i>
-                                                        <input type="file" ref="snippets_excel_file" name="ImportExcel" @input="onSnippetsExcelChange"/>
+                                                        <input type="file" ref="snippets_excel_file" name="ImportExcel" @input="onSnippetsExcelChange" />
                                                     </span>
-                                                </span>
-                                                <input type="submit" style="display: none"/>
-                                            </form>
+                                                    <input type="submit" style="display: none" />
+                                                </form>
+                                                <button type="button" class="btn btn-outline-hover-danger btn-elevate btn-icon" @click="clearSnippets" title="Очистить"><i class="flaticon-delete"></i></button>
+                                            </div>
+                                            
                                         </div>
 
                                     </div>
@@ -160,25 +164,7 @@
                 <!--<div class="kt-space-20"></div>-->
 
                 <div class="row">
-
-                    <!--end::Portlet-->
-                    <!--begin::Portlet-->
-                    <div class="kt-portlet">
-                        <div class="kt-portlet__head">
-                            <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title"></h3>
-                            </div>
-                            <div class="kt-portlet__head-toolbar">
-                                <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" @click="printResult" title="Распечатать"><i class="flaticon2-print"></i></button>
-                            </div>
-                            </div>
-                            <div class="kt-portlet__body">
-                                <iframe ref="resiframe" :srcdoc="result" style=" border:none;overflow:hidden;" v-bind="{style:{'min-height':resultTabHeight}}"></iframe>
-                            </div>
-                    </div>
-
-                    <!--end::Portlet-->
-
+                     <smartCutResult :minSize="resultTabHeight" :content="result"/>
                 </div>
 
 
@@ -190,6 +176,7 @@
 <script>
     import axios from "axios";
     import editableTD from './editable-td.vue';
+    import smartCutResult from './smart-cut-result.vue';
 
     export default {
         name: 'SmartCut',
@@ -200,11 +187,36 @@
                 snippets: [{ id: 1, length: '', apartment: '', floor: '', columns: '' }],
                 clip: 100,
                 excelFile: '',
-                result: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>CuttingStock</title>	<style type="text/css">body{overflow:hidden;} .watermark{color:#d0d0d0;font-size:70pt;opacity: 0.3;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);position:absolute;width:100%;height:100%;margin:0;z-index:-1;left:25%;top:0;}</style><style>body {margin: 0;padding: 0;width: 100%;}h5 {font-size: 20px;font-weight: bold;font-family: monospace;text-align: center;width: fit-content;margin: 10px auto;border-bottom-width: 4px;border-bottom-style: solid;border-bottom-color: transparent;padding-bottom: 3px;}table {width: 100%;table-layout: fixed;border-collapse: collapse;}td {text-align: left;vertical-align: bottom;padding: 0px;color: black;background-color: transparent;border-width: 1px;border-style: solid;border-color: lightgray;border-collapse: collapse;white-space: nowrap;}</style></head><body></head><div class="watermark"><p>Corona Glass Technologies</p></div><h5 ></h5><div style="position: relative;"><table><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td></tr> <tr><td colspan="1" rowspan="1" style="height: 20px; width: auto;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(255, 255, 255); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: bold; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(0, 128, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: bold; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: thin 1px 1px 1px; border-style: solid solid double solid; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: bold; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: bold; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(255, 255, 255); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: bold; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px; color: rgb(255, 255, 255); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: bold; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(255, 255, 255); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: bold; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(0, 128, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(255, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(255, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: bold; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: thin 1px 1px 1px; border-style: solid solid double solid; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: thin 1px 1px 1px; border-style: solid solid double solid; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: thin 1px 1px 1px; border-style: solid solid double solid; text-align: center; vertical-align: bottom;"></td></tr><tr><td colspan="1" rowspan="1" style="height: 20px; width: auto; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: bold; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 273.4375px;"></td><td colspan="1" rowspan="1" style="height: 20px; width: 136.71875px; color: rgb(0, 0, 0); font-size: 14.666666666666666px; font-family: \'Calibri\', serif; font-weight: normal; font-style: normal; text-decoration: none; border-width: 1px 1px 1px 1px; border-style: solid solid solid solid; border-color: lightgray lightgray lightgray lightgray; text-align: center; vertical-align: bottom;"></td></tr></table></div></body></html>'
+                result: ''
+            }
+        },
+        mounted() {
+            if (localStorage.planks) {            
+                var value = JSON.parse(localStorage.planks);
+                if (value.length > 0) {
+                    this.planks = value;
+                }
+            }
+            if (localStorage.snippets) {
+                var value = JSON.parse(localStorage.snippets);
+                if (value.length > 0) {
+                    this.snippets = value;
+                }
+            }
+        },
+        watch: {
+            planks(data) {
+                var value = JSON.stringify(data);
+                localStorage.planks = value;
+            },
+            snippets(data) {
+                var value = JSON.stringify(data);
+                localStorage.snippets = value;
             }
         },
         components: {
-            editableTD
+            editableTD,
+            smartCutResult
         },
         computed: {
             plankTableHeight: function () {
@@ -215,7 +227,7 @@
                 return (window.innerHeight * 0.35) + 'px';
             },
             resultTabHeight: function () {
-                return 677 + (this.planks.length + this.snippets.length) * 30  + 'px';
+                return 677 + ((this.planks.length + this.snippets.length) * 29.78)  + 'px';
             },
             validated() {
                 if (this.snippets.filter((i) => +i.length > 0).length > 0) {
@@ -241,6 +253,9 @@
                     console.log('init.error:', e);
                 }
             },
+            isNumeric: function (n) {
+                return isFinite(n) && parseFloat(n) == n;
+            },
             plankRemove: function (index) {
                 const removeByIndex = (list, index) =>
                     [
@@ -248,6 +263,9 @@
                         ...list.slice(index + 1)
                     ];
                 this.planks = removeByIndex(this.planks, index);
+            },
+            clearPlanks: function () {
+                this.planks = [{ id: 1, length: 7000, count: '' }];
             },
             plankAdd: function () {
                 this.planks.push({ id: this.planks.length+1, length: '' });
@@ -263,9 +281,8 @@
             snippetAdd: function () {
                 this.snippets.push({ id: this.snippets.length+1, length: '', apartment: '', floor: '', columns: '' });
             },
-            printResult: function () {
-                //var iFrameBody = this.$refs.resiframe.contentWindow.document;
-                this.$refs.resiframe.contentWindow.print();      
+            clearSnippets: function () {
+                this.snippets = [{ id: 1, length: '', apartment: '', floor: '', columns: '' }];
             },
             onSnippetsExcelChange: function () {
                 this.excelFile = this.$refs.snippets_excel_file.files[0];
@@ -288,11 +305,11 @@
                     .then((response) => {
                         if (response.data.snippets) {
                             this.snippets = response.data.snippets;
-                            this.$refs.import_excel_file.value = '';
+                            this.$refs.snippets_excel_file.value = '';
                         }
                     })
                     .catch((error) => {
-                        console.log(error.response.config.url, ": ", error.response.data.message);
+                        console.log(error);
                         window.bootbox.alert("Error on import file");
                     });
 
@@ -327,18 +344,40 @@
                 if (!projectName) {
                     projectName = "Corona Glass Project";
                 }
-                var planks = this.planks.filter((e) => e.length > 0);
-                var snippets = this.snippets.filter((e) => e.length > 0);
+
+                var planks = this.planks.filter((e) => {
+                    var str = String(e.length).trim();
+                    if (!str) return false;
+                    var value = parseFloat(str);
+                    if (!this.isNumeric(value)) {
+                        var error = `Invalid plank length ({str} is not number in line {str})`;
+                        console.log(error);
+                        return false;
+                    }
+                    return value > 0
+                });
+
+                var snippets = this.snippets.filter((e) => {
+                    var str = String(e.length).trim();
+                    if (!str) return false;
+                    var value = parseFloat(str);
+                    if (!this.isNumeric(value)) {
+                        var error = `Invalid snippet length ({str} is not number in line {str})`;
+                        console.log(error);
+                        return false;
+                    }
+                    return value > 0
+                });
 
 
                 var pTotal = 0;
                 if (planks.length > 0) {
-                    pTotal = planks.map((e) => e.length * (e.count > 0 ? e.count : 1000000)).reduce((a, b) => a + b);
+                    pTotal = planks.map((e) => parseFloat(e.length * (e.count > 0 ? e.count : 1000000))).reduce((a, b) => a + b);
                 }
                 console.log(pTotal);
                 var sTotal = 0;
                 if (snippets.length > 0) {
-                    sTotal = snippets.map((e) => e.length).reduce((a, b) => a + b);
+                    sTotal = snippets.map((e) => parseFloat(e.length)).reduce((a, b) => a + b);
                 }
                 console.log(sTotal);
                 if (pTotal <= sTotal) {

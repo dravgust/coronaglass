@@ -38,7 +38,7 @@ namespace Web.Models
         public float Length { set; get; }
 
         [JsonProperty("count")]
-        public uint Count { set; get; }
+        public string Count { set; get; }
     }
 
     public class FileImport
