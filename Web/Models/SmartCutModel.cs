@@ -10,7 +10,14 @@ namespace Web.Models
     public class SmartCutModel
     {
         [JsonProperty("clips")]
-        public List<Clip> Clips { set; get; }
+        public List<Clip> Clips { set; get; } = new()
+        {
+            new Clip(83, 2.625),
+            new Clip(100, 2.42),
+            new Clip(116, 2.677),
+            new Clip(120, 2.6),
+            new Clip(130, 2.935)
+        };
 
         [JsonProperty("clip")]
         public int Clip { set; get; }

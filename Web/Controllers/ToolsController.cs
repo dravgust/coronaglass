@@ -11,11 +11,13 @@ using CoreLibrary.XLSX;
 using CoronaGlass.Core;
 using CoronaGlass.Core.Interfaces;
 using CoronaGlass.Core.Models;
+using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using VralumGlassWeb.Data;
+using Web.Features.Tools;
 using Web.Models;
 
 namespace Web.Controllers
@@ -26,21 +28,14 @@ namespace Web.Controllers
     {
         private readonly ILogger<ToolsController> _logger;
         private readonly IWebHostEnvironment _environment;
+        private readonly IMediator _mediator;
         private const string SFileName = @"optimization.xlsx";
 
-        private readonly List<Clip> _clips = new()
-        {
-            new Clip(83, 2.625),
-            new Clip(100, 2.42),
-            new Clip(116, 2.677),
-            new Clip(120, 2.6),
-            new Clip(130, 2.935)
-        };
-
-        public ToolsController(ILogger<ToolsController> logger, IWebHostEnvironment environment)
+        public ToolsController(ILogger<ToolsController> logger, IWebHostEnvironment environment, IMediator mediator)
         {
             this._logger = logger;
             this._environment = environment;
+            this._mediator = mediator;
         }
 
         [HttpGet]
@@ -49,49 +44,19 @@ namespace Web.Controllers
         {
             var response = await Task.FromResult(new SmartCutModel
             {
-                Planks = new List<StockItem> { new() { Length = 7000 } },
-                Clips = _clips
+                Planks = new List<StockItem> { new() { Length = 7000 } }
             });
             return new JsonResult(response);
         }
 
         [HttpPost]
         [Route("smartcut/run")]
-        public async Task<IActionResult> Run(SmartCutModel request, CancellationToken token)
+        public async Task<IActionResult> Run(RunOptimizationQuery query, CancellationToken token)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            //if (!ModelState.IsValid)
+            //    return BadRequest(ModelState);
 
-            var cuttingStock = new CuttingStock(request.Snippets.Cast<ISnippet>().ToList());
-            var purePlanks = new Stock();
-
-            request.Planks.ForEach(p => purePlanks.Add(p.Length - request.PlankReserve, uint.TryParse(p.Count, out var count) ? count : uint.MaxValue));
-
-            var planks = cuttingStock.CalculateFor(purePlanks);
-            var free = CuttingStock.GetFree(planks.Item1);
-
-            decimal columnSum = 0;
-            foreach (var columnValue in request.Snippets.Select(s => s.Columns))
-            {
-                if (!string.IsNullOrEmpty(columnValue) && int.TryParse(columnValue, out var column))
-                {
-                    columnSum += column;
-                }
-            }
-            var column6300Count = Math.Ceiling(columnSum / 6);
-            const double columnWeight = 1.861;
-            var clip = _clips.FirstOrDefault(c => c.Id == request.Clip);
-
-            var ie = new ImportExport();
-            var data = ie.Export2(request.ProjectName, planks.Item1, planks.Item2, free, columnSum, clip?.Weight ?? 0.0, column6300Count, columnWeight, request.PlankReserve);
-            string result;
-            await using (var sr = new MemoryStream())
-            {
-                await sr.WriteAsync(data, 0, data.Length, token);
-                result = XlsxToHtmlConverter.ConvertXlsx(sr, nameof(CuttingStock));
-            }
-
-            return Ok(result);
+            return Ok(await _mediator.Send(query, token));
         }
 
         [HttpGet]
