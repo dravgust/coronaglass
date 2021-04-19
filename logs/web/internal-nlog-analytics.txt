@@ -6,3 +6,23 @@
 2021-04-18 07:13:30.4277 Info Adding target FileTarget(Name=ownFile-web)
 2021-04-18 07:13:30.4277 Info Adding target ConsoleTarget(Name=lifetimeConsole)
 2021-04-18 07:13:30.4488 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=67, FilePath=/app/bin/Debug/net5.0/nlog.config
+2021-04-19 05:19:06.2273 Info Message Template Auto Format enabled
+2021-04-19 05:19:06.2458 Info Loading assembly: NLog.Web.AspNetCore
+2021-04-19 05:19:06.2761 Info Adding target FileTarget(Name=allfile)
+2021-04-19 05:19:06.2795 Info Adding target FileTarget(Name=ownFile-web)
+2021-04-19 05:19:06.2795 Info Adding target ConsoleTarget(Name=lifetimeConsole)
+2021-04-19 05:19:06.3006 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=67, FilePath=/app/bin/Debug/net5.0/nlog.config
+2021-04-19 05:20:56.1869 Info AppDomain Shutting down. Logger closing...
+2021-04-19 05:20:56.1869 Info Logger has been shut down.
+2021-04-19 05:21:23.6241 Info Message Template Auto Format enabled
+2021-04-19 05:21:23.6313 Info Loading assembly: NLog.Web.AspNetCore
+2021-04-19 05:21:23.6619 Info Adding target FileTarget(Name=allfile)
+2021-04-19 05:21:23.6619 Info Adding target FileTarget(Name=ownFile-web)
+2021-04-19 05:21:23.6675 Info Adding target ConsoleTarget(Name=lifetimeConsole)
+2021-04-19 05:21:23.6862 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=67, FilePath=/app/bin/Debug/net5.0/nlog.config
+2021-04-19 12:02:55.0605 Info Message Template Auto Format enabled
+2021-04-19 12:02:55.0668 Info Loading assembly: NLog.Web.AspNetCore
+2021-04-19 12:02:55.0937 Info Adding target FileTarget(Name=allfile)
+2021-04-19 12:02:55.0966 Info Adding target FileTarget(Name=ownFile-web)
+2021-04-19 12:02:55.0966 Info Adding target ConsoleTarget(Name=lifetimeConsole)
+2021-04-19 12:02:55.1152 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=67, FilePath=/app/bin/Debug/net5.0/nlog.config

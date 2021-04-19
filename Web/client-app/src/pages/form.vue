@@ -3,10 +3,10 @@
         <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
 
             <div class="kt-subheader   kt-grid__item" id="kt_subheader">
-                <div class="kt-container ">
+                <div class="kt-container">
                     <div class="kt-subheader__main">
                         <h3 class="kt-subheader__title">
-                            Certificate form
+                            Certificate
                         </h3>
                         <span class="kt-subheader__separator kt-hidden"></span>
                         <div class="kt-subheader__breadcrumbs">
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+            <div class="kt-container kt-padding-0-mobile kt-grid__item kt-grid__item--fluid">
                 <div class="row row-no-padding">
                     <div class="col-lg-12">
                         <!--end::Portlet-->
@@ -57,90 +57,85 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="kt-space-20"></div>
+
                                     <div class="form-group row">
-                                        <label for="example-text-input" class="col-2 col-form-label">Text</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                                        <label class="col-md-2 kt-hidden-mobile col-form-label">First Name</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            <input class="form-control" type="text" placeholder="First Name" required v-model="fname">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="example-search-input" class="col-2 col-form-label">Search</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="search" value="How do I shoot web" id="example-search-input">
+                                        <label  class="col-md-2 kt-hidden-mobile col-form-label">Last Name</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            <input class="form-control" type="text" placeholder="Last Name" required v-model="lname">
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group row">
+                                        <label for="example-password-input" class="col-md-2 kt-hidden-mobile col-form-label">Phone</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="la la-phone"></i>
+                                                    </span>
+                                                </div>
+                                                <input class="form-control form-control-danger" placeholder="Phone" type="tel" required v-model="phone">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="example-password-input" class="col-md-2 kt-hidden-mobile col-form-label">Email</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="la la-envelope"></i>
+                                                    </span>
+                                                </div>
+                                                <input class="form-control form-control-danger" placeholder="Email" type="email" required v-model="email">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="example-password-input" class="col-md-2 kt-hidden-mobile col-form-label">Address</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="la la-home"></i>
+                                                    </span>
+                                                </div>
+                                                <input class="form-control" type="text" placeholder="Address" required v-model="address">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="example-password-input" class="col-md-2 kt-hidden-mobile col-form-label">Project Name</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            <input class="form-control" type="text" placeholder="Project Name" v-model="pname">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="example-email-input" class="col-2 col-form-label">Email</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="email" value="bootstrap@example.com" id="example-email-input">
+                                        <label for="example-password-input" class="col-md-2 kt-hidden-mobile col-form-label">Constructor</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            <input class="form-control" type="text" required placeholder="Constructor" v-model="constructor">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="example-url-input" class="col-2 col-form-label">URL</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="url" value="https://getbootstrap.com" id="example-url-input">
+                                        <label for="example-date-input" class="col-md-2 col-sm-12col-form-label">Key Received</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            <input class="form-control" type="date" min="2020-01-01" v-model="key">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="example-tel-input" class="col-2 col-form-label">Telephone</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-password-input" class="col-2 col-form-label">Password</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="password" value="hunter2" id="example-password-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-number-input" class="col-2 col-form-label">Number</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="number" value="42" id="example-number-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-date-input" class="col-2 col-form-label">Date</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-month-input" class="col-2 col-form-label">Month</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="month" value="2011-08" id="example-month-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-week-input" class="col-2 col-form-label">Week</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="week" value="2011-W33" id="example-week-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-time-input" class="col-2 col-form-label">Time</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="time" value="13:45:00" id="example-time-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-color-input" class="col-2 col-form-label">Color</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="color" value="#563d7c" id="example-color-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-email-input" class="col-2 col-form-label">Range</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="range">
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div class="kt-portlet__foot">
                                     <div class="kt-form__actions">
@@ -168,9 +163,21 @@
 <script>
 
 export default {
-  name: 'Form',
-  components: {
-    
-  }
+        name: 'Form',
+        data: function () {
+            return {
+                fname: '',
+                lname: '',
+                phone: '',
+                email: '',
+                address: '',
+                pname: '',
+                constructor: '',
+                key: new Date().toJSON().slice(0, 10)
+            }
+        },
+        components: {
+              
+        }
 }
 </script>

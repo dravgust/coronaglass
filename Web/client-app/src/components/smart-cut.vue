@@ -226,15 +226,15 @@
             });
 
             if (localStorage.planks) {            
-                var value = JSON.parse(localStorage.planks);
-                if (value.length > 0) {
-                    this.planks = value;
+                var p = JSON.parse(localStorage.planks);
+                if (p.length > 0) {
+                    this.planks = p;
                 }
             }
             if (localStorage.snippets) {
-                var value = JSON.parse(localStorage.snippets);
-                if (value.length > 0) {
-                    this.snippets = value;
+                var s = JSON.parse(localStorage.snippets);
+                if (s.length > 0) {
+                    this.snippets = s;
                 }
             }
         },
