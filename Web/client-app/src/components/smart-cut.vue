@@ -13,7 +13,7 @@
                         </div>
 
                         <div class="kt-portlet__head-toolbar">
-                            <button type="button" class="btn btn-info btn-elevate btn-icon" :disabled="!validated" v-bind:class="!validated ? 'disabled' : ''" @click.prevent="runOptimization" title="Начать Оптимизацию"><i class="flaticon2-start-up"></i></button>
+                            <button type="button" class="btn btn-primary btn-elevate btn-icon" :disabled="!validated" v-bind:class="!validated ? 'disabled' : ''" @click.prevent="runOptimization" title="Начать Оптимизацию"><i class="flaticon2-start-up"></i></button>
                         </div>
                     </div>
                     <div class="kt-portlet__body">
@@ -261,7 +261,7 @@
                 return (window.innerHeight * 0.35) + 'px';
             },
             resultTabHeight: function () {
-                return 677 + ((this.planks.length + this.snippets.length) * 29.78)  + 'px';
+                return 677 + ((this.planks.length + this.snippets.length) * 28)  + 'px';
             },
             validated() {
                 if (this.snippets.filter((i) => +i.length > 0).length > 0) {
