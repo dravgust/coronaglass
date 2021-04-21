@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using CoronaGlass.Core;
+using coronaGlass.Dropbox;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +18,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SpaServices;
 using VueCliMiddleware;
 using Web.Behaviours;
+using Web.Infrastructure;
 using Web.Middlewares;
 
 namespace Web
@@ -38,6 +41,12 @@ namespace Web
 
             // NOTE: PRODUCTION Ensure this is the same path that is specified in your webpack output
             services.AddSpaStaticFiles(opt => opt.RootPath = "wwwroot/app");
+
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.AddTransient<IEmailSender, MessageSender>();
+
+            services.Configure<FileStorageSettings>(Configuration.GetSection("FileStorageSettings"));
+            services.AddTransient<IFileStorage, DropboxStorage>();
 
             services.AddControllersWithViews();
         }

@@ -32,7 +32,7 @@
             </div>
 
             <div class="kt-container kt-padding-0-mobile kt-grid__item kt-grid__item--fluid">
-                <div class="row row-no-padding">
+                <div class="row row-no-padding animate__animated animate__faster" v-show="!form.result"  v-bind:class="{animate__zoomOut: form.result }">
                     <div class="col-lg-12">
                         <!--end::Portlet-->
                         <!--begin::Portlet-->
@@ -170,7 +170,7 @@
                         <div class="kt-portlet__body">
                             <div class="kt-pricing-1 kt-pricing-1--fixed">
                                 <div class="kt-pricing-1__items row">
-                                    <div class="kt-pricing-1__item col-lg-4">
+                                    <div class="kt-pricing-1__item col-lg-4 animate__animated animate__faster" v-show="form.result" v-bind:class="{animate__fadeInLeft: form.result }">
                                         <div class="kt-pricing-1__visual">
                                             <div class="kt-pricing-1__hexagon1"></div>
                                             <div class="kt-pricing-1__hexagon2"></div>
@@ -188,7 +188,7 @@
                                             <button type="button" class="btn btn-info btn-elevate">Download</button>
                                         </div>
                                     </div>
-                                    <div class="kt-pricing-1__item col-lg-4">
+                                    <div class="kt-pricing-1__item" v-bind:class="[form.result ? 'col-lg-4' : 'col-lg-6']">
                                         <div class="kt-pricing-1__visual">
                                             <div class="kt-pricing-1__hexagon1"></div>
                                             <div class="kt-pricing-1__hexagon2"></div>
@@ -205,7 +205,7 @@
                                             <button type="button" class="btn btn-info btn-elevate">Go To</button>
                                         </div>
                                     </div>
-                                    <div class="kt-pricing-1__item col-lg-4">
+                                    <div class="kt-pricing-1__item" v-bind:class="[form.result ? 'col-lg-4' : 'col-lg-6']">
                                         <div class="kt-pricing-1__visual">
                                             <div class="kt-pricing-1__hexagon1"></div>
                                             <div class="kt-pricing-1__hexagon2"></div>
@@ -262,7 +262,8 @@
                     address: '',
                     projectName: '',
                     constructor: '',
-                    keyReceived: new Date().toJSON().slice(0, 10)
+                    keyReceived: new Date().toJSON().slice(0, 10),
+                    result: false
                 }
             }
         },
@@ -296,12 +297,19 @@
                     .then((response) => {
                         if (response) {
                             console.log("response on submit", JSON.stringify(response));
+
+                            this.form.result = true;
                         }
                     })
                     .catch((error) => {
                         console.log(error);
                         window.bootbox.alert("Error on form submit");
                     });
+            }
+        },
+        computed: {
+            formDisplay: function () {
+                return this.form.result ? 'none' : 'block';
             }
         }
 }

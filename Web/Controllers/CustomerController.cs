@@ -1,7 +1,8 @@
-﻿using System;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Web.Features.Customer;
 
 namespace Web.Controllers
 {
@@ -9,31 +10,30 @@ namespace Web.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        [Route("certificate")]
-        public async Task<IActionResult> Certificate(CertificateQuery query)
-        {
-            return Ok(await Task.FromResult(query));
-        }
-    }
+        private readonly IMediator _mediator;
 
-    [JsonObject]
-    public class CertificateQuery
-    {
-        [JsonProperty("firstName")]
-        public string FirstName { set; get; }
-        [JsonProperty("lastName")]
-        public string LastName { set; get; }
-        [JsonProperty("phone")]
-        public string Phone { set; get; }
-        [JsonProperty("email")]
-        public string Email { set; get; }
-        [JsonProperty("address")]
-        public string Address { set; get; }
-        [JsonProperty("projectName")]
-        public string ProjectName { set; get; }
-        [JsonProperty("constructor")]
-        public string Constructor { set; get; }
-        [JsonProperty("keyReceived")]
-        public DateTime KeyReceived { set; get; }
+        public CustomerController(IMediator mediator)
+        {
+            this._mediator = mediator;
+        }
+
+        [Route("certificate")]
+        public async Task<IActionResult> Certificate(CertificateRequest query, CancellationToken token) => 
+            Ok(await _mediator.Send(query, token));
+
+        //public async Task<IActionResult> OnPostExportAsync()
+        //{
+        //    var sWebRootFolder = _hostingEnvironment.WebRootPath;
+        //    const string sFileName = @"attachment.pdf";
+        //    var file = Path.Combine(sWebRootFolder, "storage", sFileName);
+
+        //    var memory = new MemoryStream();
+        //    using (var fs = new FileStream(file, FileMode.Open))
+        //    {
+        //        await fs.CopyToAsync(memory);
+        //    }
+        //    memory.Position = 0;
+        //    return File(memory, "application/pdf", "certificate.pdf");
+        //}
     }
 }
