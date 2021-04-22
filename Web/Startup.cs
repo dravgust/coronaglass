@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -15,11 +16,15 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.SpaServices;
+using Microsoft.Extensions.Options;
 using VueCliMiddleware;
 using Web.Behaviours;
 using Web.Infrastructure;
 using Web.Middlewares;
+using Web.Resources;
 
 namespace Web
 {
@@ -39,16 +44,40 @@ namespace Web
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
-            // NOTE: PRODUCTION Ensure this is the same path that is specified in your webpack output
-            services.AddSpaStaticFiles(opt => opt.RootPath = "wwwroot/app");
-
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddTransient<IEmailSender, MessageSender>();
 
             services.Configure<FileStorageSettings>(Configuration.GetSection("FileStorageSettings"));
             services.AddTransient<IFileStorage, DropboxStorage>();
 
-            services.AddControllersWithViews();
+            // NOTE: PRODUCTION Ensure this is the same path that is specified in your webpack output
+            services.AddSpaStaticFiles(opt => opt.RootPath = "wwwroot/app");
+
+            services.AddLocalization(opt => opt.ResourcesPath = "Resources");
+
+            services.AddControllersWithViews()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix, options => options.ResourcesPath = "Resources")
+                .AddDataAnnotationsLocalization(resOptions => {
+                    resOptions.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(SharedResource));
+                });
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    //new CultureInfo("en"),
+                    new CultureInfo("he"),
+                    new CultureInfo("ru")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("ru");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+
+                options.ApplyCurrentCultureToResponseHeaders = true;
+            });
+
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +102,9 @@ namespace Web
                                    | ForwardedHeaders.XForwardedProto 
                                    | ForwardedHeaders.XForwardedHost
             });
+
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions?.Value);
 
             app.UseStaticFiles();
 

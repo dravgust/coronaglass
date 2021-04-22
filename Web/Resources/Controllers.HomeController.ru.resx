@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="_about" xml:space="preserve">
+    <value>о компании</value>
+  </data>
+  <data name="_about_1" xml:space="preserve">
+    <value>Данные о компании</value>
+  </data>
+  <data name="_about_2" xml:space="preserve">
+    <value>Кто мы?</value>
+  </data>
+  <data name="_about_3" xml:space="preserve">
+    <value>Наша история</value>
+  </data>
+  <data name="_about_4" xml:space="preserve">
+    <value>Наши услуги</value>
+  </data>
+  <data name="_about_5" xml:space="preserve">
+    <value>Наши ценности</value>
+  </data>
+  <data name="_about_year" xml:space="preserve">
+    <value>Год образования 2015</value>
+  </data>
+  <data name="_address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="_address_1" xml:space="preserve">
+    <value>Выполнение работ и услуг по всей стране</value>
+  </data>
+  <data name="_btn_read_more" xml:space="preserve">
+    <value>Читать дальше</value>
+  </data>
+  <data name="_call" xml:space="preserve">
+    <value>Бесплатно</value>
+  </data>
+  <data name="_clients" xml:space="preserve">
+    <value>клиенты</value>
+  </data>
+  <data name="_clients_1" xml:space="preserve">
+    <value>клиенты</value>
+  </data>
+  <data name="_clients_2" xml:space="preserve">
+    <value>Так кто же на самом деле выбрал нас?</value>
+  </data>
+  <data name="_clients_3" xml:space="preserve">
+    <value>Ведущие строительные и инжиниринговые компании в Израиле!</value>
+  </data>
+  <data name="_contact" xml:space="preserve">
+    <value>связаться с нами</value>
+  </data>
+  <data name="_contact_1" xml:space="preserve">
+    <value>Связаться</value>
+  </data>
+  <data name="_email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="_exterior" xml:space="preserve">
+    <value>внешние &lt;br&gt;работы</value>
+  </data>
+  <data name="_exterior_design" xml:space="preserve">
+    <value>Внешний дизайн</value>
+  </data>
+  <data name="_gallery" xml:space="preserve">
+    <value>галерея</value>
+  </data>
+  <data name="_gallery_1" xml:space="preserve">
+    <value>Наши работы</value>
+  </data>
+  <data name="_home" xml:space="preserve">
+    <value>домашняя</value>
+  </data>
+  <data name="_interior" xml:space="preserve">
+    <value>внутренние &lt;br&gt;работы</value>
+  </data>
+  <data name="_interior_design" xml:space="preserve">
+    <value>Дизайн интерьера</value>
+  </data>
+  <data name="_message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="_phone" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="_product_1_header" xml:space="preserve">
+    <value>Перегородки между балконами</value>
+  </data>
+  <data name="_product_2_header" xml:space="preserve">
+    <value>Поручни</value>
+  </data>
+  <data name="_product_3_header" xml:space="preserve">
+    <value>Лестничные перила</value>
+  </data>
+  <data name="_product_4_header" xml:space="preserve">
+    <value>Балюстрады для балконов</value>
+  </data>
+  <data name="_product_all" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="_professionally" xml:space="preserve">
+    <value>Мы делаем профессионально</value>
+  </data>
+  <data name="_projects" xml:space="preserve">
+    <value>проекты</value>
+  </data>
+  <data name="_project_documentation" xml:space="preserve">
+    <value>Проектная документация</value>
+  </data>
+  <data name="_project_planning" xml:space="preserve">
+    <value>Планирование проекта</value>
+  </data>
+  <data name="_selection_of_materials" xml:space="preserve">
+    <value>Подбор материалов</value>
+  </data>
+  <data name="_send_message" xml:space="preserve">
+    <value>Отправить сообщение</value>
+  </data>
+  <data name="_services" xml:space="preserve">
+    <value>Сервисы</value>
+  </data>
+  <data name="_services_1" xml:space="preserve">
+    <value>Что мы можем сделать?</value>
+  </data>
+  <data name="_subject" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="_vision" xml:space="preserve">
+    <value>видение</value>
+  </data>
+  <data name="_vision_1" xml:space="preserve">
+    <value>пассивы</value>
+  </data>
+  <data name="_vision_1_text" xml:space="preserve">
+    <value>Те, кто выбрали нас, доверились нам, мы обещаем им: качество, безопасность и время !!!</value>
+  </data>
+  <data name="_vision_2" xml:space="preserve">
+    <value>безопасность</value>
+  </data>
+  <data name="_vision_2_text" xml:space="preserve">
+    <value>Перила - это компонент, функция которого заключается в предотвращении падения между двумя различными уровнями - в нашем случае это не просто определение</value>
+  </data>
+  <data name="_vision_3" xml:space="preserve">
+    <value>люди</value>
+  </data>
+  <data name="_vision_3_text" xml:space="preserve">
+    <value>Мы считаем, что основой любого успеха является человеческая основа, командная работа и человеческие отношения</value>
+  </data>
+  <data name="_vision_4" xml:space="preserve">
+    <value>качество бренда</value>
+  </data>
+  <data name="_vision_4_text" xml:space="preserve">
+    <value>Лидер индустрии поручней с высочайшим уровнем безопасности и качества</value>
+  </data>
+  <data name="_vision_header" xml:space="preserve">
+    <value>Видение компании</value>
+  </data>
+  <data name="_your_name" xml:space="preserve">
+    <value>Ваше имя</value>
+  </data>
+  <data name="_your_phone" xml:space="preserve">
+    <value>Ваш телефон</value>
+  </data>
+</root>

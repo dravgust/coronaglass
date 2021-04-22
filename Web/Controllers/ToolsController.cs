@@ -42,7 +42,7 @@ namespace Web.Controllers
         [Route("smartcut/init")]
         public async Task<IActionResult> Init()
         {
-            var response = await Task.FromResult(new SmartCutModel
+            var response = await Task.FromResult(new OptimizationRequest
             {
                 Planks = new List<StockItem> { new() { Length = 7000 } }
             });
@@ -51,12 +51,12 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("smartcut/run")]
-        public async Task<IActionResult> Run(RunOptimizationQuery query, CancellationToken token)
+        public async Task<IActionResult> Run(OptimizationRequest request, CancellationToken token)
         {
             //if (!ModelState.IsValid)
             //    return BadRequest(ModelState);
 
-            return Ok(await _mediator.Send(query, token));
+            return Ok(await _mediator.Send(request, token));
         }
 
         [HttpGet]

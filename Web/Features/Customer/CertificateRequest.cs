@@ -2,9 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CoronaGlass.Core;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Web.Extensions;
 using Web.Features.Tools;
 using Web.Infrastructure;
 
@@ -32,11 +34,11 @@ namespace Web.Features.Customer
 
         public class CertificateRequestHandler : IRequestHandler<CertificateRequest, bool>
         {
-            private readonly ILogger<RunOptimizationQuery.OptimizationQueryHandler> _logger;
+            private readonly ILogger<OptimizationRequest.OptimizationRequestHandler> _logger;
             private readonly IFileStorage _fileStorage;
 
             private readonly IEmailSender _emailSender;
-            public CertificateRequestHandler(IFileStorage fileStorage, IEmailSender emailSender, ILogger<RunOptimizationQuery.OptimizationQueryHandler> logger)
+            public CertificateRequestHandler(IFileStorage fileStorage, IEmailSender emailSender, ILogger<OptimizationRequest.OptimizationRequestHandler> logger)
             {
                 _fileStorage = fileStorage;
                 _emailSender = emailSender;
@@ -45,7 +47,7 @@ namespace Web.Features.Customer
 
             public async Task<bool> Handle(CertificateRequest request, CancellationToken cancellationToken)
             {
-
+                //Send PDF, xls record
                 var email = "dravgust@hotmail.com";
                 var subject = "Customer Request";
                 var body = $"customer: sent defect.";
@@ -53,6 +55,19 @@ namespace Web.Features.Customer
                 await _emailSender.SendEmailAsync(email, subject, body);
 
                 return true;
+            }
+        }
+
+        public class CertificateRequestValidator : AbstractValidator<CertificateRequest>
+        {
+            public CertificateRequestValidator()
+            {
+                RuleFor(q => q.FirstName).NotEmpty();
+                RuleFor(q => q.LastName).NotEmpty();
+                RuleFor(q => q.Phone).NotEmpty().PhoneNumber();
+                RuleFor(q => q.Email).NotEmpty().EmailAddress();
+                RuleFor(q => q.Address).NotEmpty();
+                RuleFor(q => q.Constructor).NotEmpty();
             }
         }
     }
