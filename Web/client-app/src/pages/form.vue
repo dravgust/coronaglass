@@ -286,7 +286,7 @@
                 address: null,
                 projectName: null,
                 constructor: null,
-                keyReceived: null,//new Date().toJSON().slice(0, 10),
+                keyReceived: new Date().toJSON().slice(0, 10),
                 errors: [],
                 validation: false,
                 result: false
@@ -315,7 +315,7 @@
         },
         methods: {
             validPhone: function (phone) {
-                var re = /^05[\\d]{8}$/;
+                var re = /^05\d{8}$/;
                 return re.test(phone);
             },
             validEmail: function (email) {
@@ -331,15 +331,29 @@
                 if (this.isEmailError) return false;
                 if (this.isAddressError) return false;
                 if (this.isConstructorError) return false;
+
+                return true;
             },
             submit: function () {
 
-                if (!this.validate()) return false;
+
+                if (!this.validate()) {
+
+                    console.log(this.isFirstNameError);
+                    console.log(this.isLastNameError);
+                    console.log(this.isPhoneError);
+                    console.log(this.isEmailError);
+                    console.log(this.isAddressError);
+                    console.log(this.isConstructorError);
+
+
+                    return false;
+                }
 
                 console.log("submit", JSON.stringify(this.form));
 
                 this.errors = [];
-                axios.post(window._root + 'api/customer/certificate', this.form)
+                axios.post(window._root + 'api/customer/certificate', this)
                     .then((response) => {
                         if (response) {
                             console.log("response on submit", JSON.stringify(response));

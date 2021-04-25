@@ -16735,6 +16735,28 @@ for (var COLLECTION_NAME in DOMIterables) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/web.url.to-json.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/core-js/modules/web.url.to-json.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+
+// `URL.prototype.toJSON` method
+// https://url.spec.whatwg.org/#dom-url-tojson
+$({ target: 'URL', proto: true, enumerable: true }, {
+  toJSON: function toJSON() {
+    return URL.prototype.toString.call(this);
+  }
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/node-libs-browser/mock/process.js":
 /*!********************************************************!*\
   !*** ./node_modules/node-libs-browser/mock/process.js ***!
