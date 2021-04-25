@@ -37,7 +37,7 @@
                         <div class="alert alert-success" role="alert">
                             <div class="alert-icon"><i class="flaticon-paper-plane-1"></i></div>
                             <div class="alert-text">
-                                <h4 class="alert-heading">Successfully!</h4>
+                                <h4 class="alert-heading">Sent successfully!</h4>
                                 <p> The certificate was sent to {{email}}.</p>
                             </div>
                             <div class="alert-close">
