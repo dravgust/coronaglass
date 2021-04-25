@@ -7,7 +7,9 @@
 *.userosscache
 *.sln.docstates
 
-VralumGlassWeb/internal-nlog.txt
+Web/appsettings.json
+Web/wwwroot/app/
+logs/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
