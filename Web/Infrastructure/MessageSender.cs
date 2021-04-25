@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
@@ -30,7 +32,7 @@ namespace Web.Infrastructure
 
     public interface IEmailSender
     {
-        Task SendEmailAsync(string email, string subject, string htmlMessage);
+        Task SendEmailAsync(string email, string subject, string htmlMessage, IEnumerable<Attachment> attachments = null);
     }
 
 	public class MessageSender : IEmailSender
@@ -42,31 +44,35 @@ namespace Web.Infrastructure
 			EmailSettings = emailSettings.Value;
 		}
 
-		public Task SendEmailAsync(string email, string subject, string htmlMessage)
+		public Task SendEmailAsync(string email, string subject, string htmlMessage, IEnumerable<Attachment> attachments = null)
 		{
-			return Execute(email, subject, htmlMessage);
+			return Execute(email, subject, htmlMessage, attachments);
 		}
 
-		private async Task Execute(string email, string subject, string message)
+		private async Task Execute(string email, string subject, string message, IEnumerable<Attachment> attachments)
 		{
 			try
 			{
 				var toEmail = string.IsNullOrEmpty(email) ? EmailSettings.ToEmail : email;
 
-                using var mailMessage = new MailMessage {From = new MailAddress(EmailSettings.FromEmail, "dr@vgust")};
+                using var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(EmailSettings.FromEmail, "Corona Support")
+                };
                 mailMessage.To.Add(toEmail);
                 mailMessage.Body = message;
                 mailMessage.IsBodyHtml = true;
                 mailMessage.Subject = subject;
 
-                //mailMessage.Attachments.Add(new Attachment());
+                if (attachments != null)
+                    foreach (var attachment in attachments)
+                        mailMessage.Attachments.Add(attachment);
 
                 using var client = new SmtpClient
                 {
                     EnableSsl = true,
                     UseDefaultCredentials = false,
-                    Credentials =
-                        new NetworkCredential(EmailSettings.UsernameEmail, EmailSettings.UsernamePassword),
+                    Credentials = new NetworkCredential(EmailSettings.UsernameEmail, EmailSettings.UsernamePassword),
                     Host = EmailSettings.PrimaryDomain,
                     Port = EmailSettings.PrimaryPort,
                     DeliveryMethod = SmtpDeliveryMethod.Network
@@ -76,7 +82,7 @@ namespace Web.Infrastructure
             }
 			catch (Exception e)
 			{
-				Trace.WriteLine(e.Message);
+				Trace.WriteLine($"MessageSender| {e.Message}");
 			}
 		}
 	}

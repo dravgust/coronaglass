@@ -43,8 +43,7 @@ namespace Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            var email = "dravgust@hotmail.com";
-            await _emailSender.SendEmailAsync(email, contactUsForm.Subject, $"{contactUsForm.Name}\r\n{contactUsForm.Phone}\r\n{contactUsForm.Message}");
+            await _emailSender.SendEmailAsync(null, contactUsForm.Subject, $"{contactUsForm.Name}\r\n{contactUsForm.Phone}\r\n{contactUsForm.Message}");
 
             TempData["alerts"] = new List<string> { "Message sent successfully." };
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using CoronaGlass.Core;
@@ -48,11 +50,18 @@ namespace Web.Features.Customer
             public async Task<bool> Handle(CertificateRequest request, CancellationToken cancellationToken)
             {
                 //Send PDF, xls record
-                var email = "dravgust@hotmail.com";
-                var subject = "Customer Request";
-                var body = $"customer: sent defect.";
+                var email = request.Email;
+                var subject = "Certificate";
+                var body = $"Certificate";
 
-                await _emailSender.SendEmailAsync(email, subject, body);
+                var contentType = new System.Net.Mime.ContentType
+                {
+                    MediaType = System.Net.Mime.MediaTypeNames.Application.Pdf,
+                    Name = "Certificate.pdf"
+                };
+                var attachment = new Attachment("Files/Certificate.pdf", contentType);
+
+                await _emailSender.SendEmailAsync(email, subject, body, new List<Attachment>{ attachment });
 
                 return true;
             }

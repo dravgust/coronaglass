@@ -72,6 +72,7 @@ services:
        dockerfile: ./Web/Dockerfile
      volumes:
       - ./logs/web:/app/logs
+      - ./temp-keys:/root/.aspnet/DataProtection-Keys
      networks:
       - coronaglass-net
 

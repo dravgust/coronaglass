@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -14,10 +15,16 @@ using CoronaGlass.Core;
 using coronaGlass.Dropbox;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.SpaServices;
 using Microsoft.Extensions.Options;
 using VueCliMiddleware;
@@ -56,10 +63,19 @@ namespace Web
             services.AddLocalization(opt => opt.ResourcesPath = "Resources");
 
             services.AddControllersWithViews()
-                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix, options => options.ResourcesPath = "Resources")
-                .AddDataAnnotationsLocalization(resOptions => {
-                    resOptions.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(SharedResource));
-                });
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix,
+                    options => options.ResourcesPath = "Resources")
+                .AddDataAnnotationsLocalization(resOptions =>
+                {
+                    resOptions.DataAnnotationLocalizerProvider =
+                        (type, factory) => factory.Create(typeof(SharedResource));
+                })
+                .AddCookieTempDataProvider();
+            //.AddSessionStateTempDataProvider();services.AddSession(); 
+            //services.Configure<CookieTempDataProviderOptions>(options =>
+            //{
+            //    options.Cookie.SameSite = SameSiteMode.Lax; // By default this is set to 'Strict'.
+            //});
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -76,6 +92,15 @@ namespace Web
 
                 options.ApplyCurrentCultureToResponseHeaders = true;
             });
+
+            //services
+            //    .AddDataProtection()
+            //    //.PersistKeysToFileSystem(new DirectoryInfo(@"sharedDisk\temp-keys\"))
+            //    .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
+            //    {
+            //        EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
+            //        ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+            //    });
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
         }
