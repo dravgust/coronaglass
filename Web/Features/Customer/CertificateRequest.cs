@@ -67,8 +67,8 @@ namespace Web.Features.Customer
 
                 await _emailSender.SendEmailAsync(email, subject, body, new List<Attachment>{ attachment });
 
-                var deliveryFolder = "/";
-                const string fileName = "CustomersForm.xlsx";
+                var deliveryFolder = $"/WebForm";
+                const string fileName = "Customers.xlsx";
 
                 List<string> search = null;
                 var ie = new ImportExport();

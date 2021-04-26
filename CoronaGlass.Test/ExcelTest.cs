@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
@@ -13,6 +14,13 @@ namespace CoronaGlass.Test
         public void Setup()
         {
 
+        }
+
+        [Test]
+        public void Test0()
+        {
+            var dts = DateTime.Now.ToString("dd/MM/yyyy", new CultureInfo("en-GB"));
+            var dt = DateTime.ParseExact(dts, "dd/MM/yyyy", new CultureInfo("en-GB"));
         }
 
         [Test]

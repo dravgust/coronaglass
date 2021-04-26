@@ -80,7 +80,7 @@ namespace VralumGlassWeb.Data
                         ProjectName = row.GetCell(5).ToString(),
                         Constructor = row.GetCell(6).ToString(),
                         KeyReceived = !string.IsNullOrEmpty(keyReceived)
-                            ? DateTime.ParseExact(keyReceived, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)
+                            ? DateTime.ParseExact(keyReceived, "dd/MM/yyyy", new CultureInfo("en-GB"))
                             : default
                     });
                 }
@@ -186,7 +186,10 @@ namespace VralumGlassWeb.Data
                 row.CreateCell(4).SetCellValue(c.Address);
                 row.CreateCell(5).SetCellValue(c.ProjectName);
                 row.CreateCell(6).SetCellValue(c.Constructor);
-                row.CreateCell(7).SetCellValue($"{c.KeyReceived:d}");
+                if (c.KeyReceived != default)
+                {
+                    row.CreateCell(7).SetCellValue(c.KeyReceived.ToString("dd/MM/yyyy", new CultureInfo("en-GB")));
+                }
             }
 
             workbook.Write(fs);

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 
-namespace VralumGlassWeb.Data.Utilities
+namespace Web.Infrastructure
 {
     public static class HttpRequestExtensions
     {
@@ -11,12 +11,9 @@ namespace VralumGlassWeb.Data.Utilities
         public static bool IsAjaxRequest(this HttpRequest request)
         {
             if(request == null)
-                throw new ArgumentException("request");
-
-            if (request.Headers != null)
-                return request.Headers[RequestedWithHeader] == XmlHttpRequest;
-
-            return false;
+                throw new ArgumentNullException(nameof(request));
+            
+            return request.Headers[RequestedWithHeader] == XmlHttpRequest;
         }
     }
 }

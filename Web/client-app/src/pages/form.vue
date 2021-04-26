@@ -2,7 +2,7 @@
     <div class="kt-container kt-grid kt-grid--ver">
         <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
 
-            <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+            <div class="kt-subheader  kt-grid__item kt-hidden-mobile">
                 <div class="kt-container">
                     <div class="kt-subheader__main">
                         <h3 class="kt-subheader__title">
@@ -87,7 +87,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 kt-hidden-mobile col-form-label">First Name *</label>
                                         <div class="col-md-10 col-sm-12">
-                                            <input class="form-control" type="text" placeholder="Enter your First Name" required v-model="firstName" v-bind:class="[{'is-invalid': isFirstNameError}]">
+                                            <input class="form-control" type="text" placeholder="First Name" required v-model="firstName" v-bind:class="[{'is-invalid': isFirstNameError}]">
                                             <div class="invalid-feedback" v-if="isFirstNameError">
                                                 This field is required.
                                             </div>
@@ -96,7 +96,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 kt-hidden-mobile col-form-label">Last Name *</label>
                                         <div class="col-md-10 col-sm-12">
-                                            <input class="form-control" type="text" placeholder="Enter your Last Name" required v-model="lastName" v-bind:class="[{'is-invalid': isLastNameError}]">
+                                            <input class="form-control" type="text" placeholder="Last Name" required v-model="lastName" v-bind:class="[{'is-invalid': isLastNameError}]">
                                             <div class="invalid-feedback" v-if="isLastNameError">
                                                 This field is required.
                                             </div>
@@ -112,7 +112,7 @@
                                                         <i class="la la-phone"></i>
                                                     </span>
                                                 </div>
-                                                <input class="form-control form-control-danger" placeholder="Enter your Phone" type="tel" required v-model="phone" @blur="isPhoneTouched = true" v-bind:class="[{'is-invalid': isPhoneError},{'is-valid': isPhoneValid}]">
+                                                <input class="form-control form-control-danger" placeholder="Phone" type="tel" required v-model="phone" @blur="isPhoneTouched = true" v-bind:class="[{'is-invalid': isPhoneError},{'is-valid': isPhoneValid}]">
                                                 <div class="invalid-feedback" v-if="isPhoneError">Invalid phone number, check the formatting of that and try again.</div>
                                             </div>
 
@@ -128,7 +128,7 @@
                                                         <i class="la la-envelope"></i>
                                                     </span>
                                                 </div>
-                                                <input class="form-control form-control-danger" placeholder="Enter your email" type="email" v-model="email" @blur="isEmailTouched = true" v-bind:class="[{'is-invalid': isEmailError},{'is-valid': isEmailValid}]">
+                                                <input class="form-control form-control-danger" placeholder="Email" type="email" v-model="email" @blur="isEmailTouched = true" v-bind:class="[{'is-invalid': isEmailError},{'is-valid': isEmailValid}]">
                                                 <div class="invalid-feedback" v-if="isEmailError">Invalid email, check the formatting of that and try again.</div>
                                             </div>
 

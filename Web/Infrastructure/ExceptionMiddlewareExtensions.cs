@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
-using VralumGlassWeb.Data.Utilities;
 using Web.Middlewares;
 
 namespace Web.Infrastructure

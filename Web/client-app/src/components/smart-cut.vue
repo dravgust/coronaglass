@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-container kt-padding-0-mobile kt-container--fluid  kt-grid__item kt-grid__item--fluid">
         <div class="row">
             <div class="col-lg-6">
                 <!--end::Portlet-->
