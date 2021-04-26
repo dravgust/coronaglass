@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Mail;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CoronaGlass.Core;
@@ -8,6 +11,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using VralumGlassWeb.Data;
 using Web.Extensions;
 using Web.Features.Tools;
 using Web.Infrastructure;
@@ -62,6 +66,37 @@ namespace Web.Features.Customer
                 var attachment = new Attachment("Files/Certificate.pdf", contentType);
 
                 await _emailSender.SendEmailAsync(email, subject, body, new List<Attachment>{ attachment });
+
+                var deliveryFolder = "/";
+                const string fileName = "CustomersForm.xlsx";
+
+                List<string> search = null;
+                var ie = new ImportExport();
+                var customers = new List<CertificateRequest>();
+                try
+                {
+                    search = await _fileStorage.Search(deliveryFolder, fileName, 1);
+                    _logger.LogDebug($"search: {fileName} => {search.Count}");
+                }
+                catch (Exception e)
+                {
+                    _logger.LogDebug(e.Message);
+                }
+
+                if (search != null && search.Any())
+                {
+                    var iData = await _fileStorage.Download(deliveryFolder, fileName);
+                    _logger.LogDebug($"download: {fileName} => {iData.Length}");
+                    customers.AddRange(ie.ImportCustomerForm(iData));
+
+                    _logger.LogDebug($"import: {fileName} => {customers.ToJson()}");
+                }
+
+                customers.Add(request);
+                var eData = ie.Export(customers);
+
+                var uploadResult = await _fileStorage.Upload(deliveryFolder, fileName, eData);
+                _logger.LogDebug($"upload: {fileName} => {uploadResult.ToJson()}");
 
                 return true;
             }

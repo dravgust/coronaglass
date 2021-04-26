@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using CoronaGlass.Core.Interfaces;
@@ -10,6 +11,7 @@ using NPOI.XSSF.UserModel;
 using CoronaGlass.Core.Models;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Web.Features.Customer;
 using Web.Models;
 using CellType = NPOI.SS.UserModel.CellType;
 using IndexedColors = NPOI.SS.UserModel.IndexedColors;
@@ -47,6 +49,44 @@ namespace VralumGlassWeb.Data
                         });
                     }
                     catch { }
+                }
+            }
+
+            return result;
+        }
+
+        public IList<CertificateRequest> ImportCustomerForm(byte[] data)
+        {
+            var result = new List<CertificateRequest>();
+            using var ms = new MemoryStream(data);
+            var wb = new XSSFWorkbook(ms);
+            ISheet excelSheet = wb.GetSheetAt(0);
+
+            for (var i = 1; i <= excelSheet.LastRowNum; i++)
+            {
+                try
+                {
+                    IRow row = excelSheet.GetRow(i);
+
+                    var keyReceived = row.GetCell(7).ToString();
+
+                    result.Add(new CertificateRequest
+                    {
+                        FirstName = row.GetCell(0).ToString(),
+                        LastName = row.GetCell(1).ToString(),
+                        Phone = row.GetCell(2).ToString(),
+                        Email = row.GetCell(3).ToString(),
+                        Address = row.GetCell(4).ToString(),
+                        ProjectName = row.GetCell(5).ToString(),
+                        Constructor = row.GetCell(6).ToString(),
+                        KeyReceived = !string.IsNullOrEmpty(keyReceived)
+                            ? DateTime.ParseExact(keyReceived, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)
+                            : default
+                    });
+                }
+                catch(Exception e)
+                {
+                    Trace.WriteLine($"ImportCustomerForm| {e.Message}");
                 }
             }
 
@@ -117,6 +157,41 @@ namespace VralumGlassWeb.Data
             }
 
             return result;
+        }
+
+        public byte[] Export(IList<CertificateRequest> customerForms)
+        {
+            using var fs = new MemoryStream();
+            var workbook = new XSSFWorkbook();
+            ISheet excelSheet = workbook.CreateSheet("Customers");
+            IRow row = excelSheet.CreateRow(0);
+
+            row.CreateCell(0).SetCellValue("First Name");
+            row.CreateCell(1).SetCellValue("Last Name");
+            row.CreateCell(2).SetCellValue("Phone");
+            row.CreateCell(3).SetCellValue("Email");
+            row.CreateCell(4).SetCellValue("Address");
+            row.CreateCell(5).SetCellValue("Project Name");
+            row.CreateCell(6).SetCellValue("Constructor");
+            row.CreateCell(7).SetCellValue("Key Received");
+
+            for (var i = 0; i < customerForms.Count; i++)
+            {
+                var c = customerForms[i];
+                row = excelSheet.CreateRow(i + 1);
+                row.CreateCell(0).SetCellValue(c.FirstName);
+                row.CreateCell(1).SetCellValue(c.LastName);
+                row.CreateCell(2).SetCellValue(c.Phone);
+                row.CreateCell(3).SetCellValue(c.Email);
+                row.CreateCell(4).SetCellValue(c.Address);
+                row.CreateCell(5).SetCellValue(c.ProjectName);
+                row.CreateCell(6).SetCellValue(c.Constructor);
+                row.CreateCell(7).SetCellValue($"{c.KeyReceived:d}");
+            }
+
+            workbook.Write(fs);
+
+            return fs.ToArray();
         }
 
         public byte[] Export(IList<ManagementDefect> defects)

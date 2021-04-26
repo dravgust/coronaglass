@@ -137,7 +137,7 @@ namespace Web
             app.UseSpaStaticFiles();
 
             app.UseRouting();
-            app.UseMiddleware<ErrorHandlerMiddleware>();
+            app.UseErrorHandler();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
