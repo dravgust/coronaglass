@@ -104,7 +104,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="example-password-input" class="col-md-2 kt-hidden-mobile col-form-label">Phone *</label>
+                                        <label class="col-md-2 kt-hidden-mobile col-form-label">Phone *</label>
                                         <div class="col-md-10 col-sm-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -120,7 +120,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="example-password-input" class="col-md-2 kt-hidden-mobile col-form-label">Email *</label>
+                                        <label class="col-md-2 kt-hidden-mobile col-form-label">Email *</label>
                                         <div class="col-md-10 col-sm-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -136,7 +136,18 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="example-password-input" class="col-md-2 kt-hidden-mobile col-form-label">Address *</label>
+                                        <label class="col-md-2 kt-hidden-mobile col-form-label">City *</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            <select class="form-control" v-model="city">
+                                                <option v-for="option in $options.cities" v-bind:value="option.id" :key="option.id">
+                                                    {{ option.name }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-2 kt-hidden-mobile col-form-label">Address *</label>
                                         <div class="col-md-10 col-sm-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -154,13 +165,13 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="example-password-input" class="col-md-2 kt-hidden-mobile col-form-label">Project Name</label>
+                                        <label class="col-md-2 kt-hidden-mobile col-form-label">Project Name</label>
                                         <div class="col-md-10 col-sm-12">
                                             <input class="form-control" type="text" placeholder="Project Name" v-model="projectName">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="example-password-input" class="col-md-2 kt-hidden-mobile col-form-label">Constructor *</label>
+                                        <label class="col-md-2 kt-hidden-mobile col-form-label">Constructor *</label>
                                         <div class="col-md-10 col-sm-12">
                                             <input class="form-control" type="text" required placeholder="Constructor" v-model="constructor" v-bind:class="[{'is-invalid': isConstructorError}]">
                                             <div class="invalid-feedback" v-if="isConstructorError">
@@ -169,7 +180,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="example-date-input" class="col-md-2 col-sm-12col-form-label">Key Received</label>
+                                        <label class="col-md-2 col-sm-12col-form-label">Key Received</label>
                                         <div class="col-md-10 col-sm-12">
                                             <input class="form-control" type="date" min="2020-01-01" v-model="keyReceived">
                                         </div>
@@ -272,9 +283,10 @@
 
 <script>
     import axios from "axios";
-
+    import { cities } from '../assets/city_list.json';
     export default {
         name: 'Form',
+        cities: cities,
         data: function () {
             return {
                 firstName: null,
@@ -283,6 +295,7 @@
                 isPhoneTouched: false,
                 email: null,
                 isEmailTouched: false,
+                city: null,
                 address: null,
                 projectName: null,
                 constructor: null,

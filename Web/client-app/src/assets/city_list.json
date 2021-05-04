@@ -1,11 +1,6 @@
 ﻿{
   "cities": [
     {
-      "id": 0,
-      "name": "יישוב",
-      "engName": "0"
-    },
-    {
       "id": 967,
       "name": "אבו גווייעד )שבט(",
       "eng_name": "ABU JUWEIID"

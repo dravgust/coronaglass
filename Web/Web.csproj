@@ -29,4 +29,8 @@
     <ProjectReference Include="..\CoronaGlass.Dropbox\CoronaGlass.Dropbox.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\data\" />
+  </ItemGroup>
+
 </Project>
