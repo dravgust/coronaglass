@@ -257,11 +257,12 @@
                 //console.log('tableHeight', window.innerHeight,(window.innerHeight / 80 * 100) + 'px')
                 return this.planks.length * 30 + 'px';
             },
-            snipptetTableHeight: function () {
-                return (window.innerHeight * 0.35) + 'px';
+            snippetTableHeight: function () {
+                return this.snippets.length * 30 + 'px';
             },
             resultTabHeight: function () {
-                return 677 + ((this.planks.length + this.snippets.length) * 28)  + 'px';
+                //return (window.innerHeight * 0.35) + 'px';
+                return 676 + ((this.planks.length + this.snippets.length) * 30)  + 'px';
             },
             validated() {
                 if (this.snippets.filter((i) => +i.length > 0).length > 0) {
