@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="kt-container kt-padding-0-mobile kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
         <div class="row">
             <div class="col-lg-6">
                 <!--end::Portlet-->
@@ -163,10 +163,7 @@
             <div class="col-lg-6">
                 <!--<div class="kt-space-20"></div>-->
 
-                <div class="row">
-                    <smartCutResult :minSize="resultTabHeight" :content="result" />
-                </div>
-
+                <smartCutResult :minSize="resultTabHeight" :content="result" />
 
             </div>
         </div>
@@ -262,7 +259,7 @@
             },
             resultTabHeight: function () {
                 //return (window.innerHeight * 0.35) + 'px';
-                return 676 + ((this.planks.length + this.snippets.length) * 30)  + 'px';
+                return 686 + ((this.planks.length + this.snippets.length) * 30)  + 'px';
             },
             validated() {
                 if (this.snippets.filter((i) => +i.length > 0).length > 0) {
