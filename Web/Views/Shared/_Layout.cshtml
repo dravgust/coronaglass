@@ -19,12 +19,18 @@
 
     <!--end::Fonts -->
     <!--begin::Global Theme Styles(used by all pages) -->
-    <link href="~/metronic/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="~/metronic/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-
+    @if (isRightToLeft)
+    {
+        <link href="~/metronic/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css" />
+        <link href="~/metronic/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" />
+    }
+    else
+    {
+        <link href="~/metronic/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="~/metronic/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    }
     <!--end::Global Theme Styles -->
     <!--begin::Layout Skins(used by all pages) -->
-
     <!--end::Layout Skins -->
 
     <link rel="stylesheet" href="~/css/loading-widget.css" />
@@ -45,7 +51,7 @@
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
         <a href="~/">
-            <img alt="Corona Glass" src="images/logo5_white.png" style="width: 120px;"/>
+            <img alt="Corona Glass" src="images/logo4-white.png" style="width: 130px;"/>
         </a>
     </div>
     <div class="kt-header-mobile__toolbar">
@@ -68,7 +74,7 @@
                     <div class="kt-header__brand " id="kt_header_brand">
                         <div class="kt-header__brand-logo kt-padding-l-10-desktop">
                             <a href="~/">
-                                <img alt="Corona Glass" src="images/logo5_white.png" style="width: 120px;"/>
+                                <img alt="Corona Glass" src="images/logo4-white.png" style="width: 130px;"/>
                             </a>
                         </div>
                         <div class="kt-header__brand-nav">
@@ -115,6 +121,10 @@
         </div>
     </div>
 
+</div>
+
+<div id="kt_scrolltop" class="kt-scrolltop">
+    <i class="fa fa-arrow-up"></i>
 </div>
 
 <!-- begin::Global Config(global config for global JS sciprts) -->
