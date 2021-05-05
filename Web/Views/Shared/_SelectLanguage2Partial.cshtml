@@ -13,36 +13,30 @@
 
 <!--begin: Language bar -->
 
-<div class="kt-header__topbar-item kt-header__topbar-item--langs" style="display: table">
-    <div class="kt-header__topbar-wrapper" style="display: table-cell; vertical-align: middle;">
-        <form asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" method="post" class="form-horizontal" role="form">
-            <select class="form-control" style="text-transform: capitalize;" name="culture" onchange="this.form.submit();" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems"></select>
-        </form>
-    </div>
-</div>
+    <div class="kt-header__topbar-item kt-header__topbar-item--langs">
+        <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+            <span class="kt-header__topbar-icon">
+                <img class="" src="~/images/flags/@(requestCulture.RequestCulture.UICulture.Name).svg" alt=""/>
+            </span>
+        </div>
+        <form asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" method="post" role="form" id="lang_form">
+            <input type="hidden" name="culture" asp-for="@requestCulture.RequestCulture.UICulture.Name" id="lang_value"/>
 
-@*<div class="kt-header__topbar-item kt-header__topbar-item--langs">
-    <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-        <span class="kt-header__topbar-icon">
-            <img class="" src="~/metronic/assets/media/flags/248-russia.svg" alt="" />
-        </span>
+            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim">
+                <ul class="kt-nav kt-margin-t-10 kt-margin-b-10">
+                    @foreach (var item in cultureItems)
+                    {
+                        <li class="kt-nav__item kt-nav__item--active">
+                            <a href="#" class="kt-nav__link" onclick="document.getElementById('lang_value').value = '@item.Value';document.getElementById('lang_form').submit();">
+                                <span class="kt-nav__link-icon"><img src="~/images/flags/@(item.Value).svg" alt=""/></span>
+                                <span class="kt-nav__link-text" style="text-transform: capitalize;">@item.Text</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </form>
+
     </div>
-    <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim">
-        <ul class="kt-nav kt-margin-t-10 kt-margin-b-10">
-            <li class="kt-nav__item kt-nav__item--active">
-                <a href="#" class="kt-nav__link">
-                    <span class="kt-nav__link-icon"><img src="~/metronic/assets/media/flags/260-united-kingdom.svg" alt="" /></span>
-                    <span class="kt-nav__link-text">English</span>
-                </a>
-            </li>
-            <li class="kt-nav__item">
-                <a href="#" class="kt-nav__link">
-                    <span class="kt-nav__link-icon"><img src="~/metronic/assets/media/flags/155-israel.svg" alt="" /></span>
-                    <span class="kt-nav__link-text">Hebrew</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>*@
 
 <!--end: Language bar -->

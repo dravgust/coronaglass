@@ -1,9 +1,21 @@
-﻿@section Title{<title>Form</title>}
+﻿@using Web.Controllers
+@using CoronaGlass.Core
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<HomeController> Resources
+
+@{
+    var resources = Resources.GetAllStrings().ToDictionary(k => k.Name, v => v.Value);
+}
+
+@section Title{<title>Form</title>}
 @section Head {
     <link rel="stylesheet" asp-append-version="true" href="~/css/masonry.css" />
     <link rel="stylesheet" asp-append-version="true" href="~/css/modal.css" />
     <link rel="stylesheet" asp-append-version="true" href="~/css/toggle.button.css" />
     <link rel="stylesheet" asp-append-version="true" href="~/metronic/assets/css/pages/pricing/pricing-1.css" />
+    
+    <resources names='new[] { "CertificateForm" }'></resources>
 }
 
 @section Scripts

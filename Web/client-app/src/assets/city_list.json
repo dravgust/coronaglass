@@ -2,7 +2,7 @@
   "cities": [
     {
       "id": 967,
-      "name": "אבו גווייעד )שבט(",
+      "name": "אבו גווייעד (שבט)",
       "eng_name": "ABU JUWEIID"
     },
     {
@@ -17,42 +17,42 @@
     },
     {
       "id": 935,
-      "name": "אבו סריחאן )שבט(",
+      "name": "אבו סריחאן (שבט)",
       "eng_name": "ABU SUREIHAN"
     },
     {
       "id": 958,
-      "name": "אבו עבדון )שבט(",
+      "name": "אבו עבדון (שבט)",
       "eng_name": "ABU  ABDUN"
     },
     {
       "id": 1042,
-      "name": "אבו עמאר )שבט(",
+      "name": "אבו עמאר (שבט)",
       "eng_name": "ABU  AMMAR"
     },
     {
       "id": 932,
-      "name": "אבו עמרה )שבט(",
+      "name": "אבו עמרה (שבט)",
       "eng_name": "ABU  AMRE"
     },
     {
       "id": 968,
-      "name": "אבו קורינאת )שבט(",
+      "name": "אבו קורינאת (שבט)",
       "eng_name": "ABU QUREINAT"
     },
     {
       "id": 1342,
-      "name": "אבו קרינאת )יישוב(",
+      "name": "אבו קרינאת (יישוב)",
       "eng_name": "ABU QUREINAT"
     },
     {
       "id": 966,
-      "name": "אבו רובייעה )שבט(",
+      "name": "אבו רובייעה (שבט)",
       "eng_name": "ABU RUBEIA"
     },
     {
       "id": 961,
-      "name": "אבו רוקייק )שבט(",
+      "name": "אבו רוקייק (שבט)",
       "eng_name": "ABU RUQAYYEQ"
     },
     {
@@ -307,7 +307,7 @@
     },
     {
       "id": 965,
-      "name": "אטרש )שבט(",
+      "name": "אטרש (שבט)",
       "eng_name": "ATRASH"
     },
     {
@@ -537,7 +537,7 @@
     },
     {
       "id": 960,
-      "name": "אסד )שבט(",
+      "name": "אסד (שבט)",
       "eng_name": "ASAD"
     },
     {
@@ -552,12 +552,12 @@
     },
     {
       "id": 963,
-      "name": "אעצם )שבט(",
+      "name": "אעצם (שבט)",
       "eng_name": "ASAM"
     },
     {
       "id": 959,
-      "name": "אפיניש )שבט(",
+      "name": "אפיניש (שבט)",
       "eng_name": "AFEINISH"
     },
     {
@@ -622,13 +622,13 @@
     },
     {
       "id": 199,
-      "name": "אשדות יעקב  )איחוד(",
-      "eng_name": "ASHDOT YAAQOV(IHUD)"
+      "name": "אשדות יעקב  (איחוד)",
+      "eng_name": "ASHDOT YAAQOV)IHUD("
     },
     {
       "id": 188,
-      "name": "אשדות יעקב  )מאוחד(",
-      "eng_name": "ASHDOT YAAQOV(MEUH"
+      "name": "אשדות יעקב  (מאוחד)",
+      "eng_name": "ASHDOT YAAQOV)MEUH"
     },
     {
       "id": 1188,
@@ -1032,13 +1032,13 @@
     },
     {
       "id": 1084,
-      "name": "בן שמן )כפר נוער(",
-      "eng_name": "BEN SHEMEN(K.NOAR)"
+      "name": "בן שמן (כפר נוער)",
+      "eng_name": "BEN SHEMEN)K.NOAR("
     },
     {
       "id": 2013,
-      "name": "בן שמן )מושב(",
-      "eng_name": "BEN SHEMEN (MOSHAV)"
+      "name": "בן שמן (מושב)",
+      "eng_name": "BEN SHEMEN )MOSHAV("
     },
     {
       "id": 6100,
@@ -1247,7 +1247,7 @@
     },
     {
       "id": 976,
-      "name": "גנאביב )שבט(",
+      "name": "גנאביב (שבט)",
       "eng_name": "JUNNABIB"
     },
     {
@@ -1257,8 +1257,8 @@
     },
     {
       "id": 487,
-      "name": "גש )גוש חלב(",
-      "eng_name": "JISH(GUSH HALAV)"
+      "name": "גש (גוש חלב)",
+      "eng_name": "JISH)GUSH HALAV("
     },
     {
       "id": 628,
@@ -1352,13 +1352,13 @@
     },
     {
       "id": 2018,
-      "name": "גבעת חיים )איחוד(",
-      "eng_name": "GIVAT HAYYIM (IHUD)"
+      "name": "גבעת חיים (איחוד)",
+      "eng_name": "GIVAT HAYYIM )IHUD("
     },
     {
       "id": 173,
-      "name": "גבעת חיים )מאוחד(",
-      "eng_name": "GIVAT HAYYIM(MEUHA"
+      "name": "גבעת חיים (מאוחד)",
+      "eng_name": "GIVAT HAYYIM)MEUHA"
     },
     {
       "id": 4021,
@@ -1537,8 +1537,8 @@
     },
     {
       "id": 369,
-      "name": "גלעד )אבן יצחק(",
-      "eng_name": "EVEN YIZHAQ(GALED)"
+      "name": "גלעד (אבן יצחק)",
+      "eng_name": "EVEN YIZHAQ)GALED("
     },
     {
       "id": 745,
@@ -1667,8 +1667,8 @@
     },
     {
       "id": 340,
-      "name": "גת )קיבוץ(",
-      "eng_name": "GAT(QIBBUZ)"
+      "name": "גת (קיבוץ)",
+      "eng_name": "GAT)QIBBUZ("
     },
     {
       "id": 128,
@@ -1832,12 +1832,12 @@
     },
     {
       "id": 1169,
-      "name": "הוואשלה )שבט(",
+      "name": "הוואשלה (שבט)",
       "eng_name": "HAWASHLA"
     },
     {
       "id": 956,
-      "name": "הוזייל )שבט(",
+      "name": "הוזייל (שבט)",
       "eng_name": "HUZAYYEL"
     },
     {
@@ -1932,7 +1932,7 @@
     },
     {
       "id": 2742,
-      "name": "זבארגה )שבט(",
+      "name": "זבארגה (שבט)",
       "eng_name": "ZABARGA"
     },
     {
@@ -2002,7 +2002,7 @@
     },
     {
       "id": 986,
-      "name": "חואלד )שבט(",
+      "name": "חואלד (שבט)",
       "eng_name": "KHAWALED"
     },
     {
@@ -2052,8 +2052,8 @@
     },
     {
       "id": 948,
-      "name": "חוגייראת )דהרה(",
-      "eng_name": "HUJEIRAT (DAHRA)"
+      "name": "חוגייראת (דהרה)",
+      "eng_name": "HUJEIRAT )DAHRA("
     },
     {
       "id": 160,
@@ -2302,8 +2302,8 @@
     },
     {
       "id": 497,
-      "name": "טייבה )בעמק(",
-      "eng_name": "TAYIBE(BAEMEQ)"
+      "name": "טייבה (בעמק)",
+      "eng_name": "TAYIBE)BAEMEQ("
     },
     {
       "id": 2720,
@@ -2352,8 +2352,8 @@
     },
     {
       "id": 547,
-      "name": "טמרה )יזרעאל(",
-      "eng_name": "TAMRA (YIZREEL)"
+      "name": "טמרה (יזרעאל)",
+      "eng_name": "TAMRA )YIZREEL("
     },
     {
       "id": 3743,
@@ -2577,8 +2577,8 @@
     },
     {
       "id": 241,
-      "name": "יקנעם )מושבה(",
-      "eng_name": "YOQNEAM(MOSHAVA)"
+      "name": "יקנעם (מושבה)",
+      "eng_name": "YOQNEAM)MOSHAVA("
     },
     {
       "id": 240,
@@ -2752,13 +2752,13 @@
     },
     {
       "id": 63,
-      "name": "כנרת )מושבה(",
-      "eng_name": "KINNERET(MOSHAVA)"
+      "name": "כנרת (מושבה)",
+      "eng_name": "KINNERET)MOSHAVA("
     },
     {
       "id": 57,
-      "name": "כנרת )קבוצה(",
-      "eng_name": "KINNERET(QEVUZA)"
+      "name": "כנרת (קבוצה)",
+      "eng_name": "KINNERET)QEVUZA("
     },
     {
       "id": 1059,
@@ -3117,8 +3117,8 @@
     },
     {
       "id": 1130,
-      "name": "כפר רוזנואלד )זרעית(",
-      "eng_name": "KEFAR ROZENWALD(ZAR."
+      "name": "כפר רוזנואלד (זרעית)",
+      "eng_name": "KEFAR ROZENWALD)ZAR."
     },
     {
       "id": 295,
@@ -3177,8 +3177,8 @@
     },
     {
       "id": 1094,
-      "name": "כרם יבנה )ישיבה(",
-      "eng_name": "KEREM YAVNE(YESHIVA)"
+      "name": "כרם יבנה (ישיבה)",
+      "eng_name": "KEREM YAVNE)YESHIVA("
     },
     {
       "id": 580,
@@ -3927,13 +3927,13 @@
     },
     {
       "id": 97,
-      "name": "מרחביה )מושב(",
-      "eng_name": "MERHAVYA(MOSHAV)"
+      "name": "מרחביה (מושב)",
+      "eng_name": "MERHAVYA)MOSHAV("
     },
     {
       "id": 66,
-      "name": "מרחביה )קיבוץ(",
-      "eng_name": "MERHAVYA(QIBBUZ)"
+      "name": "מרחביה (קיבוץ)",
+      "eng_name": "MERHAVYA)QIBBUZ("
     },
     {
       "id": 1098,
@@ -4322,8 +4322,8 @@
     },
     {
       "id": 1195,
-      "name": "ניצנה )קהילת חינוך(",
-      "eng_name": "NIZZANA (QEHILAT HIN"
+      "name": "ניצנה (קהילת חינוך)",
+      "eng_name": "NIZZANA )QEHILAT HIN"
     },
     {
       "id": 1280,
@@ -4357,8 +4357,8 @@
     },
     {
       "id": 256,
-      "name": "ניר דוד )תל עמל(",
-      "eng_name": "NIR DAWID (TEL AMAL)"
+      "name": "ניר דוד (תל עמל)",
+      "eng_name": "NIR DAWID )TEL AMAL("
     },
     {
       "id": 11,
@@ -4467,7 +4467,7 @@
     },
     {
       "id": 1041,
-      "name": "נצאצרה )שבט(",
+      "name": "נצאצרה (שבט)",
       "eng_name": "NASASRA"
     },
     {
@@ -4547,13 +4547,13 @@
     },
     {
       "id": 942,
-      "name": "סואעד )חמרייה(",
-      "eng_name": "SAWAID(HAMRIYYE)"
+      "name": "סואעד (חמרייה)",
+      "eng_name": "SAWAID)HAMRIYYE("
     },
     {
       "id": 989,
-      "name": "סואעד )כמאנה( )שבט(",
-      "eng_name": "SAWAID (KAMANE)"
+      "name": "סואעד (כמאנה) (שבט)",
+      "eng_name": "SAWAID )KAMANE("
     },
     {
       "id": 526,
@@ -4577,7 +4577,7 @@
     },
     {
       "id": 1170,
-      "name": "סייד )שבט(",
+      "name": "סייד (שבט)",
       "eng_name": "SAYYID"
     },
     {
@@ -4687,8 +4687,8 @@
     },
     {
       "id": 957,
-      "name": "עוקבי )בנו עוקבה(",
-      "eng_name": "UQBI (BANU UQBA)"
+      "name": "עוקבי (בנו עוקבה)",
+      "eng_name": "UQBI )BANU UQBA("
     },
     {
       "id": 328,
@@ -4717,7 +4717,7 @@
     },
     {
       "id": 969,
-      "name": "עטאוונה )שבט(",
+      "name": "עטאוונה (שבט)",
       "eng_name": "ATAWNE"
     },
     {
@@ -4832,13 +4832,13 @@
     },
     {
       "id": 89,
-      "name": "עין חרוד )איחוד(",
-      "eng_name": "EN HAROD (IHUD)"
+      "name": "עין חרוד (איחוד)",
+      "eng_name": "EN HAROD )IHUD("
     },
     {
       "id": 82,
-      "name": "עין חרוד )מאוחד(",
-      "eng_name": "EN HAROD(MEUHAD)"
+      "name": "עין חרוד (מאוחד)",
+      "eng_name": "EN HAROD)MEUHAD("
     },
     {
       "id": 806,
@@ -5147,8 +5147,8 @@
     },
     {
       "id": 536,
-      "name": "פקיעין )בוקייעה(",
-      "eng_name": "PEQIIN (BUQEIA)"
+      "name": "פקיעין (בוקייעה)",
+      "eng_name": "PEQIIN )BUQEIA("
     },
     {
       "id": 281,
@@ -5238,7 +5238,7 @@
     {
       "id": 1102,
       "name": "צוקי ים",
-      "eng_name": "SHOSHANNAT HAAMAQIM("
+      "eng_name": "SHOSHANNAT HAAMAQIM)"
     },
     {
       "id": 1262,
@@ -5317,7 +5317,7 @@
     },
     {
       "id": 1234,
-      "name": "קבועה )שבט(",
+      "name": "קבועה (שבט)",
       "eng_name": "QABBOA"
     },
     {
@@ -5362,12 +5362,12 @@
     },
     {
       "id": 964,
-      "name": "קודייראת א-צאנע)שבט(",
+      "name": "קודייראת א-צאנע(שבט)",
       "eng_name": "QUDEIRAT AS-SANI"
     },
     {
       "id": 972,
-      "name": "קוואעין )שבט(",
+      "name": "קוואעין (שבט)",
       "eng_name": "QAWAIN"
     },
     {
@@ -5467,8 +5467,8 @@
     },
     {
       "id": 2039,
-      "name": "קרית יערים)מוסד(",
-      "eng_name": "QIRYAT YEARIM(INSTI"
+      "name": "קרית יערים(מוסד)",
+      "eng_name": "QIRYAT YEARIM)INSTI"
     },
     {
       "id": 8200,
@@ -6172,7 +6172,7 @@
     },
     {
       "id": 1114,
-      "name": "שריגים )לי-און(",
+      "name": "שריגים (לי-און)",
       "eng_name": "LI-ON"
     },
     {
@@ -6342,12 +6342,12 @@
     },
     {
       "id": 970,
-      "name": "תראבין א-צאנע )שבט(",
+      "name": "תראבין א-צאנע (שבט)",
       "eng_name": "TARABIN AS-SANI"
     },
     {
       "id": 1346,
-      "name": "תראבין א-צאנע)ישוב(",
+      "name": "תראבין א-צאנע(ישוב)",
       "eng_name": ""
     },
     {

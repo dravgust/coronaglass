@@ -1,4 +1,10 @@
 ﻿
+
+.kt-header__topbar .kt-header__topbar-item.kt-header__topbar-item--langs .kt-header__topbar-icon img {
+    border-radius: 15px;
+    width: 29px;
+}
+
 /**************file-input***********/
 .fileinput-button {
     position: relative;

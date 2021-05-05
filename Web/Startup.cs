@@ -71,6 +71,8 @@ namespace Web
                         (type, factory) => factory.Create(typeof(SharedResource));
                 })
                 .AddCookieTempDataProvider();
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
             //.AddSessionStateTempDataProvider();services.AddSession(); 
             //services.Configure<CookieTempDataProviderOptions>(options =>
             //{
