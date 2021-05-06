@@ -8,27 +8,27 @@
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
-                                Настройки
+                                {{ _["Settings"] }}
                             </h3>
                         </div>
 
                         <div class="kt-portlet__head-toolbar">
-                            <button type="button" class="btn btn-primary btn-elevate btn-icon" :disabled="!validated" v-bind:class="!validated ? 'disabled' : ''" @click.prevent="runOptimization" title="Начать Оптимизацию"><i class="flaticon2-start-up"></i></button>
+                            <button type="button" class="btn btn-primary btn-elevate btn-icon" :disabled="!validated" v-bind:class="!validated ? 'disabled' : ''" @click.prevent="runOptimization" :title="_['Start Optimization']"><i class="flaticon2-start-up"></i></button>
                         </div>
                     </div>
                     <div class="kt-portlet__body">
                         <div class="kt-section kt-section--first">
-                            <h3 class="kt-section__title">1. Основные:</h3>
+                            <h3 class="kt-section__title">1. {{ _["Main"] }}:</h3>
                             <div class="kt-section__body">
                                 <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label">Проект:</label>
-                                    <div class="col-lg-6">
-                                        <input type="text" class="form-control" placeholder="имя проекта" v-model="name">
-                                        <span class="form-text text-muted">пожалуйста введите имя проекта</span>
+                                    <label class="col-lg-3 col-form-label">{{ _["Project Name"] }}:</label>
+                                    <div class="col-lg-6" style="text-transform:lowercase">
+                                        <input type="text" class="form-control" :placeholder="_['Project Name'] " v-model="name">
+                                        <span class="form-text text-muted">{{ _["please enter project name"] }}</span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label">Вид Маахаза:</label>
+                                    <label class="col-lg-3 col-form-label">{{ _["Clip"] }}:</label>
                                     <div class="col-lg-6">
                                         <select class="form-control" v-model="clip">
                                             <option>83</option>
@@ -37,12 +37,12 @@
                                             <option>120</option>
                                             <option>130</option>
                                         </select>
-                                        <span class="form-text text-muted">пожалуйста выберете вид маахаза</span>
+                                        <span class="form-text text-muted">{{ _["please choose the type of clip"] }}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
-                            <h3 class="kt-section__title kt-mb-0">2. Состав:</h3>
+                            <h3 class="kt-section__title kt-mb-0">2. {{ _["Stocks"] }}:</h3>
                             <div class="kt-section__body">
                                 <div class="form-group row kt-mb-0">
                                     <div class="col-lg-12">
@@ -50,13 +50,13 @@
                                         <div class="btn-group float-right">
 
                                             <form ref="planks_excel_form" method="POST" enctype="multipart/form-data">
-                                                <span class="btn btn-outline-hover-info btn-elevate btn-icon fileinput-button" title="Загрузить Excel">
+                                                <span class="btn btn-outline-hover-info btn-elevate btn-icon fileinput-button" :title="_['Import Excel']">
                                                     <i class="flaticon-file-1" aria-hidden="true"></i>
                                                     <input type="file" ref="planks_excel_file" name="ImportExcel" @input="onPlanksExcelChange" />
                                                 </span>
                                                 <input type="submit" style="display: none" />
                                             </form>
-                                            <button type="button" class="btn btn-outline-hover-danger btn-elevate btn-icon" @click="clearPlanks" title="Очистить"><i class="flaticon-delete"></i></button>
+                                            <button type="button" class="btn btn-outline-hover-danger btn-elevate btn-icon" @click="clearPlanks" :title="_['Remove']"><i class="flaticon-delete"></i></button>
                                         </div>
 
                                     </div>
@@ -69,8 +69,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col" class="text-center">№</th>
-                                                        <th scope="col" class="text-center">Длина</th>
-                                                        <th scope="col" class="text-center">Колличество</th>
+                                                        <th scope="col" class="text-center">{{ _["Length"] }}</th>
+                                                        <th scope="col" class="text-center">{{ _["Amount"] }}</th>
                                                         <th scope="col" class="text-center"></th>
                                                     </tr>
                                                 </thead>
@@ -85,7 +85,7 @@
                                             </table>
                                             <div class="row">
                                                 <div class="col-md-12 kt-padding-0">
-                                                    <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" @click.prevent="plankAdd" title="Добавить"><i class="flaticon2-add-1"></i></button>
+                                                    <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" @click.prevent="plankAdd" :title="_['Add']"><i class="flaticon2-add-1"></i></button>
                                                     <!--<button class="btn btn-dark btn-block rounded-0" @click.prevent="plankAdd"><i class="fas fa-plus" aria-hidden="true"></i> Добавить</button>-->
                                                 </div>
 
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
-                            <h3 class="kt-section__title kt-mb-0">3. Отрезки:</h3>
+                            <h3 class="kt-section__title kt-mb-0">3. {{ _["Snippets"] }}:</h3>
                             <div class="kt-section__body">
 
                                 <div class="form-group row kt-mb-0">
@@ -104,13 +104,13 @@
                                         <div class="btn-group float-right">
 
                                             <form ref="snippets_excel_form" method="POST" enctype="multipart/form-data">
-                                                <span class="btn btn-outline-hover-info btn-elevate btn-icon fileinput-button" title="Загрузить Excel">
+                                                <span class="btn btn-outline-hover-info btn-elevate btn-icon fileinput-button" :title="_['Import Excel']">
                                                     <i class="flaticon-file-1" aria-hidden="true"></i>
                                                     <input type="file" ref="snippets_excel_file" name="ImportExcel" @input="onSnippetsExcelChange" />
                                                 </span>
                                                 <input type="submit" style="display: none" />
                                             </form>
-                                            <button type="button" class="btn btn-outline-hover-danger btn-elevate btn-icon" @click="clearSnippets" title="Очистить"><i class="flaticon-delete"></i></button>
+                                            <button type="button" class="btn btn-outline-hover-danger btn-elevate btn-icon" @click="clearSnippets" :title="_['Remove']"><i class="flaticon-delete"></i></button>
                                         </div>
 
                                     </div>
@@ -124,10 +124,10 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col" class="text-center">№</th>
-                                                        <th scope="col" class="text-center">Длина</th>
-                                                        <th scope="col" class="text-center">Квартира</th>
-                                                        <th scope="col" class="text-center">Этаж</th>
-                                                        <th scope="col" class="text-center">Столбы</th>
+                                                        <th scope="col" class="text-center">{{ _["Length"] }}</th>
+                                                        <th scope="col" class="text-center">{{ _["Apartment"] }}</th>
+                                                        <th scope="col" class="text-center">{{ _["Floor"] }}</th>
+                                                        <th scope="col" class="text-center">{{ _["Columns"] }}</th>
                                                         <th scope="col" class="text-center"></th>
                                                     </tr>
                                                 </thead>
@@ -145,7 +145,7 @@
                                             </table>
                                             <div class="row">
                                                 <div class="col-md-12 kt-padding-0">
-                                                    <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" @click.prevent="snippetAdd" title="Добавить"><i class="flaticon2-add-1"></i></button>
+                                                    <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" @click.prevent="snippetAdd" :title="_['Add']"><i class="flaticon2-add-1"></i></button>
                                                     <!--<button class="btn btn-dark btn-block rounded-0" @click.prevent="snippetAdd"><i class="fas fa-plus" aria-hidden="true"></i> Добавить</button>-->
                                                 </div>
                                             </div>
@@ -201,7 +201,8 @@
                 clip: 100,
                 excelFile: '',
                 result: '',
-                loading: false
+                loading: false,
+                _: window._resources["SmartCut"]
             }
         },
         mounted() {

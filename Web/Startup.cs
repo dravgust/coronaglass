@@ -68,11 +68,13 @@ namespace Web
                 .AddDataAnnotationsLocalization(resOptions =>
                 {
                     resOptions.DataAnnotationLocalizerProvider =
-                        (type, factory) => factory.Create(typeof(SharedResource));
+                        (type, factory) => factory.Create(typeof(SharedResources));
                 })
                 .AddCookieTempDataProvider();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddSingleton<SharedLocalizationService>();
+
             //.AddSessionStateTempDataProvider();services.AddSession(); 
             //services.Configure<CookieTempDataProviderOptions>(options =>
             //{

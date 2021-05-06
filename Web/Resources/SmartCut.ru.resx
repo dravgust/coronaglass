@@ -117,34 +117,82 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="* This field is required." xml:space="preserve">
-    <value>* שדה חובה.</value>
+  <data name="Add" xml:space="preserve">
+    <value>Добавить</value>
   </data>
-  <data name="Clip:" xml:space="preserve">
-    <value>מאחז</value>
+  <data name="Amount" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="Apartment" xml:space="preserve">
+    <value>Квартира</value>
+  </data>
+  <data name="Clip" xml:space="preserve">
+    <value>Зажим</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Столбы</value>
   </data>
   <data name="Cutting Optimization" xml:space="preserve">
-    <value>אופטימיזציה לחיתוך</value>
+    <value>Оптимизация резки</value>
   </data>
-  <data name="Hello {0}!" xml:space="preserve">
-    <value>שלום {0}!</value>
+  <data name="Export Excel" xml:space="preserve">
+    <value>Экспорт Excel</value>
   </data>
-  <data name="Home Page" xml:space="preserve">
-    <value>דף הבית</value>
+  <data name="Floor" xml:space="preserve">
+    <value>Этаж</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>התחברות</value>
+  <data name="Import Excel" xml:space="preserve">
+    <value>Импортировать Excel</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>להתנתק</value>
+  <data name="Invalid snippet length ({0} is not number in line {1})" xml:space="preserve">
+    <value>Неверная длина фрагмента ({0} не является числом в строке {1})</value>
   </data>
-  <data name="Manage Profile" xml:space="preserve">
-    <value>נהל פרופיל</value>
+  <data name="Length" xml:space="preserve">
+    <value>Длина</value>
   </data>
-  <data name="Name:" xml:space="preserve">
-    <value>פרויקט</value>
+  <data name="Main" xml:space="preserve">
+    <value>Основные</value>
+  </data>
+  <data name="Optimization complete!" xml:space="preserve">
+    <value>Оптимизация завершена!</value>
+  </data>
+  <data name="please choose the type of clip" xml:space="preserve">
+    <value>пожалуйста выберете вид зажима</value>
+  </data>
+  <data name="please enter project name" xml:space="preserve">
+    <value>пожалуйста введите имя проекта</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Распечатать</value>
+  </data>
+  <data name="Project Name" xml:space="preserve">
+    <value>Имя Проекта</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Snippets" xml:space="preserve">
+    <value>Отрезки</value>
+  </data>
+  <data name="Snippets [Floor/Apartment]" xml:space="preserve">
+    <value>Отрезки [Этаж/Квартира]</value>
+  </data>
+  <data name="Start Optimization" xml:space="preserve">
+    <value>Начать Oптимизацию</value>
+  </data>
+  <data name="Stocks" xml:space="preserve">
+    <value>Состав</value>
+  </data>
+  <data name="Total: {0} with {1} waste ({2}%)" xml:space="preserve">
+    <value>Сумма: {0} с остатком {1} ({2}%)</value>
   </data>
   <data name="Utilities" xml:space="preserve">
-    <value>כלי עזר</value>
+    <value>Инструменты</value>
+  </data>
+  <data name="Waste" xml:space="preserve">
+    <value>Отходы</value>
   </data>
 </root>

@@ -5,18 +5,18 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    Оптимизация резки
+                    {{ _["Cutting Optimization"] }}
                 </h3>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-layers-2"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Инструменты
+                        {{ _["Utilities"] }}
                     </a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Оптимизация резки
+                        {{ _["Cutting Optimization"] }}
                     </a>
 
                     <!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
@@ -44,6 +44,11 @@
         name: 'Tools',
         components: {
             SmartCut
+        },
+        data: function () {
+            return {
+                _: window._resources["SmartCut"]
+            }
         }
     }
 </script>

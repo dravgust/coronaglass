@@ -118,54 +118,81 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add" xml:space="preserve">
-    <value>Добавить</value>
+    <value>הוסף</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>כמות</value>
   </data>
   <data name="Apartment" xml:space="preserve">
-    <value>Квартира</value>
+    <value>דירה</value>
+  </data>
+  <data name="Clip" xml:space="preserve">
+    <value>מאחז</value>
   </data>
   <data name="Columns" xml:space="preserve">
-    <value>Столбы</value>
+    <value>עמודים</value>
+  </data>
+  <data name="Cutting Optimization" xml:space="preserve">
+    <value>אופטימיזציה לחיתוך</value>
   </data>
   <data name="Export Excel" xml:space="preserve">
-    <value>Экспорт Excel</value>
+    <value>ייצא Excel</value>
   </data>
   <data name="Floor" xml:space="preserve">
-    <value>Этаж</value>
+    <value>קומה</value>
   </data>
   <data name="Import Excel" xml:space="preserve">
-    <value>Импортировать Excel</value>
+    <value>ייבא את Excel</value>
   </data>
   <data name="Invalid snippet length ({0} is not number in line {1})" xml:space="preserve">
-    <value>Неверная длина фрагмента ({0} не является числом в строке {1})</value>
+    <value>אורך קטע לא חוקי ({0} אינו מספר בשורה {1})</value>
   </data>
   <data name="Length" xml:space="preserve">
-    <value>Длина</value>
+    <value>אורך</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>הראשי</value>
   </data>
   <data name="Optimization complete!" xml:space="preserve">
-    <value>Оптимизация завершена!</value>
+    <value>האופטימיזציה הושלמה!</value>
   </data>
-  <data name="Remove All" xml:space="preserve">
-    <value>Удалить Все</value>
+  <data name="please choose the type of clip" xml:space="preserve">
+    <value>אנא בחר את סוג המהז</value>
+  </data>
+  <data name="please enter project name" xml:space="preserve">
+    <value>אנא הזן את שם הפרויקט</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>הדפס</value>
+  </data>
+  <data name="Project Name" xml:space="preserve">
+    <value>שם הפרוייקט</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>להסיר</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
+    <value>הגדרות</value>
   </data>
   <data name="Snippets" xml:space="preserve">
-    <value>Отрезки</value>
+    <value>מקטעים</value>
   </data>
   <data name="Snippets [Floor/Apartment]" xml:space="preserve">
-    <value>Отрезки [Этаж/Квартира]</value>
+    <value>קטעים [קומה / דירה]</value>
   </data>
   <data name="Start Optimization" xml:space="preserve">
-    <value>Начать Oптимизацию</value>
+    <value>התחל מיטוב</value>
   </data>
   <data name="Stocks" xml:space="preserve">
-    <value>Состав</value>
+    <value>מלאי</value>
   </data>
-  <data name="total: {0} with {1} waste ({2}%)" xml:space="preserve">
-    <value>Сумма: {0} с остатком {1} ({2}%)</value>
+  <data name="Total: {0} with {1} waste ({2}%)" xml:space="preserve">
+    <value>סה"כ: {0} עם {1} פסולת ({2}%)</value>
+  </data>
+  <data name="Utilities" xml:space="preserve">
+    <value>כלי עזר</value>
   </data>
   <data name="Waste" xml:space="preserve">
-    <value>Отходы</value>
+    <value>פסולות</value>
   </data>
 </root>

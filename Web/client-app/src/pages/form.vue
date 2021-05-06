@@ -86,7 +86,7 @@
                             <div class="kt-space-20"></div>
 
                             <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _res["First Name"] }} *</label>
+                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _["First Name"] }} *</label>
                                 <div class="col-md-10 col-sm-12">
                                     <input class="form-control" type="text" placeholder="First Name" required v-model="firstName" v-bind:class="[{'is-invalid': isFirstNameError}]">
                                     <div class="invalid-feedback" v-if="isFirstNameError">
@@ -302,7 +302,7 @@
                 errors: [],
                 validation: false,
                 result: false,
-                _res: window._resources["CertificateForm"]
+                _: window._resources["CertificateForm"]
             }
         },
         mounted() {

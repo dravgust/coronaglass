@@ -118,33 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="* This field is required." xml:space="preserve">
-    <value>* Обязательное поле для заполнения.</value>
-  </data>
-  <data name="Clip:" xml:space="preserve">
-    <value>Вид Маахаза:</value>
+    <value>* שדה חובה.</value>
   </data>
   <data name="Cutting Optimization" xml:space="preserve">
-    <value>Оптимизация резки</value>
+    <value>אופטימיזציה לחיתוך</value>
   </data>
   <data name="Hello {0}!" xml:space="preserve">
-    <value>Здравствуйте {0}!</value>
+    <value>שלום {0}!</value>
   </data>
   <data name="Home Page" xml:space="preserve">
-    <value>Главная страница</value>
+    <value>דף הבית</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Войти</value>
+    <value>התחברות</value>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>Выйти</value>
+    <value>להתנתק</value>
   </data>
   <data name="Manage Profile" xml:space="preserve">
-    <value>Управление Профилем</value>
-  </data>
-  <data name="Name:" xml:space="preserve">
-    <value>Проект:</value>
+    <value>נהל פרופיל</value>
   </data>
   <data name="Utilities" xml:space="preserve">
-    <value>Инструменты</value>
+    <value>כלי עזר</value>
   </data>
 </root>

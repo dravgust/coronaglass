@@ -1,4 +1,7 @@
-﻿<!-- begin:: Aside -->
+﻿@using Web.Infrastructure
+@inject SharedLocalizationService Resources
+
+<!-- begin:: Aside -->
 <button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
 <div class="kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
 
@@ -7,16 +10,16 @@
         <div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1">
             <ul class="kt-menu__nav ">
                 <li class="kt-menu__item " aria-haspopup="true">
-                    <a href="~/" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-architecture-and-city"></i><span class="kt-menu__link-text">Домашняя</span></a>
+                    <a href="~/" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-architecture-and-city"></i><span class="kt-menu__link-text">@Resources["Home Page"]</span></a>
                 </li>
                 <li class="kt-menu__section ">
-                    <h4 class="kt-menu__section-text">Инструменты</h4>
+                    <h4 class="kt-menu__section-text">@Resources["Utilities"]</h4>
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
                 </li>
                 <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--open kt-menu__item--here" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a asp-area="" asp-controller="Home" asp-action="Tools" class="kt-menu__link ">
                         <i class="kt-menu__link-icon flaticon2-layers-2"></i>
-                        <span class="kt-menu__link-text">Оптимизация резки</span>
+                        <span class="kt-menu__link-text">@Resources["Cutting Optimization"]</span>
                     </a>
                 </li>
             </ul>

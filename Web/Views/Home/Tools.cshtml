@@ -1,9 +1,14 @@
-﻿@section Title{<title>Инструменты</title>}
+﻿@using Web.Infrastructure
+@inject SharedLocalizationService Resources
+
+@section Title{<title>@Resources["Utilities"]</title>}
 @section sidebar{@await Html.PartialAsync("_Sidebar")}
 @section Head {
     <link rel="stylesheet" asp-append-version="true" href="~/css/masonry.css" />
     <link rel="stylesheet" asp-append-version="true" href="~/css/modal.css" />
     <link rel="stylesheet" asp-append-version="true" href="~/css/toggle.button.css" />
+
+    <resources names='new[] { "SmartCut" }'></resources>
 }
 
 @section Scripts

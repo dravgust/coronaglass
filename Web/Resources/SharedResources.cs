@@ -1,6 +1,7 @@
 ﻿namespace Web.Resources
 {
-    public class SmartCutResource
+    public class SharedResources
     {
+
     }
 }
