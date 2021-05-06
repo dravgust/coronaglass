@@ -85,7 +85,7 @@ namespace Web
             {
                 var supportedCultures = new[]
                 {
-                    //new CultureInfo("en"),
+                    new CultureInfo("en"),
                     new CultureInfo("he"),
                     new CultureInfo("ru")
                 };
