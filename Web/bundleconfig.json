@@ -1,29 +1,26 @@
 [
   {
-    "outputFileName": "wwwroot/css/site.min.css",
+    "outputFileName": "wwwroot/css/site.css",
     "inputFiles": [
       "wwwroot/css/site.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/css/metronic.v5.fonts.css",
+    "outputFileName": "wwwroot/css/plugins.bundle.css",
     "inputFiles": [
-      "wwwroot/metronic/v5/plugins/line-awesome/css/line-awesome.css",
-      "wwwroot/metronic/v5/plugins/flaticon/flaticon.css",
-      "wwwroot/metronic/v5/plugins/flaticon2/flaticon.css",
-      "wwwroot/metronic/v5/plugins/fontawesome/css/all.min.css"
+      "wwwroot/metronic/assets/plugins/global/plugins.bundle.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/fonts/metronic.fonts.min.css",
+    "outputFileName": "wwwroot/fonts/style.bundle.css",
     "inputFiles": [
-      "wwwroot/fonts/metronic.fonts.css"
+      "wwwroot/metronic/assets/css/style.bundle.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/js/site.min.js",
+    "outputFileName": "wwwroot/js/site.js",
     "inputFiles": [
-      "wwwroot/js/site.js"
+      "wwwroot/js/enum.helper.js"
     ],
     "minify": {
       "enabled": true,
@@ -32,17 +29,9 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/js/metronic.bundle.scripts.js",
+    "outputFileName": "wwwroot/js/scripts.bundle.js",
     "inputFiles": [
-      "wwwroot/metronic/v5/js/init.options.js",
-      "wwwroot/metronic/v5/js/global/components/base/util.js",
-      "wwwroot/metronic/v5/js/global/components/base/app.js",
-      "wwwroot/metronic/v5/js/global/components/base/header.js",
-      "wwwroot/metronic/v5/js/global/components/base/menu.js",
-      "wwwroot/metronic/v5/js/global/components/base/offcanvas.js",
-      "wwwroot/metronic/v5/js/global/components/base/scrolltop.js",
-      "wwwroot/metronic/v5/js/global/components/base/toggle.js",
-      "wwwroot/metronic/v5/js/global/layout/layout.js"
+      "wwwroot/metronic/assets/js/scripts.bundle.js"
     ],
     "minify": {
       "enabled": true,
@@ -51,27 +40,12 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/js/plugins.bundle.scripts.js",
+    "outputFileName": "wwwroot/js/plugins.bundle.js",
     "inputFiles": [
-      "wwwroot/lib/jquery/dist/jquery.js",
-      "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
-      "wwwroot/metronic/v5/plugins/bootbox/bootbox.min.js",
-      "wwwroot/metronic/v5/plugins/moment/moment.min.js",
-      "wwwroot/metronic/v5/plugins/sticky/sticky.min.js",
-      "wwwroot/metronic/v5/plugins/raphael/raphael.min.js",
-      "wwwroot/metronic/v5/plugins/js-cookie/js-cookie.js",
-      "wwwroot/metronic/v5/plugins/popper/popper.js",
-      "wwwroot/metronic/v5/plugins/tooltip/tooltip.js",
-      "wwwroot/metronic/v5/plugins/perfect-scrollbar/perfect-scrollbar.min.js",
-      "wwwroot/metronic/v5/plugins/owl.carousel/owl.carousel.min.js",
-      "wwwroot/metronic/v5/plugins/bootstrap-daterangepicker/bootstrap-daterangepicker.min.js",
-      "wwwroot/metronic/v5/plugins/json2/json2.min.js",
-      "wwwroot/metronic/v5/plugins/event-emitter/event_emitter.js",
-      "wwwroot/metronic/v5/plugins/event-emitter/event_emitter.wrapped.js"
-
+      "wwwroot/metronic/assets/plugins/global/plugins.bundle.js"
     ],
     "minify": {
-      "enabled": true,
+      "enabled": false,
       "renameLocals": true
     },
     "sourceMap": false

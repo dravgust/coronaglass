@@ -117,8 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="_about" xml:space="preserve">
+  <data name="About" xml:space="preserve">
     <value>о компании</value>
+  </data>
+  <data name="Clients" xml:space="preserve">
+    <value>клиенты</value>
+  </data>
+  <data name="Contact Us" xml:space="preserve">
+    <value>связаться с нами</value>
+  </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>галерея</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>домашняя</value>
+  </data>
+  <data name="Our Services" xml:space="preserve">
+    <value>Сервисы</value>
+  </data>
+  <data name="vision" xml:space="preserve">
+    <value>видение</value>
   </data>
   <data name="_about_1" xml:space="preserve">
     <value>Данные о компании</value>
@@ -150,9 +168,6 @@
   <data name="_call" xml:space="preserve">
     <value>Бесплатно</value>
   </data>
-  <data name="_clients" xml:space="preserve">
-    <value>клиенты</value>
-  </data>
   <data name="_clients_1" xml:space="preserve">
     <value>клиенты</value>
   </data>
@@ -161,9 +176,6 @@
   </data>
   <data name="_clients_3" xml:space="preserve">
     <value>Ведущие строительные и инжиниринговые компании в Израиле!</value>
-  </data>
-  <data name="_contact" xml:space="preserve">
-    <value>связаться с нами</value>
   </data>
   <data name="_contact_1" xml:space="preserve">
     <value>Связаться</value>
@@ -177,14 +189,8 @@
   <data name="_exterior_design" xml:space="preserve">
     <value>Внешний дизайн</value>
   </data>
-  <data name="_gallery" xml:space="preserve">
-    <value>галерея</value>
-  </data>
   <data name="_gallery_1" xml:space="preserve">
     <value>Наши работы</value>
-  </data>
-  <data name="_home" xml:space="preserve">
-    <value>домашняя</value>
   </data>
   <data name="_interior" xml:space="preserve">
     <value>внутренние &lt;br&gt;работы</value>
@@ -231,17 +237,11 @@
   <data name="_send_message" xml:space="preserve">
     <value>Отправить сообщение</value>
   </data>
-  <data name="_services" xml:space="preserve">
-    <value>Сервисы</value>
-  </data>
   <data name="_services_1" xml:space="preserve">
     <value>Что мы можем сделать?</value>
   </data>
   <data name="_subject" xml:space="preserve">
     <value>Тема</value>
-  </data>
-  <data name="_vision" xml:space="preserve">
-    <value>видение</value>
   </data>
   <data name="_vision_1" xml:space="preserve">
     <value>пассивы</value>

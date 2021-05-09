@@ -117,8 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="_about" xml:space="preserve">
+  <data name="About" xml:space="preserve">
     <value>About</value>
+  </data>
+  <data name="Clients" xml:space="preserve">
+    <value>Clients</value>
+  </data>
+  <data name="Contact Us" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>Gallery</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Our Services" xml:space="preserve">
+    <value>Our Services</value>
+  </data>
+  <data name="vision" xml:space="preserve">
+    <value>vision</value>
   </data>
   <data name="_about_1" xml:space="preserve">
     <value>About Us</value>
@@ -135,9 +153,6 @@
   <data name="_call" xml:space="preserve">
     <value>Toll free</value>
   </data>
-  <data name="_clients" xml:space="preserve">
-    <value>Clients</value>
-  </data>
   <data name="_clients_1" xml:space="preserve">
     <value>Clients</value>
   </data>
@@ -147,20 +162,11 @@
   <data name="_clients_3" xml:space="preserve">
     <value>Leading construction and engineering companies in the Israel!</value>
   </data>
-  <data name="_contact" xml:space="preserve">
-    <value>Contact Us</value>
-  </data>
   <data name="_contact_1" xml:space="preserve">
     <value>Get in touch</value>
   </data>
   <data name="_email" xml:space="preserve">
     <value>Email</value>
-  </data>
-  <data name="_gallery" xml:space="preserve">
-    <value>Gallery</value>
-  </data>
-  <data name="_home" xml:space="preserve">
-    <value>Home</value>
   </data>
   <data name="_message" xml:space="preserve">
     <value>Message</value>
@@ -187,17 +193,11 @@
   <data name="_send_message" xml:space="preserve">
     <value>Send message</value>
   </data>
-  <data name="_services" xml:space="preserve">
-    <value>Our Services</value>
-  </data>
   <data name="_services_1" xml:space="preserve">
     <value>What We Can Do</value>
   </data>
   <data name="_subject" xml:space="preserve">
     <value>Subject</value>
-  </data>
-  <data name="_vision" xml:space="preserve">
-    <value>vision</value>
   </data>
   <data name="_vision_1" xml:space="preserve">
     <value>Liabilities</value>

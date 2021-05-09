@@ -117,8 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="_about" xml:space="preserve">
+  <data name="About" xml:space="preserve">
     <value>על החברה</value>
+  </data>
+  <data name="Clients" xml:space="preserve">
+    <value>לקוחות</value>
+  </data>
+  <data name="Contact Us" xml:space="preserve">
+    <value>צור קשר</value>
+  </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>גלריה</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>דף הבית</value>
+  </data>
+  <data name="Our Services" xml:space="preserve">
+    <value>שירותים</value>
+  </data>
+  <data name="vision" xml:space="preserve">
+    <value>חזון</value>
   </data>
   <data name="_about_1" xml:space="preserve">
     <value>נתונים על החברה</value>
@@ -150,9 +168,6 @@
   <data name="_call" xml:space="preserve">
     <value>ללא תשלום</value>
   </data>
-  <data name="_clients" xml:space="preserve">
-    <value>לקוחות</value>
-  </data>
   <data name="_clients_1" xml:space="preserve">
     <value>לקוחות</value>
   </data>
@@ -161,9 +176,6 @@
   </data>
   <data name="_clients_3" xml:space="preserve">
     <value>חברות בנייה הנדסה ויזמות המובילות במשק הישראלי !</value>
-  </data>
-  <data name="_contact" xml:space="preserve">
-    <value>צור קשר</value>
   </data>
   <data name="_contact_1" xml:space="preserve">
     <value>ליצור קשר</value>
@@ -177,14 +189,8 @@
   <data name="_exterior_design" xml:space="preserve">
     <value>עיצוב חוץ</value>
   </data>
-  <data name="_gallery" xml:space="preserve">
-    <value>גלריה</value>
-  </data>
   <data name="_gallery_1" xml:space="preserve">
     <value>העבודות שלנו</value>
-  </data>
-  <data name="_home" xml:space="preserve">
-    <value>דף הבית</value>
   </data>
   <data name="_interior" xml:space="preserve">
     <value>עבודות &lt;br&gt;פנים</value>
@@ -231,17 +237,11 @@
   <data name="_send_message" xml:space="preserve">
     <value>לשלוח הודעה</value>
   </data>
-  <data name="_services" xml:space="preserve">
-    <value>שירותים</value>
-  </data>
   <data name="_services_1" xml:space="preserve">
     <value>מה אנחנו יכולים לעשות</value>
   </data>
   <data name="_subject" xml:space="preserve">
     <value>נושא</value>
-  </data>
-  <data name="_vision" xml:space="preserve">
-    <value>חזון</value>
   </data>
   <data name="_vision_1" xml:space="preserve">
     <value>התחייבויות</value>

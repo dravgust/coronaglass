@@ -1,4 +1,13 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+function enumHelper(obj) {
+    var self = this;
 
-// Write your Javascript code.
+    self.enum = obj;
+    self.array = function () {
+        var list = [];
+        Object.getOwnPropertyNames(self.enum).forEach(function (name) {
+            list.push({ name: name, value: self.enum[name] });
+        });
+
+        return list;
+    }
+}
