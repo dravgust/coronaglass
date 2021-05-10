@@ -117,7 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="Constructor" xml:space="preserve">
+    <value>Имя Конструктора</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электронная Почта</value>
+  </data>
   <data name="First Name" xml:space="preserve">
     <value>Имя</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>Форма подачи информации на гарантийный талон</value>
+  </data>
+  <data name="Last Name" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="Number of People in the House" xml:space="preserve">
+    <value>Кол-во Человек в Доме</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Project Name" xml:space="preserve">
+    <value>Название Проекта</value>
+  </data>
+  <data name="Subheader" xml:space="preserve">
+    <value>Заполните форму, указав свои личные данные.</value>
   </data>
 </root>

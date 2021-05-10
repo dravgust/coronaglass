@@ -58,6 +58,7 @@
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
+                                {{ _["Header"] }}
                             </h3>
                         </div>
 
@@ -72,7 +73,7 @@
                                 <div class="alert alert-secondary" role="alert">
                                     <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
                                     <div class="alert-text">
-                                        Please fill out the form with your personal data.
+                                        {{ _['Subheader'] }}
                                     </div>
                                 </div>
                                 <div v-if="errors.length">
@@ -88,16 +89,16 @@
                             <div class="form-group row">
                                 <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _["First Name"] }} *</label>
                                 <div class="col-md-10 col-sm-12">
-                                    <input class="form-control" type="text" placeholder="First Name" required v-model="firstName" v-bind:class="[{'is-invalid': isFirstNameError}]">
+                                    <input class="form-control" type="text" :placeholder="_['First Name']" required v-model="firstName" v-bind:class="[{'is-invalid': isFirstNameError}]">
                                     <div class="invalid-feedback" v-if="isFirstNameError">
                                         This field is required.
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">Last Name *</label>
+                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _["Last Name"] }} *</label>
                                 <div class="col-md-10 col-sm-12">
-                                    <input class="form-control" type="text" placeholder="Last Name" required v-model="lastName" v-bind:class="[{'is-invalid': isLastNameError}]">
+                                    <input class="form-control" type="text" :placeholder="_['Last Name']" required v-model="lastName" v-bind:class="[{'is-invalid': isLastNameError}]">
                                     <div class="invalid-feedback" v-if="isLastNameError">
                                         This field is required.
                                     </div>
@@ -105,7 +106,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">Phone *</label>
+                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['Phone'] }} *</label>
                                 <div class="col-md-10 col-sm-12">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -113,7 +114,7 @@
                                                 <i class="la la-phone"></i>
                                             </span>
                                         </div>
-                                        <input class="form-control form-control-danger" placeholder="Phone" type="tel" required v-model="phone" @blur="isPhoneTouched = true" v-bind:class="[{'is-invalid': isPhoneError},{'is-valid': isPhoneValid}]">
+                                        <input class="form-control form-control-danger" :placeholder="_['Phone']" type="tel" required v-model="phone" @blur="isPhoneTouched = true" v-bind:class="[{'is-invalid': isPhoneError},{'is-valid': isPhoneValid}]">
                                         <div class="invalid-feedback" v-if="isPhoneError">Invalid phone number, check the formatting of that and try again.</div>
                                     </div>
 
@@ -121,7 +122,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">Email *</label>
+                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['Email'] }} *</label>
                                 <div class="col-md-10 col-sm-12">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -129,7 +130,7 @@
                                                 <i class="la la-envelope"></i>
                                             </span>
                                         </div>
-                                        <input class="form-control form-control-danger" placeholder="Email" type="email" v-model="email" @blur="isEmailTouched = true" v-bind:class="[{'is-invalid': isEmailError},{'is-valid': isEmailValid}]">
+                                        <input class="form-control form-control-danger" :placeholder="_['Email']" type="email" v-model="email" @blur="isEmailTouched = true" v-bind:class="[{'is-invalid': isEmailError},{'is-valid': isEmailValid}]">
                                         <div class="invalid-feedback" v-if="isEmailError">Invalid email, check the formatting of that and try again.</div>
                                     </div>
 
@@ -137,7 +138,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">City *</label>
+                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['City'] }} *</label>
                                 <div class="col-md-10 col-sm-12">
                                     <select class="form-control" v-model="city">
                                         <option v-for="option in $options.cities" v-bind:value="option.id" :key="option.id">
@@ -148,7 +149,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">Address *</label>
+                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['Address'] }} *</label>
                                 <div class="col-md-10 col-sm-12">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -156,7 +157,7 @@
                                                 <i class="la la-home"></i>
                                             </span>
                                         </div>
-                                        <input class="form-control" type="text" placeholder="Address" required v-model="address" v-bind:class="[{'is-invalid': isAddressError}]">
+                                        <input class="form-control" type="text" :placeholder="_['Address']" required v-model="address" v-bind:class="[{'is-invalid': isAddressError}]">
                                         <div class="invalid-feedback" v-if="isAddressError">
                                             This field is required.
                                         </div>
@@ -166,15 +167,15 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">Project Name</label>
+                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['Project Name'] }}</label>
                                 <div class="col-md-10 col-sm-12">
-                                    <input class="form-control" type="text" placeholder="Project Name" v-model="projectName">
+                                    <input class="form-control" type="text" :placeholder="_['Project Name']" v-model="projectName">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">Constructor *</label>
+                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['Constructor'] }} *</label>
                                 <div class="col-md-10 col-sm-12">
-                                    <input class="form-control" type="text" required placeholder="Constructor" v-model="constructor" v-bind:class="[{'is-invalid': isConstructorError}]">
+                                    <input class="form-control" type="text" required :placeholder="_['Constructor']" v-model="constructor" v-bind:class="[{'is-invalid': isConstructorError}]">
                                     <div class="invalid-feedback" v-if="isConstructorError">
                                         This field is required.
                                     </div>
@@ -306,7 +307,6 @@
             }
         },
         mounted() {
-
             axios.interceptors.request.use(function (config) {
                 $('#loadingModal').modal('show');
                 return config;
