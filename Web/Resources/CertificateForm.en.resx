@@ -153,6 +153,9 @@
   <data name="Number of people in the house" xml:space="preserve">
     <value>Number of people in the house</value>
   </data>
+  <data name="Number of rooms" xml:space="preserve">
+    <value>Number of rooms</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
   </data>
@@ -162,6 +165,9 @@
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
+  <data name="Sent successfully!" xml:space="preserve">
+    <value>Sent successfully!</value>
+  </data>
   <data name="Street" xml:space="preserve">
     <value>Street</value>
   </data>
@@ -170,6 +176,9 @@
   </data>
   <data name="The address of your new apartment" xml:space="preserve">
     <value>The address of your new apartment</value>
+  </data>
+  <data name="The warranty certificate was sent to {0}." xml:space="preserve">
+    <value>The warranty certificate was sent to {0}.</value>
   </data>
   <data name="Warranty certificate" xml:space="preserve">
     <value>Warranty certificate</value>

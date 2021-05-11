@@ -24,7 +24,7 @@
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-
+                   
                 </div>
             </div>
         </div>
@@ -38,8 +38,8 @@
                 <div class="alert alert-success" role="alert">
                     <div class="alert-icon"><i class="flaticon-paper-plane-1"></i></div>
                     <div class="alert-text">
-                        <h4 class="alert-heading">Sent successfully!</h4>
-                        <p> The certificate was sent to {{email}}.</p>
+                        <h4 class="alert-heading">{{_['Sent successfully!']}}</h4>
+                        <p> {{String.format(_['The warranty certificate was sent to {0}.'], email)}}</p>
                     </div>
                     <div class="alert-close">
                         <div class="alert-close">
@@ -231,7 +231,7 @@
                                     <div class="col-2">
                                     </div>
                                     <div class="col-10">
-                                        <button type="reset" style="padding: 0.86rem 3.57rem 0.86rem 3.57rem" class="btn btn-info btn-elevate mr-1" @click.prevent="submit">Send</button>
+                                        <button type="reset" style="padding: 0.86rem 3.57rem 0.86rem 3.57rem" class="btn btn-info btn-elevate mr-1" @click.prevent="submit">{{ _['Send']}}</button>
                                         <!--<button type="reset" class="btn btn-secondary">Cancel</button>-->
                                     </div>
                                 </div>
@@ -348,6 +348,13 @@
         },
         mounted() {
 
+            String.format = function (fmtstr) {
+                var args = Array.prototype.slice.call(arguments, 1);
+                return fmtstr.replace(/\{(\d+)\}/g, function (match, index) {
+                    return args[index];
+                });
+            }
+
             axios.interceptors.request.use(function (config) {
                 $('#loadingModal').modal('show');
                 return config;
@@ -418,7 +425,7 @@
                     .then((response) => {
                         if (response) {
                             console.log("response on submit", JSON.stringify(response));
-
+                           
                             this.result = true;
                         }
                     })

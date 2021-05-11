@@ -153,6 +153,9 @@
   <data name="Number of People in the House" xml:space="preserve">
     <value>Кол-во Человек в Доме</value>
   </data>
+  <data name="Number of rooms" xml:space="preserve">
+    <value>Кол-во комнат</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Телефон</value>
   </data>
@@ -162,6 +165,9 @@
   <data name="Send" xml:space="preserve">
     <value>Отослать</value>
   </data>
+  <data name="Sent successfully!" xml:space="preserve">
+    <value>Успешно отправлено!</value>
+  </data>
   <data name="Street" xml:space="preserve">
     <value>Улица</value>
   </data>
@@ -170,6 +176,9 @@
   </data>
   <data name="The address of your new apartment" xml:space="preserve">
     <value>Адрес вашей новой квартиры</value>
+  </data>
+  <data name="The warranty certificate was sent to {0}." xml:space="preserve">
+    <value>Гарантийный сертификат был отправлен на адрес {0}.</value>
   </data>
   <data name="Warranty certificate" xml:space="preserve">
     <value>Гарантийный сертификат</value>

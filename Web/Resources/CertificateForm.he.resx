@@ -121,7 +121,7 @@
     <value>דירה</value>
   </data>
   <data name="City" xml:space="preserve">
-    <value>עִיר</value>
+    <value>עיר</value>
   </data>
   <data name="Constructor" xml:space="preserve">
     <value>קבלן מבצע</value>
@@ -153,6 +153,9 @@
   <data name="Number of people in the house" xml:space="preserve">
     <value>כמות נפשות בבית</value>
   </data>
+  <data name="Number of rooms" xml:space="preserve">
+    <value>מספר חדרים</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>טלפון</value>
   </data>
@@ -162,14 +165,20 @@
   <data name="Send" xml:space="preserve">
     <value>שלח</value>
   </data>
+  <data name="Sent successfully!" xml:space="preserve">
+    <value>נשלח בהצלחה!</value>
+  </data>
   <data name="Street" xml:space="preserve">
-    <value>רְחוֹב</value>
+    <value>רחוב</value>
   </data>
   <data name="Subheader" xml:space="preserve">
     <value>אנא מלא את הטופס עם הנתונים האישיים שלך.</value>
   </data>
   <data name="The address of your new apartment" xml:space="preserve">
     <value>כתובת דירתכם החדשה</value>
+  </data>
+  <data name="The warranty certificate was sent to {0}." xml:space="preserve">
+    <value>תעודת האחריות נשלחה אל {0}.</value>
   </data>
   <data name="Warranty certificate" xml:space="preserve">
     <value>תעודת אחריות</value>
