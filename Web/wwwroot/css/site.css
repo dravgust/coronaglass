@@ -8,6 +8,10 @@ html, body {
     width: 29px;
 }
 
+.was-validated .form-control:invalid, .form-control.is-invalid {
+    background-image: none;
+}
+
 /**************file-input***********/
 .fileinput-button {
     position: relative;

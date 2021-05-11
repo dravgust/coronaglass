@@ -117,14 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Address" xml:space="preserve">
-    <value>כתובת</value>
+  <data name="Apartment" xml:space="preserve">
+    <value>דירה</value>
   </data>
   <data name="City" xml:space="preserve">
     <value>עִיר</value>
   </data>
   <data name="Constructor" xml:space="preserve">
-    <value>שם היזם</value>
+    <value>קבלן מבצע</value>
+  </data>
+  <data name="Customers" xml:space="preserve">
+    <value>לקוחות</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>אימייל</value>
@@ -132,11 +135,20 @@
   <data name="First Name" xml:space="preserve">
     <value>שם פרטי</value>
   </data>
+  <data name="Floor" xml:space="preserve">
+    <value>קומה</value>
+  </data>
   <data name="Header" xml:space="preserve">
     <value>טופס מסירת פרטים לקבלת תעודת אחריות</value>
   </data>
+  <data name="Key Receipt Date" xml:space="preserve">
+    <value>תאריך קבלת מפתח</value>
+  </data>
   <data name="Last Name" xml:space="preserve">
     <value>שם משפחה</value>
+  </data>
+  <data name="Name of Developer" xml:space="preserve">
+    <value>שם היזם</value>
   </data>
   <data name="Number of people in the house" xml:space="preserve">
     <value>כמות נפשות בבית</value>
@@ -147,7 +159,19 @@
   <data name="Project Name" xml:space="preserve">
     <value>שם הפרוייקט</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>שלח</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>רְחוֹב</value>
+  </data>
   <data name="Subheader" xml:space="preserve">
     <value>אנא מלא את הטופס עם הנתונים האישיים שלך.</value>
+  </data>
+  <data name="The address of your new apartment" xml:space="preserve">
+    <value>כתובת דירתכם החדשה</value>
+  </data>
+  <data name="Warranty certificate" xml:space="preserve">
+    <value>תעודת אחריות</value>
   </data>
 </root>

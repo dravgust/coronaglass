@@ -11,10 +11,10 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using VralumGlassWeb.Data;
 using Web.Extensions;
 using Web.Features.Tools;
 using Web.Infrastructure;
+using Web.Models;
 
 namespace Web.Features.Customer
 {
@@ -29,8 +29,14 @@ namespace Web.Features.Customer
         public string Phone { set; get; }
         [JsonProperty("email")]
         public string Email { set; get; }
-        [JsonProperty("address")]
-        public string Address { set; get; }
+        [JsonProperty("street")]
+        public string Street { set; get; }
+        [JsonProperty("floor")]
+        public string Floor { set; get; }
+        [JsonProperty("apartment")]
+        public string Apartment { set; get; }
+        [JsonProperty("city")]
+        public string City { set; get; }
         [JsonProperty("projectName")]
         public string ProjectName { set; get; }
         [JsonProperty("constructor")]
@@ -110,7 +116,10 @@ namespace Web.Features.Customer
                 RuleFor(q => q.LastName).NotEmpty();
                 RuleFor(q => q.Phone).NotEmpty().PhoneNumber();
                 RuleFor(q => q.Email).NotEmpty().EmailAddress();
-                RuleFor(q => q.Address).NotEmpty();
+                RuleFor(q => q.Street).NotEmpty();
+                RuleFor(q => q.City).NotEmpty();
+                RuleFor(q => q.Floor).NotEmpty();
+                RuleFor(q => q.Apartment).NotEmpty();
                 RuleFor(q => q.Constructor).NotEmpty();
             }
         }

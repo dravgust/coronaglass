@@ -1,21 +1,14 @@
-﻿@using Web.Controllers
-@using CoronaGlass.Core
-@using Microsoft.Extensions.Localization
+﻿@using Web.Infrastructure
+@inject SharedLocalizationService Resources
 
-@inject IStringLocalizer<HomeController> Resources
-
-@{
-    var resources = Resources.GetAllStrings().ToDictionary(k => k.Name, v => v.Value);
-}
-
-@section Title{<title>Form</title>}
+@section Title{<title>@Resources["Warranty certificate"]</title>}
 @section Head {
     <link rel="stylesheet" asp-append-version="true" href="~/css/masonry.css" />
     <link rel="stylesheet" asp-append-version="true" href="~/css/modal.css" />
     <link rel="stylesheet" asp-append-version="true" href="~/css/toggle.button.css" />
     <link rel="stylesheet" asp-append-version="true" href="~/metronic/assets/css/pages/pricing/pricing-1.css" />
-    
-    <resources names='new[] { "CertificateForm" }'></resources>
+
+    <resources names='new[] { "CertificateForm", "SharedResources" }'></resources>
 }
 
 @section Scripts

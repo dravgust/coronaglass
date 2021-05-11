@@ -5,18 +5,18 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    Certificate
+                    {{ _['Warranty certificate'] }}
                 </h3>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon-interface-11"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Customers
+                        {{ _['Customers']}}
                     </a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Certificate
+                        {{ _['Warranty certificate'] }}
                     </a>
 
                     <!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
@@ -86,108 +86,144 @@
                             </div>
                             <div class="kt-space-20"></div>
 
-                            <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _["First Name"] }} *</label>
-                                <div class="col-md-10 col-sm-12">
-                                    <input class="form-control" type="text" :placeholder="_['First Name']" required v-model="firstName" v-bind:class="[{'is-invalid': isFirstNameError}]">
-                                    <div class="invalid-feedback" v-if="isFirstNameError">
-                                        This field is required.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _["Last Name"] }} *</label>
-                                <div class="col-md-10 col-sm-12">
-                                    <input class="form-control" type="text" :placeholder="_['Last Name']" required v-model="lastName" v-bind:class="[{'is-invalid': isLastNameError}]">
-                                    <div class="invalid-feedback" v-if="isLastNameError">
-                                        This field is required.
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="kt-section">
 
-                            <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['Phone'] }} *</label>
-                                <div class="col-md-10 col-sm-12">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="la la-phone"></i>
-                                            </span>
+                                <div class="kt-section__content">
+
+                                    <div class="form-group form-group row">
+                                        <div class="col-12 form-group-sub">
+                                            <label class="form-control-label">* {{ _["First Name"] }}:</label>
+                                            <input class="form-control" type="text" v-model="firstName" v-bind:class="[{'is-invalid': isFirstNameError}]">
+                                            <div class="invalid-feedback" v-if="isFirstNameError">
+                                                {{shared['Required']}}
+                                            </div>
                                         </div>
-                                        <input class="form-control form-control-danger" :placeholder="_['Phone']" type="tel" required v-model="phone" @blur="isPhoneTouched = true" v-bind:class="[{'is-invalid': isPhoneError},{'is-valid': isPhoneValid}]">
-                                        <div class="invalid-feedback" v-if="isPhoneError">Invalid phone number, check the formatting of that and try again.</div>
+
                                     </div>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['Email'] }} *</label>
-                                <div class="col-md-10 col-sm-12">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="la la-envelope"></i>
-                                            </span>
-                                        </div>
-                                        <input class="form-control form-control-danger" :placeholder="_['Email']" type="email" v-model="email" @blur="isEmailTouched = true" v-bind:class="[{'is-invalid': isEmailError},{'is-valid': isEmailValid}]">
-                                        <div class="invalid-feedback" v-if="isEmailError">Invalid email, check the formatting of that and try again.</div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['City'] }} *</label>
-                                <div class="col-md-10 col-sm-12">
-                                    <select class="form-control" v-model="city">
-                                        <option v-for="option in $options.cities" v-bind:value="option.id" :key="option.id">
-                                            {{ option.name }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['Address'] }} *</label>
-                                <div class="col-md-10 col-sm-12">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="la la-home"></i>
-                                            </span>
-                                        </div>
-                                        <input class="form-control" type="text" :placeholder="_['Address']" required v-model="address" v-bind:class="[{'is-invalid': isAddressError}]">
-                                        <div class="invalid-feedback" v-if="isAddressError">
-                                            This field is required.
+                                    <div class="form-group form-group row">
+                                        <div class="col-12 form-group-sub">
+                                            <label class="form-control-label">* {{ _["Last Name"] }}:</label>
+                                            <input class="form-control" type="text" v-model="lastName" v-bind:class="[{'is-invalid': isLastNameError}]">
+                                            <div class="invalid-feedback" v-if="isLastNameError">
+                                                {{shared['Required']}}
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-12 form-group-sub">
+                                            <label class="form-control-label">* {{ _['Phone'] }}:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="la la-phone"></i>
+                                                    </span>
+                                                </div>
+                                                <input class="form-control form-control-danger" v-model="phone" @blur="isPhoneTouched = true" v-bind:class="[{'is-invalid': isPhoneError},{'is-valid': isPhoneValid}]">
+                                                <div class="invalid-feedback" v-if="isPhoneError">{{shared['Invalid phone number']}}</div>
+                                            </div>
+                                        </div>
+          
+                                    </div>
+                                    <div class="form-group row">
 
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['Project Name'] }}</label>
-                                <div class="col-md-10 col-sm-12">
-                                    <input class="form-control" type="text" :placeholder="_['Project Name']" v-model="projectName">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-2 kt-hidden-mobile col-form-label">{{ _['Constructor'] }} *</label>
-                                <div class="col-md-10 col-sm-12">
-                                    <input class="form-control" type="text" required :placeholder="_['Constructor']" v-model="constructor" v-bind:class="[{'is-invalid': isConstructorError}]">
-                                    <div class="invalid-feedback" v-if="isConstructorError">
-                                        This field is required.
+                                        <div class="col-12 form-group-sub">
+                                            <label class="form-control-label">* {{ _['Email'] }}:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="la la-envelope"></i>
+                                                    </span>
+                                                </div>
+                                                <input class="form-control form-control-danger" type="email" v-model="email" @blur="isEmailTouched = true" v-bind:class="[{'is-invalid': isEmailError},{'is-valid': isEmailValid}]">
+                                                <div class="invalid-feedback" v-if="isEmailError">{{shared['Invalid email']}}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-2 col-sm-12col-form-label">Key Received</label>
-                                <div class="col-md-10 col-sm-12">
-                                    <input class="form-control" type="date" min="2020-01-01" v-model="keyReceived">
+
+                            <div class="kt-section">
+                               
+                                <div class="kt-section__content">
+
+                          
+                                    <div class="form-group form-group row">
+                                        <div class="col-4 form-group-sub">
+                                            <label class="form-control-label">* {{ _['City'] }}:</label>
+                                            <select class="form-control" v-model="city" v-bind:class="[{'is-invalid': isCityError}]">
+                                                <option :value="null" disabled>-</option>
+                                                <option v-for="option in $options.cities" v-bind:value="option.name" :key="option.name">
+                                                    {{ option.name }}
+                                                </option>
+                                            </select>
+                                            <div class="invalid-feedback" v-if="isCityError">
+                                                {{shared['Required']}}
+                                            </div>
+                                        </div>
+                                        <div class="col-4 form-group-sub">
+                                            <label class="form-control-label">* {{ _['Floor'] }}:</label>
+                                            <input class="form-control" type="number" :placeholder="_['Floor']" required v-model="floor" v-bind:class="[{'is-invalid': isFloorError}]">
+                                            <div class="invalid-feedback" v-if="isFloorError">
+                                                {{shared['Required']}}
+                                            </div>
+                                        </div>
+                                        <div class="col-4 form-group-sub">
+                                            <label class="form-control-label">* {{ _['Apartment'] }}:</label>
+                                            <input class="form-control" type="number" v-model="apartment" v-bind:class="[{'is-invalid': isApartmentError}]">
+                                            <div class="invalid-feedback" v-if="isApartmentError">
+                                                {{shared['Required']}}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group form-group-last row">
+                                        <div class="col-12 form-group-sub">
+                                            <label class="form-control-label">* {{ _['Street'] }}:</label>
+                                            <input class="form-control" type="text" v-model="street" v-bind:class="[{'is-invalid': isStreetError}]">
+                                            <div class="invalid-feedback" v-if="isStreetError">
+                                                {{shared['Required']}}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
+         
+                            <div class="kt-section">
+                                
+                                <div class="kt-section__content">
+
+                                    <div class="form-group form-group row">
+                       
+                                        <div class="col-6 form-group-sub">
+                                            <label class="form-control-label">{{ _['Key Receipt Date'] }}:</label>
+                                            <input class="form-control" type="date" min="2020-01-01" v-model="keyReceived">
+                                        </div>
+                                        <div class="col-6 form-group-sub">
+                                            <label class="form-control-label">{{ _['Project Name'] }}:</label>
+                                            <input class="form-control" type="text" v-model="projectName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-12 form-group-sub">
+                                            <label class="form-control-label">* {{ _['Constructor'] }}:</label>
+                                            <input class="form-control" type="text"  v-model="constructor" v-bind:class="[{'is-invalid': isConstructorError}]">
+                                            <div class="invalid-feedback" v-if="isConstructorError">
+                                                {{shared['Required']}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-last row">
+                                        <div class="col-12 form-group-sub">
+                                            <label class="form-control-label">* {{ _['Name of Developer'] }}:</label>
+                                            <input class="form-control" type="text"  v-model="developer" v-bind:class="[{'is-invalid': isDeveloperError}]">
+                                            <div class="invalid-feedback" v-if="isDeveloperError">
+                                                {{shared['Required']}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="kt-portlet__foot">
                             <div class="kt-form__actions">
@@ -296,17 +332,22 @@
                 email: null,
                 isEmailTouched: false,
                 city: null,
-                address: null,
+                floor: null,
+                apartment: null,
+                street: null,
                 projectName: null,
                 constructor: null,
+                developer: null,
                 keyReceived: new Date().toJSON().slice(0, 10),
                 errors: [],
                 validation: false,
                 result: false,
-                _: window._resources["CertificateForm"]
+                _: window._resources["CertificateForm"],
+                shared: window._resources["SharedResources"],
             }
         },
         mounted() {
+
             axios.interceptors.request.use(function (config) {
                 $('#loadingModal').modal('show');
                 return config;
@@ -327,6 +368,11 @@
               
         },
         methods: {
+            isInteger: function (value) {
+                return typeof value === 'number' &&
+                    isFinite(value) &&
+                    Math.floor(value) === value;
+            },
             validPhone: function (phone) {
                 var re = /^05\d{8}$/;
                 return re.test(phone);
@@ -342,7 +388,10 @@
                 if (this.isLastNameError) return false;
                 if (this.isPhoneError) return false;
                 if (this.isEmailError) return false;
-                if (this.isAddressError) return false;
+                if (this.isCityError) return false;
+                if (this.isStreetError) return false;
+                if (this.isApartmentError) return false;
+                if (this.isFloorError) return false;
                 if (this.isConstructorError) return false;
 
                 return true;
@@ -355,15 +404,14 @@
                     console.log(this.isFirstNameError);
                     console.log(this.isLastNameError);
                     console.log(this.isPhoneError);
+                    console.log(this.isCityError);
                     console.log(this.isEmailError);
-                    console.log(this.isAddressError);
+                    console.log(this.isStreetError);
                     console.log(this.isConstructorError);
 
 
                     return false;
                 }
-
-                console.log("submit", JSON.stringify(this.form));
 
                 this.errors = [];
                 axios.post(window._root + 'api/customer/certificate', this)
@@ -376,7 +424,7 @@
                     })
                     .catch((error) => {
                         console.log(error);
-                        window.bootbox.alert("Error on form submit");
+                        this.errors.push("Error on form submit");
                     });
             }
         },
@@ -387,11 +435,23 @@
             isLastNameError() {
                 return !this.lastName && this.validation
             },
-            isAddressError() {
-                return !this.address && this.validation
+            isStreetError() {
+                return !this.street && this.validation
+            },
+            isCityError() {
+                return !this.city && this.validation
+            },
+            isApartmentError() {
+                return this.isInteger(this.apartment) && this.validation
+            },
+            isFloorError() {
+                return this.isInteger(this.floor) && this.validation
             },
             isConstructorError() {
                 return !this.constructor && this.validation
+            },
+            isDeveloperError() {
+                return !this.developer && this.validation
             },
             isEmailValid() {
                 return this.validEmail(this.email);

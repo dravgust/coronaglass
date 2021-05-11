@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using VralumGlassWeb.Data;
 using Web.Features.Tools;
 using Web.Models;
 

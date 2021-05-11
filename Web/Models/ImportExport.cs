@@ -5,19 +5,16 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using CoronaGlass.Core.Interfaces;
+using CoronaGlass.Core.Models;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
-using CoronaGlass.Core.Models;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Web.Features.Customer;
-using Web.Models;
 using CellType = NPOI.SS.UserModel.CellType;
 using IndexedColors = NPOI.SS.UserModel.IndexedColors;
 
 
-namespace VralumGlassWeb.Data
+namespace Web.Models
 {
 	public class ImportExport
 	{
@@ -76,9 +73,12 @@ namespace VralumGlassWeb.Data
                         LastName = row.GetCell(1).ToString(),
                         Phone = row.GetCell(2).ToString(),
                         Email = row.GetCell(3).ToString(),
-                        Address = row.GetCell(4).ToString(),
-                        ProjectName = row.GetCell(5).ToString(),
-                        Constructor = row.GetCell(6).ToString(),
+                        City = row.GetCell(4).ToString(),
+                        Street = row.GetCell(5).ToString(),
+                        Floor = row.GetCell(6).ToString(),
+                        Apartment = row.GetCell(7).ToString(),
+                        ProjectName = row.GetCell(8).ToString(),
+                        Constructor = row.GetCell(9).ToString(),
                         KeyReceived = !string.IsNullOrEmpty(keyReceived)
                             ? DateTime.ParseExact(keyReceived, "dd/MM/yyyy", new CultureInfo("en-GB"))
                             : default
@@ -170,7 +170,10 @@ namespace VralumGlassWeb.Data
             row.CreateCell(1).SetCellValue("Last Name");
             row.CreateCell(2).SetCellValue("Phone");
             row.CreateCell(3).SetCellValue("Email");
-            row.CreateCell(4).SetCellValue("Address");
+            row.CreateCell(4).SetCellValue("City");
+            row.CreateCell(4).SetCellValue("Street");
+            row.CreateCell(4).SetCellValue("Floor");
+            row.CreateCell(4).SetCellValue("Apartment");
             row.CreateCell(5).SetCellValue("Project Name");
             row.CreateCell(6).SetCellValue("Constructor");
             row.CreateCell(7).SetCellValue("Key Received");
@@ -183,7 +186,10 @@ namespace VralumGlassWeb.Data
                 row.CreateCell(1).SetCellValue(c.LastName);
                 row.CreateCell(2).SetCellValue(c.Phone);
                 row.CreateCell(3).SetCellValue(c.Email);
-                row.CreateCell(4).SetCellValue(c.Address);
+                row.CreateCell(4).SetCellValue(c.City);
+                row.CreateCell(4).SetCellValue(c.Street);
+                row.CreateCell(4).SetCellValue(c.Floor);
+                row.CreateCell(4).SetCellValue(c.Apartment);
                 row.CreateCell(5).SetCellValue(c.ProjectName);
                 row.CreateCell(6).SetCellValue(c.Constructor);
                 if (c.KeyReceived != default)
