@@ -78,7 +78,7 @@ namespace Web.Models
                         Floor = row.GetCell(6).ToString(),
                         Apartment = row.GetCell(7).ToString(),
                         ProjectName = row.GetCell(8).ToString(),
-                        Constructor = row.GetCell(9).ToString(),
+                        ConstructorName = row.GetCell(9).ToString(),
                         KeyReceived = !string.IsNullOrEmpty(keyReceived)
                             ? DateTime.ParseExact(keyReceived, "dd/MM/yyyy", new CultureInfo("en-GB"))
                             : default
@@ -191,7 +191,7 @@ namespace Web.Models
                 row.CreateCell(4).SetCellValue(c.Floor);
                 row.CreateCell(4).SetCellValue(c.Apartment);
                 row.CreateCell(5).SetCellValue(c.ProjectName);
-                row.CreateCell(6).SetCellValue(c.Constructor);
+                row.CreateCell(6).SetCellValue(c.ConstructorName);
                 if (c.KeyReceived != default)
                 {
                     row.CreateCell(7).SetCellValue(c.KeyReceived.ToString("dd/MM/yyyy", new CultureInfo("en-GB")));

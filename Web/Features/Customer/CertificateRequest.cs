@@ -39,8 +39,8 @@ namespace Web.Features.Customer
         public string City { set; get; }
         [JsonProperty("projectName")]
         public string ProjectName { set; get; }
-        [JsonProperty("constructor")]
-        public string Constructor { set; get; }
+        [JsonProperty("constructorName")]
+        public string ConstructorName { set; get; }
         [JsonProperty("keyReceived")]
         public DateTime KeyReceived { set; get; }
 
@@ -120,7 +120,7 @@ namespace Web.Features.Customer
                 RuleFor(q => q.City).NotEmpty();
                 RuleFor(q => q.Floor).NotEmpty();
                 RuleFor(q => q.Apartment).NotEmpty();
-                RuleFor(q => q.Constructor).NotEmpty();
+                RuleFor(q => q.ConstructorName).NotEmpty();
             }
         }
     }

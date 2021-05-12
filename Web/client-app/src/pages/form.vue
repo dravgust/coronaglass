@@ -1,7 +1,7 @@
 ﻿<template>
 
     <!-- begin:: Subheader -->
-    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+    <div class="kt-subheader kt-grid__item" id="kt_subheader">
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
@@ -84,7 +84,7 @@
 
                                 </div>
                             </div>
-                            <div class="kt-space-20"></div>
+                            <!--<div class="kt-space-20"></div>-->
 
                             <div class="kt-section">
 
@@ -118,7 +118,7 @@
                                                         <i class="la la-phone"></i>
                                                     </span>
                                                 </div>
-                                                <input class="form-control form-control-danger" v-model="phone" @blur="isPhoneTouched = true" v-bind:class="[{'is-invalid': isPhoneError},{'is-valid': isPhoneValid}]">
+                                                <input class="form-control form-control-danger" type="tel" v-model="phone" @blur="isPhoneTouched = true" v-bind:class="[{'is-invalid': isPhoneError},{'is-valid': isPhoneValid}]">
                                                 <div class="invalid-feedback" v-if="isPhoneError">{{shared['Invalid phone number']}}</div>
                                             </div>
                                         </div>
@@ -207,7 +207,7 @@
                                     <div class="form-group row">
                                         <div class="col-12 form-group-sub">
                                             <label class="form-control-label">* {{ _['Constructor'] }}:</label>
-                                            <input class="form-control" type="text"  v-model="constructor" v-bind:class="[{'is-invalid': isConstructorError}]">
+                                            <input class="form-control" type="text"  v-model="constructorName" v-bind:class="[{'is-invalid': isConstructorError}]">
                                             <div class="invalid-feedback" v-if="isConstructorError">
                                                 {{shared['Required']}}
                                             </div>
@@ -264,15 +264,15 @@
                                     <div class="kt-pricing-1__hexagon2"></div>
                                     <span class="kt-pricing-1__icon kt-font-dark"><i class="flaticon-home-2"></i></span>
                                 </div>
-                                <span class="kt-pricing-1__price">Home</span>
-                                <h2 class="kt-pricing-1__subtitle">Go To Corona Page</h2>
+                                <span class="kt-pricing-1__price">{{shared['Home Page']}}</span>
+                                <h2 class="kt-pricing-1__subtitle">{{shared['Go To Corona Home Page']}}</h2>
                                 <span class="kt-pricing-1__description">
-                                    <span>Lorem ipsum dolor sit amet edipiscing elit</span>
-                                    <span>sed do eiusmod elpors labore et dolore</span>
-                                    <span>magna siad enim aliqua</span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
                                 </span>
                                 <div class="kt-pricing-1__btn">
-                                    <a class="btn btn-info btn-elevate" title="Go To Home" href="/">Go To</a>
+                                    <a class="btn btn-info btn-elevate" :title="shared['Go To Home']" href="/">{{shared['Go To Home']}}</a>
                                 </div>
                             </div>
 
@@ -282,15 +282,15 @@
                                     <div class="kt-pricing-1__hexagon2"></div>
                                     <span class="kt-pricing-1__icon kt-font-dark"><i class="la la-opencart"></i></span>
                                 </div>
-                                <span class="kt-pricing-1__price">Corona Shop</span>
-                                <h2 class="kt-pricing-1__subtitle">Go To Shop</h2>
+                                <span class="kt-pricing-1__price">{{shared['Corona Shop']}}</span>
+                                <h2 class="kt-pricing-1__subtitle">{{shared['Go To Corona Shop']}}</h2>
                                 <span class="kt-pricing-1__description">
-                                    <span>Lorem ipsum dolor sit amet edipiscing elit</span>
-                                    <span>sed do eiusmod elpors labore et dolore</span>
-                                    <span>magna siad enim aliqua</span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
                                 </span>
                                 <div class="kt-pricing-1__btn">
-                                    <a class="btn btn-info btn-elevate" title="Go To Corona Shop" href="/">Go To</a>
+                                    <a class="btn btn-info btn-elevate" :title="shared['Go To Shop']" href="/">{{shared['Go To Shop']}}</a>
                                 </div>
                             </div>
 
@@ -336,7 +336,7 @@
                 apartment: null,
                 street: null,
                 projectName: null,
-                constructor: null,
+                constructorName: null,
                 developer: null,
                 keyReceived: new Date().toJSON().slice(0, 10),
                 errors: [],
@@ -353,6 +353,13 @@
                 return fmtstr.replace(/\{(\d+)\}/g, function (match, index) {
                     return args[index];
                 });
+            }
+
+            for (const key in this) {
+                if (localStorage[key]) {
+                    console.log(`${key}: ${localStorage[key]}`);
+                    this[key] = localStorage[key];
+                }
             }
 
             axios.interceptors.request.use(function (config) {
@@ -373,6 +380,45 @@
         },
         components: {
               
+        },
+        watch: {
+            firstName(value) {
+                localStorage.firstName = value;
+            },
+            lastName(value) {
+                localStorage.lastName = value;
+            },
+            phone(value) {
+                localStorage.phone = value;
+            },
+            email(value) {
+                localStorage.email = value;
+            },
+            city(value) {
+                localStorage.city = value;
+            },
+            floor(value) {
+                localStorage.floor = value;
+            },
+            apartment(value) {
+                localStorage.apartment = value;
+            },
+            street(value) {
+                localStorage.street = value;
+            },
+            projectName(value) {
+                localStorage.projectName = value;
+            },
+            constructorName(value) {
+                localStorage.constructorName = value;
+            },
+            developer(value) {
+                localStorage.developer = value;
+            },
+            keyReceived(value) {
+                console.log(value);
+                localStorage.keyReceived = value;
+            }
         },
         methods: {
             isInteger: function (value) {
@@ -455,7 +501,7 @@
                 return this.isInteger(this.floor) && this.validation
             },
             isConstructorError() {
-                return !this.constructor && this.validation
+                return !this.constructorName && this.validation
             },
             isDeveloperError() {
                 return !this.developer && this.validation

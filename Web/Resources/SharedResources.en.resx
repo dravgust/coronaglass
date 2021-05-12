@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Corona Shop" xml:space="preserve">
+    <value>The world of balconies</value>
+  </data>
   <data name="Cutting Optimization" xml:space="preserve">
     <value>Cutting Optimization</value>
+  </data>
+  <data name="Go To Corona Home Page" xml:space="preserve">
+    <value>Go To Corona Home Page</value>
+  </data>
+  <data name="Go To Corona Shop" xml:space="preserve">
+    <value>Go To Corona Shop</value>
+  </data>
+  <data name="Go To Home" xml:space="preserve">
+    <value>Go To Home</value>
+  </data>
+  <data name="Go To Shop" xml:space="preserve">
+    <value>Go To Shop</value>
   </data>
   <data name="Hello {0}!" xml:space="preserve">
     <value>Hello {0}!</value>
