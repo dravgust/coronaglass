@@ -51,20 +51,23 @@ namespace Web.Features.Customer
         public class CertificateRequestHandler : IRequestHandler<CertificateRequest, bool>
         {
             private readonly ILogger<CertificateRequestHandler> _logger;
+            private readonly SharedLocalizationService _resources;
 
             private readonly IActorRef _postman;
             private readonly IActorRef _storeManager;
             public CertificateRequestHandler(ILogger<CertificateRequestHandler> logger, 
-                PostmanActorProvider postmanProvider, StorageActorProvider storeProvider)
+                PostmanActorProvider postmanProvider, StorageActorProvider storeProvider,
+                SharedLocalizationService resources)
             {
                 _logger = logger;
                 _postman = postmanProvider();
                 _storeManager = storeProvider();
+                _resources = resources;
             }
 
             public async Task<bool> Handle(CertificateRequest request, CancellationToken cancellationToken)
             {
-                var cmd = new SendMessageCommand(request.Email, "תעודת אחריות", "תעודת אחריות");
+                var cmd = new SendMessageCommand(request.Email, _resources["Warranty certificate"], _resources["Warranty certificate"]);
                 var contentType = new ContentType
                 {
                     MediaType = MediaTypeNames.Application.Pdf,

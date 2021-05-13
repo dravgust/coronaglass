@@ -6,18 +6,18 @@ namespace Web.Infrastructure
 {
     public class SharedLocalizationService
     {
-        private readonly IStringLocalizer localizer;
+        private readonly IStringLocalizer _localizer;
         public SharedLocalizationService(IStringLocalizerFactory factory)
         {
             var assemblyName = new AssemblyName(typeof(SharedResources).GetTypeInfo().Assembly.FullName);
-            localizer = factory.Create(nameof(SharedResources), assemblyName.Name);
+            _localizer = factory.Create(nameof(SharedResources), assemblyName.Name);
         }
 
         public string Get(string key)
         {
-            return localizer[key];
+            return _localizer[key];
         }
 
-        public string this[string key] => localizer[key];
+        public string this[string key] => _localizer[key];
     }
 }
