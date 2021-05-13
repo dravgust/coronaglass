@@ -65,7 +65,7 @@ namespace Web.Models
                 {
                     IRow row = excelSheet.GetRow(i);
 
-                    var keyReceived = row.GetCell(7).ToString();
+                    var keyReceived = row.GetCell(10).ToString();
 
                     result.Add(new CertificateRequest
                     {
@@ -171,12 +171,12 @@ namespace Web.Models
             row.CreateCell(2).SetCellValue("Phone");
             row.CreateCell(3).SetCellValue("Email");
             row.CreateCell(4).SetCellValue("City");
-            row.CreateCell(4).SetCellValue("Street");
-            row.CreateCell(4).SetCellValue("Floor");
-            row.CreateCell(4).SetCellValue("Apartment");
-            row.CreateCell(5).SetCellValue("Project Name");
-            row.CreateCell(6).SetCellValue("Constructor");
-            row.CreateCell(7).SetCellValue("Key Received");
+            row.CreateCell(5).SetCellValue("Street");
+            row.CreateCell(6).SetCellValue("Floor");
+            row.CreateCell(7).SetCellValue("Apartment");
+            row.CreateCell(8).SetCellValue("Project Name");
+            row.CreateCell(9).SetCellValue("Constructor");
+            row.CreateCell(10).SetCellValue("Key Received");
 
             for (var i = 0; i < customerForms.Count; i++)
             {
@@ -187,14 +187,14 @@ namespace Web.Models
                 row.CreateCell(2).SetCellValue(c.Phone);
                 row.CreateCell(3).SetCellValue(c.Email);
                 row.CreateCell(4).SetCellValue(c.City);
-                row.CreateCell(4).SetCellValue(c.Street);
-                row.CreateCell(4).SetCellValue(c.Floor);
-                row.CreateCell(4).SetCellValue(c.Apartment);
-                row.CreateCell(5).SetCellValue(c.ProjectName);
-                row.CreateCell(6).SetCellValue(c.ConstructorName);
+                row.CreateCell(5).SetCellValue(c.Street);
+                row.CreateCell(6).SetCellValue(c.Floor);
+                row.CreateCell(7).SetCellValue(c.Apartment);
+                row.CreateCell(8).SetCellValue(c.ProjectName);
+                row.CreateCell(9).SetCellValue(c.ConstructorName);
                 if (c.KeyReceived != default)
                 {
-                    row.CreateCell(7).SetCellValue(c.KeyReceived.ToString("dd/MM/yyyy", new CultureInfo("en-GB")));
+                    row.CreateCell(10).SetCellValue(c.KeyReceived.ToString("dd/MM/yyyy", new CultureInfo("en-GB")));
                 }
             }
 

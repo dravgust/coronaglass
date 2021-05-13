@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Akka.Actor;
 using CoronaGlass.Core;
 using coronaGlass.Dropbox;
 using FluentValidation;
@@ -25,6 +26,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Server.Kestrel;
 using Microsoft.AspNetCore.SpaServices;
 using Microsoft.Extensions.Options;
 using VueCliMiddleware;
@@ -107,10 +109,19 @@ namespace Web
             //    });
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+
+            services.AddSingleton(_=> ActorSystem.Create("coronaService"));
+            services.AddSingleton<PostmanActorProvider>(provider =>
+            {
+                var actorSystem = provider.GetService<ActorSystem>();
+                var emailSender = provider.GetService<IEmailSender>();
+                var postman = actorSystem?.ActorOf(Props.Create(() => new PostmanActor(emailSender)));
+                return () => postman;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -164,6 +175,15 @@ namespace Web
                     //    wsl: false // Set to true if you are using WSL on windows. For other operating systems it will be ignored
                     //);
                 }
+            });
+
+            lifetime.ApplicationStarted.Register(() =>
+            {
+                app.ApplicationServices.GetService<ActorSystem>();
+            });
+            lifetime.ApplicationStopping.Register(() =>
+            {
+                app.ApplicationServices.GetService<ActorSystem>()?.Terminate().Wait();
             });
         }
 

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Akka.Actor;
 using CoronaGlass.Core;
 using FluentValidation;
 using MediatR;
@@ -46,32 +49,27 @@ namespace Web.Features.Customer
 
         public class CertificateRequestHandler : IRequestHandler<CertificateRequest, bool>
         {
-            private readonly ILogger<OptimizationRequest.OptimizationRequestHandler> _logger;
+            private readonly ILogger<CertificateRequestHandler> _logger;
             private readonly IFileStorage _fileStorage;
 
-            private readonly IEmailSender _emailSender;
-            public CertificateRequestHandler(IFileStorage fileStorage, IEmailSender emailSender, ILogger<OptimizationRequest.OptimizationRequestHandler> logger)
+            private readonly IActorRef _postman;
+            public CertificateRequestHandler(IFileStorage fileStorage, ILogger<CertificateRequestHandler> logger, PostmanActorProvider postmanProvider)
             {
                 _fileStorage = fileStorage;
-                _emailSender = emailSender;
                 _logger = logger;
+                _postman = postmanProvider();
             }
 
             public async Task<bool> Handle(CertificateRequest request, CancellationToken cancellationToken)
             {
-                //Send PDF, xls record
-                var email = request.Email;
-                var subject = "Certificate";
-                var body = $"Certificate";
-
-                var contentType = new System.Net.Mime.ContentType
+                var cmd = new SendMessageCommand(request.Email, "תעודת אחריות", "תעודת אחריות");
+                var contentType = new ContentType
                 {
-                    MediaType = System.Net.Mime.MediaTypeNames.Application.Pdf,
-                    Name = "Certificate.pdf"
+                    MediaType = MediaTypeNames.Application.Pdf,
+                    Name = "WarrantyCert.pdf"
                 };
-                var attachment = new Attachment("Files/Certificate.pdf", contentType);
-
-                await _emailSender.SendEmailAsync(email, subject, body, new List<Attachment>{ attachment });
+                cmd.AddAttachment(new Attachment("Files/Certificate.pdf", contentType));
+                _postman.Tell(cmd);
 
                 var deliveryFolder = $"/WebForm";
                 const string fileName = "Customers.xlsx";
