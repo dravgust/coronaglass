@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using Web.Extensions;
 using Web.Features.Tools;
 using Web.Infrastructure;
+using Web.Infrastructure.Services;
 using Web.Models;
 
 namespace Web.Features.Customer
@@ -50,14 +51,15 @@ namespace Web.Features.Customer
         public class CertificateRequestHandler : IRequestHandler<CertificateRequest, bool>
         {
             private readonly ILogger<CertificateRequestHandler> _logger;
-            private readonly IFileStorage _fileStorage;
 
             private readonly IActorRef _postman;
-            public CertificateRequestHandler(IFileStorage fileStorage, ILogger<CertificateRequestHandler> logger, PostmanActorProvider postmanProvider)
+            private readonly IActorRef _storeManager;
+            public CertificateRequestHandler(ILogger<CertificateRequestHandler> logger, 
+                PostmanActorProvider postmanProvider, StorageActorProvider storeProvider)
             {
-                _fileStorage = fileStorage;
                 _logger = logger;
                 _postman = postmanProvider();
+                _storeManager = storeProvider();
             }
 
             public async Task<bool> Handle(CertificateRequest request, CancellationToken cancellationToken)
@@ -69,40 +71,12 @@ namespace Web.Features.Customer
                     Name = "WarrantyCert.pdf"
                 };
                 cmd.AddAttachment(new Attachment("Files/Certificate.pdf", contentType));
+
                 _postman.Tell(cmd);
 
-                var deliveryFolder = $"/WebForm";
-                const string fileName = "Customers.xlsx";
-
-                List<string> search = null;
-                var ie = new ImportExport();
-                var customers = new List<CertificateRequest>();
-                try
-                {
-                    search = await _fileStorage.Search(deliveryFolder, fileName, 1);
-                    _logger.LogDebug($"search: {fileName} => {search.Count}");
-                }
-                catch (Exception e)
-                {
-                    _logger.LogDebug(e.Message);
-                }
-
-                if (search != null && search.Any())
-                {
-                    var iData = await _fileStorage.Download(deliveryFolder, fileName);
-                    _logger.LogDebug($"download: {fileName} => {iData.Length}");
-                    customers.AddRange(ie.ImportCustomerForm(iData));
-
-                    _logger.LogDebug($"import: {fileName} => {customers.ToJson()}");
-                }
-
-                customers.Add(request);
-                var eData = ie.Export(customers);
-
-                var uploadResult = await _fileStorage.Upload(deliveryFolder, fileName, eData);
-                _logger.LogDebug($"upload: {fileName} => {uploadResult.ToJson()}");
-
-                return true;
+                _storeManager.Tell(new UpdateFileCommand($"/WebForm", "Customers.xlsx", request));
+                
+                return await Task.FromResult(true);
             }
         }
 

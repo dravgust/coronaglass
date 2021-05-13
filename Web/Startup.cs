@@ -28,10 +28,12 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Server.Kestrel;
 using Microsoft.AspNetCore.SpaServices;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using VueCliMiddleware;
 using Web.Behaviours;
 using Web.Infrastructure;
+using Web.Infrastructure.Services;
 using Web.Middlewares;
 using Web.Resources;
 
@@ -92,7 +94,7 @@ namespace Web
                     new CultureInfo("ru")
                 };
 
-                options.DefaultRequestCulture = new RequestCulture("ru");
+                options.DefaultRequestCulture = new RequestCulture("he");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
 
@@ -117,6 +119,14 @@ namespace Web
                 var emailSender = provider.GetService<IEmailSender>();
                 var postman = actorSystem?.ActorOf(Props.Create(() => new PostmanActor(emailSender)));
                 return () => postman;
+            });
+            services.AddSingleton<StorageActorProvider>(provider =>
+            {
+                var actorSystem = provider.GetService<ActorSystem>();
+                var fileStorage = provider.GetService<IFileStorage>();
+                var logger = provider.GetService<ILogger<StorageManager>>();
+                var storeManager = actorSystem?.ActorOf(Props.Create(() => new StorageManager(fileStorage, logger)));
+                return () => storeManager;
             });
         }
 

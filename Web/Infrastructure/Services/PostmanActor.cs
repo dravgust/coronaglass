@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Akka.Actor;
 
-namespace Web.Infrastructure
+namespace Web.Infrastructure.Services
 {
     public delegate IActorRef PostmanActorProvider();
     public class PostmanActor : ReceiveActor

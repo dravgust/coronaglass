@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Mail;
 
-namespace Web.Infrastructure
+namespace Web.Infrastructure.Services
 {
     public class SendMessageCommand
     {
