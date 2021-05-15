@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\data\**" />
+    <Content Remove="wwwroot\data\**" />
+    <EmbeddedResource Remove="wwwroot\data\**" />
+    <None Remove="wwwroot\data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Akka" Version="1.4.20" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.12.3" />
@@ -28,10 +35,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CoronaGlass.Core\CoronaGlass.Core.csproj" />
     <ProjectReference Include="..\CoronaGlass.Dropbox\CoronaGlass.Dropbox.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\data\" />
   </ItemGroup>
 
   <ItemGroup>
