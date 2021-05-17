@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Akka.Actor;
+
 
 namespace Web.Infrastructure.Services
 {
@@ -13,17 +15,28 @@ namespace Web.Infrastructure.Services
         {
             _emailSender = emailSender ?? throw new NullReferenceException(nameof(emailSender));
 
-            Receive<SendMessageCommand>(async cmd => await Send(cmd));
+            Receive<DeliveryEnvelope<PostMessage>>(async cmd => await Send(cmd, Sender));
         }
 
-        public async Task Send(SendMessageCommand cmd)
+        public async Task Send(DeliveryEnvelope<PostMessage> cmd, IActorRef sender)
         {
-            var email = cmd.Email;
-            var subject = cmd.Subject;
-            var body = cmd.Body;
-            var attachments = cmd.Attachments;
+            try
+            {
+                Trace.WriteLine($"Received message for { cmd.Message.Email} [id: {cmd.MessageId}] from {sender}");
 
-            await _emailSender.SendEmailAsync(email, subject, body, attachments);
+                var email = cmd.Message.Email;
+                var subject = cmd.Message.Subject;
+                var body = cmd.Message.Body;
+                var attachments = cmd.Message.Attachments;
+
+                await _emailSender.SendEmailAsync(email, subject, body, attachments);
+
+                sender.Tell(new DeliveryAck(cmd.MessageId));
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e);
+            }
         }
     }
 }

@@ -117,8 +117,9 @@ namespace Web
             {
                 var actorSystem = provider.GetService<ActorSystem>();
                 var emailSender = provider.GetService<IEmailSender>();
-                var postman = actorSystem?.ActorOf(Props.Create(() => new PostmanActor(emailSender)));
-                return () => postman;
+                var logger = provider.GetService<ILogger<PostOfficeActor>>();
+                var postOffice = actorSystem?.ActorOf(Props.Create(() => new PostOfficeActor(emailSender, logger)));
+                return () => postOffice;
             });
             services.AddSingleton<StorageActorProvider>(provider =>
             {

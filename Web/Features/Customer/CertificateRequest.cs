@@ -67,7 +67,7 @@ namespace Web.Features.Customer
 
             public async Task<bool> Handle(CertificateRequest request, CancellationToken cancellationToken)
             {
-                var cmd = new SendMessageCommand(request.Email, _resources["Warranty certificate"], _resources["Warranty certificate"]);
+                var cmd = new PostMessage(request.Email, _resources["Warranty certificate"], _resources["Warranty certificate"]);
                 var contentType = new ContentType
                 {
                     MediaType = MediaTypeNames.Application.Pdf,
