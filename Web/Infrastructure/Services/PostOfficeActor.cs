@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Akka.Actor;
+using Akka.DI.Core;
 using Akka.Persistence;
 using Microsoft.Extensions.Logging;
 
@@ -15,19 +16,14 @@ namespace Web.Infrastructure.Services
 
         private ICancelable _messageSend;
 
-        private IActorRef _postmanActor;
-
-        private readonly IEmailSender _emailSender;
-
         private readonly ILogger<PostOfficeActor> _logger;
 
         private ICancelable _snapshotCleanup;
 
         private readonly BlockingCollection<PostMessage> _messages = new();
 
-        public PostOfficeActor(IEmailSender emailSender, ILogger<PostOfficeActor> logger)
+        public PostOfficeActor(ILogger<PostOfficeActor> logger)
         {
-            _emailSender = emailSender ?? throw new ArgumentNullException(nameof(emailSender));
             _logger = logger;
 
             // recover the most recent at least once delivery state
@@ -44,7 +40,7 @@ namespace Web.Infrastructure.Services
             Command<PostMessage>(send =>
             {
                 var postman = Context.Child("postman");
-                Deliver(this._postmanActor.Path, messageId => new DeliveryEnvelope<PostMessage>(send, messageId));
+                Deliver(postman.Path, messageId => new DeliveryEnvelope<PostMessage>(send, messageId));
                 // save the full state of the at least once delivery actor
                 // so we don't lose any messages upon crash
                 SaveSnapshot(GetDeliverySnapshot());
@@ -75,12 +71,29 @@ namespace Web.Infrastructure.Services
             //this._messageSend = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(TimeSpan.FromSeconds(0),
             //    TimeSpan.FromSeconds(30), Self, new DoSend(), Self);
 
-            this._postmanActor = Context.ActorOf(Props.Create(() => new PostmanActor(_emailSender)), "postman");
+            Context.ActorOf(Context.System.DI().Props<PostmanActor>(), "postman");
 
             this._snapshotCleanup = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(TimeSpan.FromSeconds(10),
                 TimeSpan.FromSeconds(10), Self, new CleanSnapshots(), Self);
 
             base.PreStart();
+        }
+
+        protected override SupervisorStrategy SupervisorStrategy()
+        {
+            return new OneForOneStrategy(
+                maxNrOfRetries: 10,
+                withinTimeRange: TimeSpan.FromMinutes(1),
+                localOnlyDecider: ex =>
+                {
+                    return ex switch
+                    {
+                        ArgumentException ae => Directive.Resume,
+                        NullReferenceException ne => Directive.Restart,
+                        _ => Directive.Stop
+                    };
+                }
+            );
         }
 
         protected override void PostStop()

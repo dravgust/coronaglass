@@ -6,12 +6,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Akka.Actor;
+using Akka.DI.Core;
+using Akka.DI.Extensions.DependencyInjection;
 using CoronaGlass.Core;
 using coronaGlass.Dropbox;
 using FluentValidation;
@@ -112,21 +115,26 @@ namespace Web
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
-            services.AddSingleton(_=> ActorSystem.Create("coronaService"));
+            services.AddSingleton<PostOfficeActor>();
+            services.AddScoped<PostmanActor>();
+            services.AddSingleton<StorageManager>();
+            services.AddSingleton(serviceProvider =>
+            {
+                var coronaService = ActorSystem.Create("coronaService");
+                coronaService.UseServiceProvider(serviceProvider);
+                return coronaService;
+            });
+
             services.AddSingleton<PostmanActorProvider>(provider =>
             {
                 var actorSystem = provider.GetService<ActorSystem>();
-                var emailSender = provider.GetService<IEmailSender>();
-                var logger = provider.GetService<ILogger<PostOfficeActor>>();
-                var postOffice = actorSystem?.ActorOf(Props.Create(() => new PostOfficeActor(emailSender, logger)));
+                var postOffice = actorSystem?.ActorOf(actorSystem.DI().Props<PostOfficeActor>());
                 return () => postOffice;
             });
             services.AddSingleton<StorageActorProvider>(provider =>
             {
                 var actorSystem = provider.GetService<ActorSystem>();
-                var fileStorage = provider.GetService<IFileStorage>();
-                var logger = provider.GetService<ILogger<StorageManager>>();
-                var storeManager = actorSystem?.ActorOf(Props.Create(() => new StorageManager(fileStorage, logger)));
+                var storeManager = actorSystem?.ActorOf(actorSystem.DI().Props<StorageManager>());
                 return () => storeManager;
             });
         }
