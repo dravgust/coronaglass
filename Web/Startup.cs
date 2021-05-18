@@ -1,15 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Akka.Actor;
@@ -19,25 +13,14 @@ using CoronaGlass.Core;
 using coronaGlass.Dropbox;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Server.Kestrel;
-using Microsoft.AspNetCore.SpaServices;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using VueCliMiddleware;
 using Web.Behaviours;
 using Web.Infrastructure;
 using Web.Infrastructure.Services;
-using Web.Middlewares;
 using Web.Resources;
 
 namespace Web
@@ -120,6 +103,8 @@ namespace Web
             services.AddSingleton<StorageManager>();
             services.AddSingleton(serviceProvider =>
             {
+                //var akkaConfig = Configuration.GetSection("Akka").Get<AkkaConfig>();
+                //var config = ConfigurationFactory.FromObject(new { akka = akkaConfig });
                 var coronaService = ActorSystem.Create("coronaService");
                 coronaService.UseServiceProvider(serviceProvider);
                 return coronaService;

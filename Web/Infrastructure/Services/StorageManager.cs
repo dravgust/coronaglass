@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
 using CoronaGlass.Core;
-using Dropbox.Api.TeamLog;
 using Microsoft.Extensions.Logging;
 using Web.Features.Customer;
 using Web.Models;

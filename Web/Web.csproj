@@ -16,11 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="appsettings.conf" />
+    <None Remove="akka.conf" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="appsettings.conf" />
+    <Content Include="akka.conf" />
   </ItemGroup>
 
   <ItemGroup>
