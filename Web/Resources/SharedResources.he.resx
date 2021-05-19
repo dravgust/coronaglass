@@ -123,6 +123,12 @@
   <data name="Cutting Optimization" xml:space="preserve">
     <value>אופטימיזציה לחיתוך</value>
   </data>
+  <data name="Download" xml:space="preserve">
+    <value>הורד</value>
+  </data>
+  <data name="Download Warranty Certificate" xml:space="preserve">
+    <value>הורד תעודת אחריות</value>
+  </data>
   <data name="Go To Corona Home Page" xml:space="preserve">
     <value>עבור לדף הבית של קורונה</value>
   </data>
