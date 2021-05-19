@@ -6,7 +6,6 @@ using Akka.Actor;
 
 namespace Web.Infrastructure.Services
 {
-    public delegate IActorRef PostmanActorProvider();
     public class PostmanActor : ReceiveActor
     {
         private readonly IEmailSender _emailSender;
