@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Web.Behaviours;
 using Web.Infrastructure;
@@ -99,8 +100,8 @@ namespace Web
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             services.AddSingleton<PostOfficeActor>();
-            services.AddScoped<PostmanActor>();
-            services.AddSingleton<StorageManager>();
+            services.AddSingleton<PostmanActor>();
+            services.AddSingleton<FileStorageActor>();
             services.AddSingleton(serviceProvider =>
             {
                 //var akkaConfig = Configuration.GetSection("Akka").Get<AkkaConfig>();
@@ -109,19 +110,8 @@ namespace Web
                 coronaService.UseServiceProvider(serviceProvider);
                 return coronaService;
             });
-
-            services.AddSingleton<PostmanActorProvider>(provider =>
-            {
-                var actorSystem = provider.GetService<ActorSystem>();
-                var postOffice = actorSystem?.ActorOf(actorSystem.DI().Props<PostOfficeActor>());
-                return () => postOffice;
-            });
-            services.AddSingleton<StorageActorProvider>(provider =>
-            {
-                var actorSystem = provider.GetService<ActorSystem>();
-                var storeManager = actorSystem?.ActorOf(actorSystem.DI().Props<StorageManager>());
-                return () => storeManager;
-            });
+            services.AddSingleton<IActorFactory, ActorFactory>();
+            services.AddSingleton(typeof(IActor<>), typeof(ActorRef<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

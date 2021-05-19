@@ -55,13 +55,13 @@ namespace Web.Features.Customer
 
             private readonly IActorRef _postman;
             private readonly IActorRef _storeManager;
-            public CertificateRequestHandler(ILogger<CertificateRequestHandler> logger, 
-                PostmanActorProvider postmanProvider, StorageActorProvider storeProvider,
+            public CertificateRequestHandler(ILogger<CertificateRequestHandler> logger,
+                IActor<PostOfficeActor> postOfficeActor, IActor<FileStorageActor> storageManager,
                 SharedLocalizationService resources)
             {
                 _logger = logger;
-                _postman = postmanProvider();
-                _storeManager = storeProvider();
+                _postman = postOfficeActor.Ref;
+                _storeManager = storageManager.Ref;
                 _resources = resources;
             }
 
