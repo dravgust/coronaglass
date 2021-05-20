@@ -18,11 +18,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Asap+Condensed:500">
     @*<link href="https://fonts.googleapis.com/css2?family=Rubik:ital@0;1&display=swap" rel="stylesheet">*@
-
+    
     <!--end::Fonts -->
     <!--begin::Global Theme Styles(used by all pages) -->
     @if (isRightToLeft)
     {
+        <style>
+            @@font-face {
+                font-family: "TypoBlack";
+                src: url("fonts/fonts/typo/typo-black.woff") format('woff');
+            }
+
+            @@font-face {
+                font-family: "TypoBold";
+                src: url("fonts/fonts/typo/typo-bold.woff") format('woff');
+                font-weight: bold;
+            }
+
+            @@font-face {
+                font-family: "TypoRegular";
+                src: url("fonts/fonts/typo/typo-regular.woff") format('woff');
+                font-weight: bold;
+                font-style: italic;
+            }
+        </style>
 
         <link href="~/metronic/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css" />
         <link href="~/metronic/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" />
