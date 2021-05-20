@@ -273,7 +273,7 @@
                                     <span></span>
                                 </span>
                                 <div class="kt-pricing-1__btn">
-                                    <button type="button" class="btn btn-info btn-elevate">{{ shared['Download'] }}</button>
+                                    <button type="button" class="btn btn-info btn-elevate" @click="download">{{ shared['Download'] }}</button>
                                 </div>
                             </div>
                             <div class="kt-pricing-1__item" v-bind:class="[result == true ? 'col-lg-4' : 'col-lg-6']">
@@ -468,10 +468,7 @@
                 return true;
             },
             submit: function () {
-
-
                 if (!this.validate()) {
-
                     console.log(this.isFirstNameError);
                     console.log(this.isLastNameError);
                     console.log(this.isPhoneError);
@@ -479,8 +476,6 @@
                     console.log(this.isEmailError);
                     console.log(this.isStreetError);
                     console.log(this.isConstructorError);
-
-
                     return false;
                 }
 
@@ -496,6 +491,22 @@
                     .catch((error) => {
                         console.log(error);
                         this.errors.push("Error on form submit");
+                    });
+            },
+            download: function () {
+                axios.get(window._root + 'api/customer/download', { responseType: 'blob' })
+                    .then((response) => {
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', 'WarrantyCert.pdf');
+                        document.body.appendChild(link);
+                        link.click();
+
+                        window.document.location.href = `${window._root}`;
+                    })
+                    .catch((error) => {
+                        console.log(error);
                     });
             }
         },
