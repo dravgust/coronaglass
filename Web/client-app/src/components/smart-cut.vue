@@ -260,7 +260,7 @@
             },
             resultTabHeight: function () {
                 //return (window.innerHeight * 0.35) + 'px';
-                return 686 + ((this.planks.length + this.snippets.length) * 30)  + 'px';
+                return 660 + ((this.planks.length + this.snippets.length) * 30)  + 'px';
             },
             validated() {
                 if (this.snippets.filter((i) => +i.length > 0).length > 0) {
