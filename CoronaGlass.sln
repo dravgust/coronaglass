@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{4B03CF
 		Nginx\nginx.conf = Nginx\nginx.conf
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{A4EDD62D-DD2E-4B76-B276-08B2E36B68DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{F8525C68-8E3F-4B7B-B56D-69A0702F562F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8525C68-8E3F-4B7B-B56D-69A0702F562F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8525C68-8E3F-4B7B-B56D-69A0702F562F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4EDD62D-DD2E-4B76-B276-08B2E36B68DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4EDD62D-DD2E-4B76-B276-08B2E36B68DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4EDD62D-DD2E-4B76-B276-08B2E36B68DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4EDD62D-DD2E-4B76-B276-08B2E36B68DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
