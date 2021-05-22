@@ -1,21 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CoreLibrary.XLSX;
 using CoronaGlass.Core;
-using CoronaGlass.Core.Interfaces;
-using CoronaGlass.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Web.Features.Tools;
 using Web.Models;
 

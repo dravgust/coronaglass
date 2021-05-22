@@ -1,12 +1,24 @@
 ﻿@using Web.Infrastructure
+@using System.Globalization
 @inject SharedLocalizationService Resources
+@{
+    var isRightToLeft = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+}
 
 @section Title{<title>@Resources["Warranty certificate"]</title>}
 @section Head {
     <link rel="stylesheet" asp-append-version="true" href="~/css/masonry.css" />
     <link rel="stylesheet" asp-append-version="true" href="~/css/modal.css" />
     <link rel="stylesheet" asp-append-version="true" href="~/css/toggle.button.css" />
-    <link rel="stylesheet" asp-append-version="true" href="~/metronic/assets/css/pages/pricing/pricing-1.css" />
+
+    @if (isRightToLeft)
+    {
+        <link rel="stylesheet" asp-append-version="true" href="~/metronic/assets/css/pages/pricing/pricing-1.rtl.css" />
+    }
+    else
+    {
+        <link rel="stylesheet" asp-append-version="true" href="~/metronic/assets/css/pages/pricing/pricing-1.css" />
+    }
 
     <resources names='new[] { "CertificateForm", "SharedResources" }'></resources>
 }

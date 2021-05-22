@@ -4,20 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
 using CoronaGlass.Core;
-using Dropbox.Api.TeamLog;
 using Microsoft.Extensions.Logging;
 using Web.Features.Customer;
 using Web.Models;
 
 namespace Web.Infrastructure.Services
 {
-    public delegate IActorRef StorageActorProvider();
-    public class StorageManager : ReceiveActor
+    public class FileStorageActor : ReceiveActor
     {
-        private readonly ILogger<StorageManager> _logger;
+        private readonly ILogger<FileStorageActor> _logger;
         private readonly IFileStorage _fileStorage;
 
-        public StorageManager(IFileStorage fileStorage, ILogger<StorageManager> logger)
+        public FileStorageActor(IFileStorage fileStorage, ILogger<FileStorageActor> logger)
         {
             _fileStorage = fileStorage ?? throw new NullReferenceException(nameof(fileStorage));
             _logger = logger;

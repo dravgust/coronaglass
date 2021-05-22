@@ -123,6 +123,12 @@
   <data name="Cutting Optimization" xml:space="preserve">
     <value>Cutting Optimization</value>
   </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Download Warranty Certificate" xml:space="preserve">
+    <value>Download Warranty Certificate</value>
+  </data>
   <data name="Go To Corona Home Page" xml:space="preserve">
     <value>Go To Corona Home Page</value>
   </data>

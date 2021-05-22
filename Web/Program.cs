@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
+using Hocon.Extensions.Configuration;
 using NLog;
 using NLog.Web;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
@@ -41,7 +42,17 @@ namespace Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                }).ConfigureLogging(logging =>
+                })
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    // We inject the HOCON configuration file using this function call,
+                    // the rest of the code are there to make sure that the final configuration
+                    // conforms to the Microsoft standard on loading a full configuration stack.
+                    var env = hostingContext.HostingEnvironment;
+                    config.AddHoconFile("akka.conf", optional: false, reloadOnChange: true)
+                        .AddHoconFile($"akka.{env.EnvironmentName}.conf", optional: true, reloadOnChange: true);
+                })
+                .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
                     logging.SetMinimumLevel(LogLevel.Trace);

@@ -123,6 +123,12 @@
   <data name="Cutting Optimization" xml:space="preserve">
     <value>Оптимизация резки</value>
   </data>
+  <data name="Download" xml:space="preserve">
+    <value>Скачать</value>
+  </data>
+  <data name="Download Warranty Certificate" xml:space="preserve">
+    <value>Скачать гарантийный сертификат</value>
+  </data>
   <data name="Go To" xml:space="preserve">
     <value>Перейти</value>
   </data>

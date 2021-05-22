@@ -1,30 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.Localization;
-using Web.Infrastructure;
-using Web.Infrastructure.Services;
+using Web.Features.Customer;
 using Web.Models;
-using Web.Resources;
 
 namespace Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IEmailSender _emailSender;
-        private readonly IStringLocalizer<HomeController> _resources;
+        private readonly IMediator _mediator;
 
-        public HomeController(IStringLocalizer<HomeController> resources, IEmailSender emailSender, ILogger<HomeController> logger)
+        public HomeController(IMediator mediator)
         {
-            _logger = logger;
-            _emailSender = emailSender;
-            _resources = resources;
+            this._mediator = mediator;
         }
 
         [HttpGet]
@@ -37,17 +30,19 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> ContactUsForm(ContactUsForm contactUsForm)
+        public async Task<IActionResult> ContactUsForm(ContactUsRequest query, CancellationToken token)
         {
-            if (!ModelState.IsValid)
+            string response;
+            try
             {
-                return RedirectToAction("Index");
+                response = await _mediator.Send(query, token);
+            }
+            catch (Exception e)
+            {
+               response = e.Message;
             }
 
-            await _emailSender.SendEmailAsync(null, contactUsForm.Subject, $"{contactUsForm.Name}\r\n{contactUsForm.Phone}\r\n{contactUsForm.Message}");
-
-            TempData["alerts"] = new List<string> { "Message sent successfully." };
-
+            TempData["alerts"] = response;
             return Redirect("~/");
         }
 

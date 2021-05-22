@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Mail;
 
 namespace Web.Infrastructure.Services
 {
-    public class SendMessageCommand
+    public class PostMessage
     {
         public string Email { get; }
         public string Subject { get; }
         public string Body { get; }
         public List<Attachment> Attachments { get; } = new();
-        public SendMessageCommand(string email, string subject, string body)
+        public PostMessage(string email, string subject, string body)
         {
-            if(string.IsNullOrEmpty(email))
-                throw new ArgumentNullException(nameof(email));
             Email = email;
             Subject = subject;
             Body = body;

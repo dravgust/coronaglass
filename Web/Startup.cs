@@ -1,40 +1,27 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Akka.Actor;
+using Akka.DI.Core;
+using Akka.DI.Extensions.DependencyInjection;
 using CoronaGlass.Core;
 using coronaGlass.Dropbox;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Server.Kestrel;
-using Microsoft.AspNetCore.SpaServices;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using VueCliMiddleware;
 using Web.Behaviours;
 using Web.Infrastructure;
 using Web.Infrastructure.Services;
-using Web.Middlewares;
 using Web.Resources;
 
 namespace Web
@@ -112,22 +99,19 @@ namespace Web
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
-            services.AddSingleton(_=> ActorSystem.Create("coronaService"));
-            services.AddSingleton<PostmanActorProvider>(provider =>
+            services.AddSingleton<PostOfficeActor>();
+            services.AddSingleton<PostmanActor>();
+            services.AddSingleton<FileStorageActor>();
+            services.AddSingleton(serviceProvider =>
             {
-                var actorSystem = provider.GetService<ActorSystem>();
-                var emailSender = provider.GetService<IEmailSender>();
-                var postman = actorSystem?.ActorOf(Props.Create(() => new PostmanActor(emailSender)));
-                return () => postman;
+                //var akkaConfig = Configuration.GetSection("Akka").Get<AkkaConfig>();
+                //var config = ConfigurationFactory.FromObject(new { akka = akkaConfig });
+                var coronaService = ActorSystem.Create("coronaService");
+                coronaService.UseServiceProvider(serviceProvider);
+                return coronaService;
             });
-            services.AddSingleton<StorageActorProvider>(provider =>
-            {
-                var actorSystem = provider.GetService<ActorSystem>();
-                var fileStorage = provider.GetService<IFileStorage>();
-                var logger = provider.GetService<ILogger<StorageManager>>();
-                var storeManager = actorSystem?.ActorOf(Props.Create(() => new StorageManager(fileStorage, logger)));
-                return () => storeManager;
-            });
+            services.AddSingleton<IActorFactory, ActorFactory>();
+            services.AddSingleton(typeof(IActor<>), typeof(ActorRef<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

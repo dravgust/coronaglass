@@ -53,21 +53,21 @@ namespace Web.Features.Customer
             private readonly ILogger<CertificateRequestHandler> _logger;
             private readonly SharedLocalizationService _resources;
 
-            private readonly IActorRef _postman;
-            private readonly IActorRef _storeManager;
-            public CertificateRequestHandler(ILogger<CertificateRequestHandler> logger, 
-                PostmanActorProvider postmanProvider, StorageActorProvider storeProvider,
+            private readonly IActor<PostOfficeActor> _emailSender;
+            private readonly IActor<FileStorageActor> _storeManager;
+            public CertificateRequestHandler(ILogger<CertificateRequestHandler> logger,
+                IActor<PostOfficeActor> postOfficeActor, IActor<FileStorageActor> storageManager,
                 SharedLocalizationService resources)
             {
                 _logger = logger;
-                _postman = postmanProvider();
-                _storeManager = storeProvider();
+                _emailSender = postOfficeActor;
+                _storeManager = storageManager;
                 _resources = resources;
             }
 
             public async Task<bool> Handle(CertificateRequest request, CancellationToken cancellationToken)
             {
-                var cmd = new SendMessageCommand(request.Email, _resources["Warranty certificate"], _resources["Warranty certificate"]);
+                var cmd = new PostMessage(request.Email, _resources["Warranty certificate"], _resources["Warranty certificate"]);
                 var contentType = new ContentType
                 {
                     MediaType = MediaTypeNames.Application.Pdf,
@@ -75,9 +75,9 @@ namespace Web.Features.Customer
                 };
                 cmd.AddAttachment(new Attachment("Files/Certificate.pdf", contentType));
 
-                _postman.Tell(cmd);
+                _emailSender.Ref.Tell(cmd);
 
-                _storeManager.Tell(new UpdateFileCommand($"/WebForm", "Customers.xlsx", request));
+                _storeManager.Ref.Tell(new UpdateFileCommand($"/WebForm", "Customers.xlsx", request));
                 
                 return await Task.FromResult(true);
             }

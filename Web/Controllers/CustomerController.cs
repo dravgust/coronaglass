@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,19 +22,14 @@ namespace Web.Controllers
         public async Task<IActionResult> Certificate(CertificateRequest query, CancellationToken token) => 
             Ok(await _mediator.Send(query, token));
 
-        //public async Task<IActionResult> OnPostExportAsync()
-        //{
-        //    var sWebRootFolder = _hostingEnvironment.WebRootPath;
-        //    const string sFileName = @"attachment.pdf";
-        //    var file = Path.Combine(sWebRootFolder, "storage", sFileName);
-
-        //    var memory = new MemoryStream();
-        //    using (var fs = new FileStream(file, FileMode.Open))
-        //    {
-        //        await fs.CopyToAsync(memory);
-        //    }
-        //    memory.Position = 0;
-        //    return File(memory, "application/pdf", "certificate.pdf");
-        //}
+        [Route("download")]
+        public async Task<IActionResult> Download()
+        {
+            var memory = new MemoryStream();
+            await using (var fs = new FileStream("Files/Certificate.pdf", FileMode.Open))
+                await fs.CopyToAsync(memory);
+            memory.Position = 0;
+            return File(memory, "application/pdf", "WarrantyCert.pdf");
+        }
     }
 }
