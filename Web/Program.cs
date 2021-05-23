@@ -48,9 +48,9 @@ namespace Web
                     // We inject the HOCON configuration file using this function call,
                     // the rest of the code are there to make sure that the final configuration
                     // conforms to the Microsoft standard on loading a full configuration stack.
-                    var env = hostingContext.HostingEnvironment;
-                    config.AddHoconFile("akka.conf", optional: false, reloadOnChange: true)
-                        .AddHoconFile($"akka.{env.EnvironmentName}.conf", optional: true, reloadOnChange: true);
+                    //var env = hostingContext.HostingEnvironment;
+                    //config.AddHoconFile("akka.conf", optional: false, reloadOnChange: true)
+                    //    .AddHoconFile($"akka.{env.EnvironmentName}.conf", optional: true, reloadOnChange: true);
                 })
                 .ConfigureLogging(logging =>
                 {

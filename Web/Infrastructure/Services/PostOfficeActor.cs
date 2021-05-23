@@ -73,8 +73,8 @@ namespace Web.Infrastructure.Services
 
             Context.ActorOf(Context.System.DI().Props<PostmanActor>(), "postman");
 
-            this._snapshotCleanup = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(TimeSpan.FromSeconds(10),
-                TimeSpan.FromSeconds(10), Self, new CleanSnapshots(), Self);
+            this._snapshotCleanup = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(TimeSpan.FromSeconds(30),
+                TimeSpan.FromSeconds(30), Self, new CleanSnapshots(), Self);
 
             base.PreStart();
         }

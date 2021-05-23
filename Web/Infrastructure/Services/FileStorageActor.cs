@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
 using CoronaGlass.Core;
 using Microsoft.Extensions.Logging;
-using Web.Features.Customer;
-using Web.Models;
 
 namespace Web.Infrastructure.Services
 {
@@ -21,7 +18,6 @@ namespace Web.Infrastructure.Services
             _logger = logger;
 
             Receive<StoreFileCommand>(async cmd => await Send(cmd, cmd.Data));
-            Receive<UpdateFileCommand>(async cmd => await Update(cmd, cmd.Data));
             Receive<SearchFileCommand>(async cmd => Sender.Tell(await Search(cmd)));
             Receive<GetFileCommand>(async cmd => Sender.Tell(await Get(cmd)));
         }
@@ -37,24 +33,6 @@ namespace Web.Infrastructure.Services
             {
                 _logger.LogDebug(e.Message);
             }
-        }
-
-        public async Task Update(FileCommand cmd, CertificateRequest data)
-        {
-            var ie = new ImportExport();
-            var customers = new List<CertificateRequest>();
-            var search = await Search(cmd);
-
-            if (search != null && search.Any())
-            {
-                var iData = await Get(cmd);
-                customers.AddRange(ie.ImportCustomerForm(iData));
-            }
-
-            customers.Add(data);
-            var eData = ie.Export(customers);
-
-            await Send(cmd, eData);
         }
 
         public async Task<List<string>> Search(FileCommand cmd)

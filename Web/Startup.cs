@@ -103,13 +103,14 @@ namespace Web
 
             services.AddSingleton<PostOfficeActor>();
             services.AddSingleton<PostmanActor>();
+            services.AddSingleton<CustomerManagerActor>();
             services.AddSingleton<FileStorageActor>();
             services.AddSingleton(serviceProvider =>
             {
                 //var akkaConfig = Configuration.GetSection("Akka").Get<AkkaConfig>();
                 //var config = ConfigurationFactory.FromObject(new { akka = akkaConfig });
                 var config = ConfigurationFactory.ParseString(File.ReadAllText("host.conf"));
-                var coronaService = ActorSystem.Create("coronaService", config);
+                var coronaService = ActorSystem.Create("coronaService", ConfigurationFactory.Default());
                 coronaService.UseServiceProvider(serviceProvider);
                 return coronaService;
             });

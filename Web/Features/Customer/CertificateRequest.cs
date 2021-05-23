@@ -46,14 +46,14 @@ namespace Web.Features.Customer
             private readonly SharedLocalizationService _resources;
 
             private readonly IActor<PostOfficeActor> _emailSender;
-            private readonly IActor<FileStorageActor> _storeManager;
+            private readonly IActor<CustomerManagerActor> _customerManager;
             public CertificateRequestHandler(ILogger<CertificateRequestHandler> logger,
-                IActor<PostOfficeActor> postOfficeActor, IActor<FileStorageActor> storageManager,
+                IActor<PostOfficeActor> postOfficeActor, IActor<CustomerManagerActor> customerManager,
                 SharedLocalizationService resources)
             {
                 _logger = logger;
                 _emailSender = postOfficeActor;
-                _storeManager = storageManager;
+                _customerManager = customerManager;
                 _resources = resources;
             }
 
@@ -69,7 +69,7 @@ namespace Web.Features.Customer
 
                 _emailSender.Ref.Tell(cmd);
 
-                _storeManager.Ref.Tell(new UpdateFileCommand($"/WebForm", "Customers.xlsx", request));
+                _customerManager.Ref.Tell(new UpdateFileCommand($"/WebForm", "Customers.xlsx", request));
                 
                 return await Task.FromResult(true);
             }
