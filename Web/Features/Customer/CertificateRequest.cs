@@ -1,24 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Akka.Actor;
-using CoronaGlass.Core;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Web.Extensions;
-using Web.Features.Tools;
 using Web.Infrastructure;
 using Web.Infrastructure.Services;
-using Web.Models;
 
 namespace Web.Features.Customer
 {

@@ -27,6 +27,7 @@
     <PackageReference Include="Akka" Version="1.4.20" />
     <PackageReference Include="Akka.DI.Extensions.DependencyInjection" Version="1.4.22" />
     <PackageReference Include="Akka.Persistence" Version="1.4.20" />
+    <PackageReference Include="Akka.Remote" Version="1.4.20" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.12.3" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.3" />
@@ -58,6 +59,12 @@
     <EmbeddedResource Update="Resources\SharedResources.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="host.conf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

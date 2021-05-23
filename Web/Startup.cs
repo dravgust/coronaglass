@@ -4,9 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Akka.Actor;
+using Akka.Configuration;
 using Akka.DI.Core;
 using Akka.DI.Extensions.DependencyInjection;
 using CoronaGlass.Core;
@@ -106,7 +108,8 @@ namespace Web
             {
                 //var akkaConfig = Configuration.GetSection("Akka").Get<AkkaConfig>();
                 //var config = ConfigurationFactory.FromObject(new { akka = akkaConfig });
-                var coronaService = ActorSystem.Create("coronaService");
+                var config = ConfigurationFactory.ParseString(File.ReadAllText("host.conf"));
+                var coronaService = ActorSystem.Create("coronaService", config);
                 coronaService.UseServiceProvider(serviceProvider);
                 return coronaService;
             });

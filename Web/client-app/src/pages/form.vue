@@ -57,6 +57,9 @@
                 <div class="kt-portlet">
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
+                            <span class="kt-portlet__head-icon">
+                                <i class="fa flaticon-list"></i>
+                            </span>
                             <h3 class="kt-portlet__head-title">
                                 {{ _["Header"] }}
                             </h3>
@@ -247,12 +250,12 @@
             <div class="kt-portlet">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
-                        <!--<span class="kt-portlet__head-icon">
+                        <span class="kt-portlet__head-icon">
                             <i class="la la-puzzle-piece"></i>
                         </span>
                         <h3 class="kt-portlet__head-title">
-
-                        </h3>-->
+                            {{ shared['Additional features'] }}
+                        </h3>
                     </div>
                 </div>
                 <div class="kt-portlet__body">
@@ -266,7 +269,7 @@
                                 </div>
 
                                 <span class="kt-pricing-1__price">{{ shared['Warranty certificate'] }}</span>
-                                <h2 class="kt-pricing-1__subtitle">{{ shared['Download Warranty Certificate'] }}</h2>
+                                <h2 class="kt-pricing-1__subtitle">{{ shared['Download warranty certificate'] }}</h2>
                                 <span class="kt-pricing-1__description">
                                     <span></span>
                                     <span></span>
