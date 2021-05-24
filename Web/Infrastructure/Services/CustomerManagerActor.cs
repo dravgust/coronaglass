@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
@@ -17,7 +18,7 @@ namespace Web.Infrastructure.Services
         {
             _logger = logger;
 
-            Receive<UpdateFileCommand>(async cmd => await Update(cmd, cmd.Data));
+            ReceiveAsync<UpdateFileCommand>(cmd => Update(cmd, cmd.Data));
         }
 
         public async Task Update(FileCommand cmd, CertificateRequest data)
@@ -30,7 +31,7 @@ namespace Web.Infrastructure.Services
 
             if (search != null && search.Any())
             {
-                var iData = (byte[]) await fileStorage.Ask(new GetFileCommand(cmd.Folder, cmd.Name));
+                var iData = (byte[])await fileStorage.Ask(new GetFileCommand(cmd.Folder, cmd.Name));
                 customers.AddRange(ie.ImportCustomerForm(iData));
             }
 

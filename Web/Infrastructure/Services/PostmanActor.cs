@@ -14,28 +14,24 @@ namespace Web.Infrastructure.Services
         {
             _emailSender = emailSender ?? throw new NullReferenceException(nameof(emailSender));
 
-            Receive<DeliveryEnvelope<PostMessage>>(async cmd => await Send(cmd, Sender));
+            Receive<DeliveryEnvelope<PostMessage>>(cmd =>
+            {
+                var sender = Sender;
+                Trace.WriteLine($"Received message for { cmd.Message.Email} [id: {cmd.MessageId}] from {sender}");
+                Send(cmd).PipeTo(sender);
+            });
         }
 
-        public async Task Send(DeliveryEnvelope<PostMessage> cmd, IActorRef sender)
+        public async Task<DeliveryAck> Send(DeliveryEnvelope<PostMessage> cmd)
         {
-            try
-            {
-                Trace.WriteLine($"Received message for { cmd.Message.Email} [id: {cmd.MessageId}] from {sender}");
+            var email = cmd.Message.Email;
+            var subject = cmd.Message.Subject;
+            var body = cmd.Message.Body;
+            var attachments = cmd.Message.Attachments;
 
-                var email = cmd.Message.Email;
-                var subject = cmd.Message.Subject;
-                var body = cmd.Message.Body;
-                var attachments = cmd.Message.Attachments;
+            await _emailSender.SendEmailAsync(email, subject, body, attachments);
 
-                await _emailSender.SendEmailAsync(email, subject, body, attachments);
-
-                sender.Tell(new DeliveryAck(cmd.MessageId));
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLine(e);
-            }
+            return new DeliveryAck(cmd.MessageId);
         }
     }
 }

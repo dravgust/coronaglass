@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using Akka.Actor;
 using Akka.DI.Core;
 using Akka.Persistence;
+using CoronaGlass.Core;
 using Microsoft.Extensions.Logging;
 
 namespace Web.Infrastructure.Services
@@ -62,7 +63,7 @@ namespace Web.Infrastructure.Services
 
             Command<SaveSnapshotFailure>(failure =>
             {
-                // log or do something else
+                _logger.LogError($"{failure.ToJson()}");
             });
         }
 

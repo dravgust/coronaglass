@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Threading;
@@ -59,13 +60,13 @@ namespace Web.Features.Customer
 
             public async Task<bool> Handle(CertificateRequest request, CancellationToken cancellationToken)
             {
-                var cmd = new PostMessage(request.Email, _resources["Warranty certificate"], _resources["Warranty certificate"]);
                 var contentType = new ContentType
                 {
                     MediaType = MediaTypeNames.Application.Pdf,
                     Name = "WarrantyCert.pdf"
                 };
-                cmd.AddAttachment(new Attachment("Files/Certificate.pdf", contentType));
+                var attachments = new List<Attachment> {new("Files/Certificate.pdf", contentType)};
+                var cmd = new PostMessage(request.Email, _resources["Warranty certificate"], _resources["Warranty certificate"], attachments);
 
                 _emailSender.Ref.Tell(cmd);
 

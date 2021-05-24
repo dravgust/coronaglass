@@ -8,17 +8,13 @@ namespace Web.Infrastructure.Services
         public string Email { get; }
         public string Subject { get; }
         public string Body { get; }
-        public List<Attachment> Attachments { get; } = new();
-        public PostMessage(string email, string subject, string body)
+        public IReadOnlyList<Attachment> Attachments { get; }
+        public PostMessage(string email, string subject, string body, IReadOnlyList<Attachment> attachments = null)
         {
             Email = email;
             Subject = subject;
             Body = body;
-        }
-
-        public void AddAttachment(Attachment attachment)
-        {
-            Attachments.Add(attachment);
+            Attachments = attachments ?? new List<Attachment>();
         }
     }
 }
