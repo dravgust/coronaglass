@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Akka.Actor;
 using CoronaGlass.Core;
 
@@ -15,11 +17,11 @@ namespace Web.Infrastructure.Services
             Receive<Find>(cmd =>
             {
                 var sender = Sender;
-                fileStorage.Search(cmd.Folder, cmd.Name, 100).PipeTo(sender);
+                fileStorage.Search(cmd.Folder, cmd.Name, 100).PipeTo(sender, success:result => new FindResult(result));
             });
             Receive<Get>(cmd => {
                 var sender = Sender;
-                fileStorage.Download(cmd.Folder, cmd.Name).PipeTo(sender);
+                fileStorage.Download(cmd.Folder, cmd.Name).PipeTo(sender, success: result => new GetResult(result));
             });
         }
 
@@ -43,10 +45,24 @@ namespace Web.Infrastructure.Services
             }
         }
 
+        public class GetResult : ReadOnlyCollection<byte>
+        {
+            public GetResult(IList<byte> list) : base(list)
+            {
+            }
+        }
+
         public class Find : FileCommand
         {
             public Find(string folderName, string fileName)
                 : base(folderName, fileName)
+            {
+            }
+        }
+
+        public class FindResult : ReadOnlyCollection<string>
+        {
+            public FindResult(IList<string> list) : base(list)
             {
             }
         }

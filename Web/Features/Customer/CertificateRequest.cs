@@ -70,7 +70,7 @@ namespace Web.Features.Customer
 
                 _postOffice.Ref.Tell(cmd);
 
-                _customerStorage.Ref.Tell(new CustomerStorageActor.AppendNew(request));
+                _customerStorage.Ref.Tell(request);
                 
                 return await Task.FromResult(true);
             }

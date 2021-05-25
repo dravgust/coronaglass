@@ -21,7 +21,6 @@ namespace coronaGlass.Dropbox
 
 		public async Task<List<string>> Search(string path, string query, ulong maxResults = 100UL)
 		{
-            //throw new Exception("dropbox search exception");
 			var result = new List<string>();
             try
             {

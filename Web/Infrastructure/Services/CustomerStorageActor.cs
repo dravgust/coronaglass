@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.DI.Core;
+using CoronaGlass.Core;
 using Microsoft.Extensions.Logging;
 using Web.Features.Customer;
 using Web.Models;
@@ -18,50 +18,82 @@ namespace Web.Infrastructure.Services
         private const string Folder = "/WebForm";
         private const string File = "Customers.xlsx";
 
+        private IActorRef _fileStorage;
         public IStash Stash { get; set; }
+
+        private CertificateRequest _certificateRequest;
 
         public CustomerStorageActor(ILogger<CustomerStorageActor> logger)
         {
             _logger = logger;
-
-            ReceiveAsync<AppendNew>(Append);
-            //Become(Ready);
+            Become(Ready);
         }
 
-        //private void Ready()
-        //{
-        //    ReceiveAsync<AppendNew>(message =>
-        //    {
-        //        Append(message);
-        //    });
-        //}
-
-        public async Task Append(AppendNew cmd)
+        private void Ready()
         {
-            try
+            Receive<CertificateRequest>(message =>
             {
-                var fileStorage = Context.Child("fileStorage");
+                _certificateRequest = message;
+                _fileStorage.Ask(new FileStorageActor.Find(Folder, File)).PipeTo(Self);
+                Become(InProcess);
+            });
+        }
 
-                var ie = new ImportExport();
-                var customers = new List<CertificateRequest>();
-                var search = (List<string>)await fileStorage.Ask(new FileStorageActor.Find(Folder, File));
-                    //.PipeTo(Self, failure: ex => new Status.Failure(ex));
-
-                if (search != null && search.Any())
+        private void InProcess()
+        {
+            Receive<CertificateRequest>(request => Stash.Stash());
+            Receive<FileStorageActor.FindResult>(result =>
+            {
+                if (result != null && result.Any())
                 {
-                    var iData = (byte[])await fileStorage.Ask(new FileStorageActor.Get(Folder, File));
-                    customers.AddRange(ie.ImportCustomerForm(iData));
+                    _fileStorage.Ask(new FileStorageActor.Get(Folder, File)).PipeTo(Self);
                 }
-
-                customers.Add(cmd.Data);
-                var eData = ie.Export(customers);
-
-                fileStorage.Tell(new FileStorageActor.Save(Folder, File, eData));
-            }
-            catch (Exception e)
+                else
+                {
+                    Self.Tell(new List<CertificateRequest> { _certificateRequest });
+                }
+            });
+            Receive<FileStorageActor.GetResult>(result =>
             {
-                Trace.WriteLine(e.Message);
-            }
+                var ie = new ImportExport();
+                try
+                {
+                    var import = ie.ImportCustomerForm(result.ToArray());
+                    var customers = new List<CertificateRequest>(import)
+                    {
+                        _certificateRequest
+                    };
+                    Self.Tell(customers);
+                }
+                catch (Exception e)
+                {
+                    Self.Tell(new Status.Failure(e));
+                }
+                
+            });
+            Receive<List<CertificateRequest>>(customers =>
+            {
+                var ie = new ImportExport();
+                try
+                {
+                    var export = ie.Export(customers);
+                    _fileStorage.Tell(new FileStorageActor.Save(Folder, File, export));
+                    Self.Tell(new AppendComplete());
+                }
+                catch (Exception e)
+                {
+                    Self.Tell(new Status.Failure(e));
+                }
+            });
+            Receive<Status.Failure>(result =>
+            {
+                Trace.WriteLine(result.ToJson());
+                Self.Tell(new AppendComplete());
+            });
+            Receive<AppendComplete>(message => {
+                Become(Ready);
+                Stash.UnstashAll();
+            });
         }
 
         protected override void PreStart()
@@ -69,7 +101,7 @@ namespace Web.Infrastructure.Services
             //this._messageSend = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(TimeSpan.FromSeconds(0),
             //    TimeSpan.FromSeconds(30), Self, new DoSend(), Self);
 
-            Context.ActorOf(Context.System.DI().Props<FileStorageActor>(), "fileStorage");
+            _fileStorage = Context.ActorOf(Context.System.DI().Props<FileStorageActor>(), "fileStorage");
 
             base.PreStart();
         }
@@ -85,7 +117,7 @@ namespace Web.Infrastructure.Services
                     {
                         //ArgumentException ae => Directive.Resume,
                         //NullReferenceException ne => Directive.Restart,
-                        _ => Directive.Stop
+                        _ => Directive.Restart
                     };
                 }
             );
@@ -99,6 +131,11 @@ namespace Web.Infrastructure.Services
             {
                 Data = data ?? throw new ArgumentNullException(nameof(data));
             }
+        } 
+        
+        public class AppendComplete
+        {
+            
         }
     }
 }
