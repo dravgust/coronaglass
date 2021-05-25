@@ -46,15 +46,15 @@ namespace Web.Features.Customer
             private readonly ILogger<CertificateRequestHandler> _logger;
             private readonly SharedLocalizationService _resources;
 
-            private readonly IActor<PostOfficeActor> _emailSender;
-            private readonly IActor<CustomerManagerActor> _customerManager;
+            private readonly IActor<PostOfficeActor> _postOffice;
+            private readonly IActor<CustomerStorageActor> _customerStorage;
             public CertificateRequestHandler(ILogger<CertificateRequestHandler> logger,
-                IActor<PostOfficeActor> postOfficeActor, IActor<CustomerManagerActor> customerManager,
+                IActor<PostOfficeActor> postOfficeActor, IActor<CustomerStorageActor> customerStorage,
                 SharedLocalizationService resources)
             {
                 _logger = logger;
-                _emailSender = postOfficeActor;
-                _customerManager = customerManager;
+                _postOffice = postOfficeActor;
+                _customerStorage = customerStorage;
                 _resources = resources;
             }
 
@@ -68,9 +68,9 @@ namespace Web.Features.Customer
                 var attachments = new List<Attachment> {new("Files/Certificate.pdf", contentType)};
                 var cmd = new PostMessage(request.Email, _resources["Warranty certificate"], _resources["Warranty certificate"], attachments);
 
-                _emailSender.Ref.Tell(cmd);
+                _postOffice.Ref.Tell(cmd);
 
-                _customerManager.Ref.Tell(new UpdateFileCommand($"/WebForm", "Customers.xlsx", request));
+                _customerStorage.Ref.Tell(new CustomerStorageActor.AppendNew(request));
                 
                 return await Task.FromResult(true);
             }

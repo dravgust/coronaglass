@@ -80,22 +80,22 @@ namespace Web.Infrastructure.Services
             base.PreStart();
         }
 
-        protected override SupervisorStrategy SupervisorStrategy()
-        {
-            return new OneForOneStrategy(
-                maxNrOfRetries: 10,
-                withinTimeRange: TimeSpan.FromMinutes(1),
-                localOnlyDecider: ex =>
-                {
-                    return ex switch
-                    {
-                        ArgumentException ae => Directive.Resume,
-                        NullReferenceException ne => Directive.Restart,
-                        _ => Directive.Stop
-                    };
-                }
-            );
-        }
+        //protected override SupervisorStrategy SupervisorStrategy()
+        //{
+        //    return new OneForOneStrategy(
+        //        maxNrOfRetries: 10,
+        //        withinTimeRange: TimeSpan.FromMinutes(1),
+        //        localOnlyDecider: ex =>
+        //        {
+        //            return ex switch
+        //            {
+        //                //ArgumentException ae => Directive.Resume,
+        //                //NullReferenceException ne => Directive.Stop,
+        //                _ => Directive.Restart
+        //            };
+        //        }
+        //    );
+        //}
 
         protected override void PostStop()
         {

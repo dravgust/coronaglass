@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,26 +19,20 @@ namespace coronaGlass.Dropbox
 			FileStorageSettings = fileStorageOptions?.Value;
 		}
 
-
-
 		public async Task<List<string>> Search(string path, string query, ulong maxResults = 100UL)
 		{
+            //throw new Exception("dropbox search exception");
 			var result = new List<string>();
             try
             {
-                using (var dbx = new DropboxClient(FileStorageSettings.AccessToken))
-                {
-                    var searchResult = await dbx.Files.SearchAsync(path, query, 0, maxResults, SearchMode.Filename.Instance);
-                    foreach (var resultMatch in searchResult.Matches)
-                    {
-                        result.Add(resultMatch.Metadata.PathLower);
-                    }
-                }
+                using var dbx = new DropboxClient(FileStorageSettings.AccessToken);
+                var args = new SearchV2Arg(query, new SearchOptions(path, 1, filenameOnly: true));
+                var searchResult = await dbx.Files.SearchV2Async(args);
 
+                result.AddRange(searchResult.Matches.Select(resultMatch => resultMatch.Metadata.AsMetadata.Value.PathLower));
             }
             catch (DropboxException e)
-            {
-
+            { 
                 throw;
             }
 			return result;

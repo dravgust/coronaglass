@@ -11,16 +11,44 @@ namespace Web.Infrastructure.Services
             if(fileStorage == null)
                 throw new NullReferenceException(nameof(fileStorage));
 
-            ReceiveAsync<StoreFileCommand>(cmd => fileStorage.Upload(cmd.Folder, cmd.Name, cmd.Data));
-            Receive<SearchFileCommand>(cmd =>
+            ReceiveAsync<Save>(cmd => fileStorage.Upload(cmd.Folder, cmd.Name, cmd.Data));
+            Receive<Find>(cmd =>
             {
                 var sender = Sender;
                 fileStorage.Search(cmd.Folder, cmd.Name, 100).PipeTo(sender);
             });
-            Receive<GetFileCommand>(cmd => {
+            Receive<Get>(cmd => {
                 var sender = Sender;
                 fileStorage.Download(cmd.Folder, cmd.Name).PipeTo(sender);
             });
+        }
+
+        public class Save : FileCommand
+        {
+            public byte[] Data { get; }
+
+            public Save(string folderName, string fileName, byte[] data)
+                : base(folderName, fileName)
+            {
+                Data = data ?? throw new ArgumentNullException(nameof(data));
+            }
+
+        }
+
+        public class Get : FileCommand
+        {
+            public Get(string folderName, string fileName)
+                : base(folderName, fileName)
+            {
+            }
+        }
+
+        public class Find : FileCommand
+        {
+            public Find(string folderName, string fileName)
+                : base(folderName, fileName)
+            {
+            }
         }
     }
 }

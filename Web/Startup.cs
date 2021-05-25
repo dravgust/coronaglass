@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Web.Behaviours;
@@ -102,15 +103,17 @@ namespace Web
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             services.AddSingleton<PostOfficeActor>();
-            services.AddSingleton<PostmanActor>();
-            services.AddSingleton<CustomerManagerActor>();
-            services.AddSingleton<FileStorageActor>();
+            services.AddTransient<PostmanActor>();
+            services.AddSingleton<CustomerStorageActor>();
+            services.AddTransient<FileStorageActor>();
             services.AddSingleton(serviceProvider =>
             {
                 //var akkaConfig = Configuration.GetSection("Akka").Get<AkkaConfig>();
                 //var config = ConfigurationFactory.FromObject(new { akka = akkaConfig });
+                //var coronaService = ActorSystem.Create("coronaService", ConfigurationFactory.Default());
                 var config = ConfigurationFactory.ParseString(File.ReadAllText("host.conf"));
-                var coronaService = ActorSystem.Create("coronaService", ConfigurationFactory.Default());
+
+                var coronaService = ActorSystem.Create("coronaService", config);
                 coronaService.UseServiceProvider(serviceProvider);
                 return coronaService;
             });
