@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Akka.Actor;
 using Akka.DI.Core;
-using CoronaGlass.Core;
-using Microsoft.Extensions.Logging;
+using Akka.Event;
 using Web.Features.Customer;
 using Web.Models;
 
@@ -13,19 +11,20 @@ namespace Web.Infrastructure.Services
 {
     public class CustomerStorageActor : ReceiveActor, IWithUnboundedStash
     {
-        private readonly ILogger<CustomerStorageActor> _logger;
+        private readonly ILoggingAdapter _logger = Context.GetLogger();
 
         private const string Folder = "/WebForm";
         private const string File = "Customers.xlsx";
 
-        private IActorRef _fileStorage;
+        public const string FileStorageName = "fileStorage";
+
+        protected IActorRef FileStorage;
         public IStash Stash { get; set; }
 
         private CertificateRequest _certificateRequest;
 
-        public CustomerStorageActor(ILogger<CustomerStorageActor> logger)
+        public CustomerStorageActor()
         {
-            _logger = logger;
             Become(Ready);
         }
 
@@ -34,7 +33,7 @@ namespace Web.Infrastructure.Services
             Receive<CertificateRequest>(message =>
             {
                 _certificateRequest = message;
-                _fileStorage.Ask(new FileStorageActor.Find(Folder, File)).PipeTo(Self);
+                FileStorage.Ask(new FileStorageActor.Find(Folder, File)).PipeTo(Self);
                 Become(InProcess);
             });
         }
@@ -46,7 +45,7 @@ namespace Web.Infrastructure.Services
             {
                 if (result != null && result.Any())
                 {
-                    _fileStorage.Ask(new FileStorageActor.Get(Folder, File)).PipeTo(Self);
+                    FileStorage.Ask(new FileStorageActor.Get(Folder, File)).PipeTo(Self);
                 }
                 else
                 {
@@ -77,7 +76,7 @@ namespace Web.Infrastructure.Services
                 try
                 {
                     var export = ie.Export(customers);
-                    _fileStorage.Tell(new FileStorageActor.Save(Folder, File, export));
+                    FileStorage.Tell(new FileStorageActor.Save(Folder, File, export));
                     Self.Tell(new AppendComplete());
                 }
                 catch (Exception e)
@@ -85,9 +84,10 @@ namespace Web.Infrastructure.Services
                     Self.Tell(new Status.Failure(e));
                 }
             });
-            Receive<Status.Failure>(result =>
+            Receive<Status.Failure>(e =>
             {
-                Trace.WriteLine(result.ToJson());
+                _logger.Error($"{nameof(CustomerStorageActor)}| {e}.");
+
                 Self.Tell(new AppendComplete());
             });
             Receive<AppendComplete>(message => {
@@ -101,28 +101,17 @@ namespace Web.Infrastructure.Services
             //this._messageSend = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(TimeSpan.FromSeconds(0),
             //    TimeSpan.FromSeconds(30), Self, new DoSend(), Self);
 
-            _fileStorage = Context.ActorOf(Context.System.DI().Props<FileStorageActor>(), "fileStorage");
+            FileStorage = Context.Child(FileStorageName).Equals(ActorRefs.Nobody)
+                ? Context.ActorOf(Context.System.DI().Props<FileStorageActor>(), FileStorageName)
+                : Context.Child(FileStorageName);
 
             base.PreStart();
+
+            _logger.Debug("Started.");
         }
 
-        protected override SupervisorStrategy SupervisorStrategy()
-        {
-            return new OneForOneStrategy(
-                maxNrOfRetries: 10,
-                withinTimeRange: TimeSpan.FromMinutes(1),
-                localOnlyDecider: ex =>
-                {
-                    return ex switch
-                    {
-                        //ArgumentException ae => Directive.Resume,
-                        //NullReferenceException ne => Directive.Restart,
-                        _ => Directive.Restart
-                    };
-                }
-            );
-        }
-        
+        protected override void PostStop() => _logger.Debug("Stopped.");
+
         public class AppendNew
         {
             public CertificateRequest Data { get; }

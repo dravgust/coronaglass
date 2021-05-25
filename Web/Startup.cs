@@ -9,8 +9,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.Configuration;
-using Akka.DI.Core;
 using Akka.DI.Extensions.DependencyInjection;
+using Akka.Event;
 using CoronaGlass.Core;
 using coronaGlass.Dropbox;
 using FluentValidation;
@@ -19,8 +19,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Web.Behaviours;
 using Web.Infrastructure;
@@ -102,20 +100,20 @@ namespace Web
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
-            services.AddSingleton<PostOfficeActor>();
-            services.AddTransient<PostmanActor>();
-            services.AddSingleton<CustomerStorageActor>();
-            services.AddTransient<FileStorageActor>();
+            services.AddScoped<PostOfficeActor>();
+            services.AddScoped<PostmanActor>();
+            services.AddScoped<CustomerStorageActor>();
+            services.AddScoped<FileStorageActor>();
             services.AddSingleton(serviceProvider =>
             {
                 //var akkaConfig = Configuration.GetSection("Akka").Get<AkkaConfig>();
                 //var config = ConfigurationFactory.FromObject(new { akka = akkaConfig });
                 //var coronaService = ActorSystem.Create("coronaService", ConfigurationFactory.Default());
                 var config = ConfigurationFactory.ParseString(File.ReadAllText("host.conf"));
-
-                var coronaService = ActorSystem.Create("coronaService", config);
-                coronaService.UseServiceProvider(serviceProvider);
-                return coronaService;
+                var actorSystem = ActorSystem.Create("coronaService", config);
+                actorSystem.UseServiceProvider(serviceProvider);
+                //Logging.GetLogger(actorSystem, actorSystem, null);
+                return actorSystem;
             });
             services.AddSingleton<IActorFactory, ActorFactory>();
             services.AddSingleton(typeof(IActor<>), typeof(ActorRef<>));
