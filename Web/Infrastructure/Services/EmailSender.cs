@@ -6,11 +6,11 @@ using Akka.Actor;
 
 namespace Web.Infrastructure.Services
 {
-    public class PostmanActor : ReceiveActor
+    public class EmailSender : ReceiveActor
     {
         private readonly IEmailSender _emailSender;
 
-        public PostmanActor(IEmailSender emailSender)
+        public EmailSender(IEmailSender emailSender)
         {
             _emailSender = emailSender ?? throw new NullReferenceException(nameof(emailSender));
 

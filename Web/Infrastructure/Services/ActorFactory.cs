@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Akka.Actor;
+using Akka.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Akka.DI.Core;
+using Akka.Routing;
 
 namespace Web.Infrastructure.Services
 {
@@ -27,11 +29,18 @@ namespace Web.Infrastructure.Services
         public IActorRef CreateActor<TActor>() where TActor : ActorBase
         {
             var key = typeof(TActor).Name;
-            if (!_actorRefs.TryGetValue(key, out var actorRef))
+            if (_actorRefs.TryGetValue(key, out var actorRef)) return actorRef;
+
+            var props = _actorSystem.DI().Props<TActor>();
+            try
             {
-                actorRef = _actorSystem?.ActorOf(_actorSystem.DI().Props<TActor>());
-                _actorRefs[key] = actorRef;
+                actorRef = _actorSystem?.ActorOf(props.WithRouter(FromConfig.Instance), key);
             }
+            catch (ConfigurationException)
+            {
+                actorRef = _actorSystem?.ActorOf(props, key);
+            }
+            _actorRefs[key] = actorRef;
 
             return actorRef;
         }

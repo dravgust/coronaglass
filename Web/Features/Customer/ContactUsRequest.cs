@@ -43,9 +43,9 @@ namespace Web.Features.Customer
             private readonly ILogger<CertificateRequestHandler> _logger;
             private readonly SharedLocalizationService _resources;
 
-            private readonly IActor<PostOfficeActor> _emailSender;
+            private readonly IActor<EmailGateway> _emailSender;
             public CertificateRequestHandler(ILogger<CertificateRequestHandler> logger,
-                IActor<PostOfficeActor> postOfficeActor, SharedLocalizationService resources)
+                IActor<EmailGateway> postOfficeActor, SharedLocalizationService resources)
             {
                 _logger = logger;
                 _emailSender = postOfficeActor;

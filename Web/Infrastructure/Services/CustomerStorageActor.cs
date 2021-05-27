@@ -16,8 +16,6 @@ namespace Web.Infrastructure.Services
         private const string Folder = "/WebForm";
         private const string File = "Customers.xlsx";
 
-        public const string FileStorageName = "fileStorage";
-
         protected IActorRef FileStorage;
         public IStash Stash { get; set; }
 
@@ -101,9 +99,9 @@ namespace Web.Infrastructure.Services
             //this._messageSend = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(TimeSpan.FromSeconds(0),
             //    TimeSpan.FromSeconds(30), Self, new DoSend(), Self);
 
-            FileStorage = Context.Child(FileStorageName).Equals(ActorRefs.Nobody)
-                ? Context.ActorOf(Context.System.DI().Props<FileStorageActor>(), FileStorageName)
-                : Context.Child(FileStorageName);
+            FileStorage = Context.Child(nameof(FileStorageActor)).Equals(ActorRefs.Nobody)
+                ? Context.ActorOf(Context.System.DI().Props<FileStorageActor>(), nameof(FileStorageActor))
+                : Context.Child(nameof(FileStorageActor));
 
             base.PreStart();
 

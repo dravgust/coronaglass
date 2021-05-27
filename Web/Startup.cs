@@ -100,8 +100,8 @@ namespace Web
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
-            services.AddScoped<PostOfficeActor>();
-            services.AddScoped<PostmanActor>();
+            services.AddScoped<EmailGateway>();
+            services.AddScoped<EmailSender>();
             services.AddScoped<CustomerStorageActor>();
             services.AddScoped<FileStorageActor>();
             services.AddSingleton(serviceProvider =>

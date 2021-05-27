@@ -46,10 +46,10 @@ namespace Web.Features.Customer
             private readonly ILogger<CertificateRequestHandler> _logger;
             private readonly SharedLocalizationService _resources;
 
-            private readonly IActor<PostOfficeActor> _postOffice;
+            private readonly IActor<EmailGateway> _postOffice;
             private readonly IActor<CustomerStorageActor> _customerStorage;
             public CertificateRequestHandler(ILogger<CertificateRequestHandler> logger,
-                IActor<PostOfficeActor> postOfficeActor, IActor<CustomerStorageActor> customerStorage,
+                IActor<EmailGateway> postOfficeActor, IActor<CustomerStorageActor> customerStorage,
                 SharedLocalizationService resources)
             {
                 _logger = logger;
