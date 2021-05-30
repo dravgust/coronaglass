@@ -84,6 +84,14 @@ namespace Web.Infrastructure.Services
             base.PreStart();
         }
 
+        protected override void PostStop()
+        {
+            this._snapshotCleanup?.Cancel();
+            //this._messageSend?.Cancel();
+
+            base.PostStop();
+        }
+
         protected override SupervisorStrategy SupervisorStrategy()
         {
             return new OneForOneStrategy(
@@ -99,14 +107,6 @@ namespace Web.Infrastructure.Services
                     };
                 }
             );
-        }
-
-        protected override void PostStop()
-        {
-            this._snapshotCleanup?.Cancel();
-            //this._messageSend?.Cancel();
-
-            base.PostStop();
         }
     }
 }

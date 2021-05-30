@@ -110,6 +110,23 @@ namespace Web.Infrastructure.Services
 
         protected override void PostStop() => _logger.Debug("Stopped.");
 
+        protected override SupervisorStrategy SupervisorStrategy()
+        {
+            return new OneForOneStrategy(
+                maxNrOfRetries: 5,
+                withinTimeRange: TimeSpan.FromMinutes(1),
+                localOnlyDecider: ex =>
+                {
+                    return ex switch
+                    {
+                        ArgumentException ae => Directive.Resume,
+                        NullReferenceException ne => Directive.Stop,
+                        _ => Directive.Restart
+                    };
+                }
+            );
+        }
+
         public class AppendNew
         {
             public CertificateRequest Data { get; }
