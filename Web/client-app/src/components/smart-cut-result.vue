@@ -5,7 +5,9 @@
                 <h3 class="kt-portlet__head-title"></h3>
             </div>
             <div class="kt-portlet__head-toolbar">
-  
+                <a href="api/tools/smartcut/export" class="btn btn-outline-hover-info btn-elevate btn-icon" target="_blank" rel="noopener noreferrer">
+                    <i class="flaticon-download" aria-hidden="true" :title="_['Export Excel']"></i>
+                </a>
                 <button type="button" class="btn btn-outline-hover-info btn-elevate btn-icon" @click="printResult" :title="_['Print']"><i class="flaticon2-print"></i></button>
             </div>
         </div>

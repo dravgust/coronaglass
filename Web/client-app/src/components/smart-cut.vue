@@ -13,7 +13,10 @@
                         </div>
 
                         <div class="kt-portlet__head-toolbar">
-                            <button type="button" class="btn btn-primary btn-elevate btn-icon" :disabled="!validated" v-bind:class="!validated ? 'disabled' : ''" @click.prevent="runOptimization" :title="_['Start Optimization']"><i class="flaticon2-start-up"></i></button>
+                            <button type="button" class="btn btn-primary btn-elevate btn-icon"
+                                    :disabled="!validated" 
+                                    v-bind:class="!validated ? 'disabled' : ''" 
+                                    @click.prevent="runOptimization" :title="_['Start Optimization']"><i class="flaticon2-start-up"></i></button>
                         </div>
                     </div>
                     <div class="kt-portlet__body">

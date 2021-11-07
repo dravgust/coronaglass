@@ -11,6 +11,7 @@ using CoronaGlass.Core.Interfaces;
 using CoronaGlass.Core.Models;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Web.Models;
@@ -50,9 +51,11 @@ namespace Web.Features.Tools
         public class OptimizationRequestHandler : IRequestHandler<OptimizationRequest, string>
         {
             private readonly ILogger<OptimizationRequestHandler> _logger;
-            public OptimizationRequestHandler(ILogger<OptimizationRequestHandler> logger)
+            private readonly IWebHostEnvironment _environment;
+            public OptimizationRequestHandler(ILogger<OptimizationRequestHandler> logger, IWebHostEnvironment environment)
             {
                 _logger = logger;
+                this._environment = environment;
             }
 
             public async Task<string> Handle(OptimizationRequest request, CancellationToken cancellationToken)
@@ -79,6 +82,15 @@ namespace Web.Features.Tools
 
                 var ie = new ImportExport();
                 var data = ie.Export2(request.ProjectName, planks.Item1, planks.Item2, free, columnSum, clip?.Weight ?? 0.0, column6300Count, columnWeight, request.PlankReserve);
+
+                var sWebRootFolder = _environment.WebRootPath;
+                const string sFileName = @"optimization.xlsx";
+                var file = Path.Combine(sWebRootFolder, "storage", sFileName);
+                await using (var fileStream = new FileStream(file, FileMode.Create))
+                {
+                    await fileStream.WriteAsync(data, 0, data.Length, cancellationToken);
+                }
+
                 await using var sr = new MemoryStream();
                 await sr.WriteAsync(data, 0, data.Length, cancellationToken);
                 var result = XlsxToHtmlConverter.ConvertXlsx(sr, nameof(CuttingStock));
