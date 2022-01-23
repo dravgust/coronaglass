@@ -66,7 +66,8 @@ namespace Web.Features.Tools
                 request.Planks.ForEach(p => purePlanks.Add(p.Length - request.PlankReserve, uint.TryParse(p.Count, out var count) ? count : uint.MaxValue));
 
                 var planks = cuttingStock.CalculateFor(purePlanks);
-                var free = CuttingStock.GetFree(planks.Item1);
+                var cutPlunks = planks.Item1.Where(p => p.Cuts.Any()).ToList();
+                var free = CuttingStock.GetFree(cutPlunks);
 
                 decimal columnSum = 0;
                 foreach (var columnValue in request.Snippets.Select(s => s.Columns))
@@ -81,7 +82,7 @@ namespace Web.Features.Tools
                 var clip = request.Clips.FirstOrDefault(c => c.Id == request.Clip);
 
                 var ie = new ImportExport();
-                var data = ie.Export2(request.ProjectName, planks.Item1, planks.Item2, free, columnSum, clip?.Weight ?? 0.0, column6300Count, columnWeight, request.PlankReserve);
+                var data = ie.Export2(request.ProjectName, cutPlunks, planks.Item2, free, columnSum, clip?.Weight ?? 0.0, column6300Count, columnWeight, request.PlankReserve);
 
                 var sWebRootFolder = _environment.WebRootPath;
                 const string sFileName = @"optimization.xlsx";
